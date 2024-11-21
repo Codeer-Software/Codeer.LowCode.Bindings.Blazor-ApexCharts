@@ -15,7 +15,6 @@
           case SeriesType.Bar:
           case SeriesType.Heatmap:
           case SeriesType.Line:
-          case SeriesType.Scatter:
           case SeriesType.Treemap:
           case SeriesType.RangeArea:
             foreach (var series in Field.Series) {
@@ -26,7 +25,16 @@
                                XValue="data => data.XValue"
                                YAggregate="data => data.Sum(y => y.Data[series])"/>
             }
-
+            break;
+          case SeriesType.Scatter:
+            foreach (var series in Field.Series) {
+              <ApexPointSeries TItem="SeriesData"
+                               Items="Field.SeriesData"
+                               Name="@series"
+                               SeriesType="@Field.Design.SeriesType"
+                               XValue="data => data.XValue"
+                               YValue="data => data.Data[series]"/>
+            }
             break;
           case SeriesType.Donut:
           case SeriesType.Pie:

@@ -13,8 +13,7 @@ using Codeer.LowCode.Blazor.Script.Internal.ScriptServices;
 
 namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 {
-    public class ApexChartField(ApexChartFieldDesign design)
-        : FieldBase<ApexChartFieldDesign>(design), ISearchResultsViewField
+    public class ApexChartField : FieldBase<ApexChartFieldDesign>, ISearchResultsViewField
     {
         private List<SeriesData> _data = [];
         private List<string> _series = [];
@@ -31,7 +30,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         [ScriptHide]
         public string ModuleName => Design?.SearchCondition.ModuleName ?? string.Empty;
 
-        public ApexChartOptions<SeriesData> Options { get; } = new();
+        public ApexChartOptions<SeriesData> Options { get; }
 
         public List<string> Series => (Services.AppInfoService.IsDesignMode ? GetDesignSeries() : _series).ToList();
 
@@ -41,6 +40,12 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         public List<SeriesData> SingleSeriesData => GetSingleSeriesData();
 
         public override bool IsModified => false;
+
+        public ApexChartField(ApexChartFieldDesign design) : base(design)
+        {
+            Options = new ApexChartOptions<SeriesData>();
+            Options.Chart.Id = "a" + Guid.NewGuid().ToString().Replace("-", "");
+        }
 
         [ScriptHide]
         public override async Task InitializeDataAsync(FieldDataBase? fieldDataBase)
