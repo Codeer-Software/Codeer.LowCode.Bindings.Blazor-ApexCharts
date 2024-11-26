@@ -24,13 +24,8 @@
         }
       },
       "DisplayName": "",
-      "Height": "",
       "SeriesType": "Line",
       "ShowLegend": true,
-      "XAxisLines": true,
-      "YAxisLines": true,
-      "YAxisTicks": 20,
-      "YAxisRequireZeroPoint": true,
       "Name": "ApexChart",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
@@ -48,13 +43,8 @@
         }
       },
       "DisplayName": "",
-      "Height": "",
       "SeriesType": "Bar",
       "ShowLegend": true,
-      "XAxisLines": true,
-      "YAxisLines": true,
-      "YAxisTicks": 20,
-      "YAxisRequireZeroPoint": true,
       "Name": "ApexChart1",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
@@ -72,13 +62,8 @@
         }
       },
       "DisplayName": "",
-      "Height": "",
       "SeriesType": "Bar",
       "ShowLegend": true,
-      "XAxisLines": true,
-      "YAxisLines": true,
-      "YAxisTicks": 20,
-      "YAxisRequireZeroPoint": true,
       "Name": "ApexChart2",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
@@ -96,13 +81,8 @@
         }
       },
       "DisplayName": "",
-      "Height": "",
       "SeriesType": "Area",
       "ShowLegend": true,
-      "XAxisLines": true,
-      "YAxisLines": true,
-      "YAxisTicks": 20,
-      "YAxisRequireZeroPoint": true,
       "Name": "ApexChart3",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
@@ -173,7 +153,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Border": "Top, Left, Right, Bottom",
+                "Border": "None",
                 "CanResize": false
               },
               {
@@ -185,7 +165,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Border": "Top, Right, Bottom",
+                "Border": "None",
                 "CanResize": false
               }
             ]
@@ -203,7 +183,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Border": "Left, Right, Bottom",
+                "Border": "None",
                 "CanResize": false
               },
               {
@@ -215,7 +195,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Border": "Right, Bottom",
+                "Border": "None",
                 "CanResize": false
               }
             ]
