@@ -25,7 +25,6 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
 
         [Designer(CandidateType = CandidateType.Field)]
         [ModuleMember(Member = $"{nameof(SearchCondition)}.{nameof(SearchCondition.ModuleName)}")]
-        [TargetFieldType(Types = [typeof(NumberField), typeof(TextField)])]
         public string? XAxisValueField { get; set; }
 
         [Designer]

@@ -130,6 +130,8 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         {
             if (fieldBase is TextField textField) return textField.Value;
             if (fieldBase is NumberField numberField) return numberField.Value;
+            if (fieldBase is DateTimeField dateTime) return dateTime.Value;
+            if (fieldBase is DateField date) return date.Value;
             return null;
         }
 
