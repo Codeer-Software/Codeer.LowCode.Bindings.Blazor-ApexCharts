@@ -19,13 +19,21 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
 
         [Designer]
         public string DisplayName { get; set; } = string.Empty;
-        
+
         [Designer]
         public SeriesType SeriesType { get; set; } = SeriesType.Bar;
 
         [Designer(CandidateType = CandidateType.Field)]
         [ModuleMember(Member = $"{nameof(SearchCondition)}.{nameof(SearchCondition.ModuleName)}")]
         public string? XAxisValueField { get; set; }
+
+        [Designer]
+        public string? Format { get; set; }
+
+        [Designer(CandidateType = CandidateType.Field)]
+        [ModuleMember(Member = $"{nameof(SearchCondition)}.{nameof(SearchCondition.ModuleName)}")]
+        [TargetFieldType(Types = [typeof(NumberFieldDesign)])]
+        public List<string> YAxisValueFields { get; set; } = [];
 
         [Designer]
         public bool ShowLegend { get; set; } = true;
@@ -43,12 +51,27 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         public override List<DesignCheckInfo> CheckDesign(DesignCheckContext context)
         {
             var result = base.CheckDesign(context);
+            context.CheckFieldRelativeFieldExistence(Name, nameof(XAxisValueField), SearchCondition.ModuleName, XAxisValueField ?? "").AddTo(result);
+            foreach (var s in YAxisValueFields)
+            {
+                context.CheckFieldRelativeFieldExistence(Name, nameof(YAxisValueFields), SearchCondition.ModuleName, s).AddTo(result);
+            }
             result.AddRange(SearchCondition.CheckDesign(context, Name, nameof(SearchCondition)));
             return result;
         }
 
-        public override RenameResult ChangeName(RenameContext context) => context.Builder(base.ChangeName(context))
-            .AddMatchCondition(SearchCondition)
-            .Build();
+        public override RenameResult ChangeName(RenameContext context)
+        {
+            var builder = context.Builder(base.ChangeName(context))
+            .AddMatchCondition(SearchCondition);
+            if (XAxisValueField != null) builder.AddField(XAxisValueField, s => XAxisValueField = s);
+            for (var i = 0; i < YAxisValueFields.Count; ++i)
+            {
+                Action<string> change = s => YAxisValueFields[i] = s;
+                builder.AddField(YAxisValueFields[8], change);
+            }
+
+            return builder.Build();
+        }
     }
 }
