@@ -25,15 +25,15 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
 
         [Designer(CandidateType = CandidateType.Field)]
         [ModuleMember(Member = $"{nameof(SearchCondition)}.{nameof(SearchCondition.ModuleName)}")]
-        public string? XAxisValueField { get; set; }
+        public string? CategoryField { get; set; }
 
         [Designer]
-        public string? Format { get; set; }
+        public string? CategoryFormat { get; set; }
 
         [Designer(CandidateType = CandidateType.Field)]
         [ModuleMember(Member = $"{nameof(SearchCondition)}.{nameof(SearchCondition.ModuleName)}")]
         [TargetFieldType(Types = [typeof(NumberFieldDesign)])]
-        public List<string> YAxisValueFields { get; set; } = [];
+        public List<string> SeriesFields { get; set; } = [];
 
         [Designer]
         public bool ShowLegend { get; set; } = true;
@@ -51,10 +51,10 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         public override List<DesignCheckInfo> CheckDesign(DesignCheckContext context)
         {
             var result = base.CheckDesign(context);
-            context.CheckFieldRelativeFieldExistence(Name, nameof(XAxisValueField), SearchCondition.ModuleName, XAxisValueField ?? "").AddTo(result);
-            foreach (var s in YAxisValueFields)
+            context.CheckFieldRelativeFieldExistence(Name, nameof(CategoryField), SearchCondition.ModuleName, CategoryField ?? "").AddTo(result);
+            foreach (var s in SeriesFields)
             {
-                context.CheckFieldRelativeFieldExistence(Name, nameof(YAxisValueFields), SearchCondition.ModuleName, s).AddTo(result);
+                context.CheckFieldRelativeFieldExistence(Name, nameof(SeriesFields), SearchCondition.ModuleName, s).AddTo(result);
             }
             result.AddRange(SearchCondition.CheckDesign(context, Name, nameof(SearchCondition)));
             return result;
@@ -64,11 +64,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         {
             var builder = context.Builder(base.ChangeName(context))
             .AddMatchCondition(SearchCondition);
-            if (XAxisValueField != null) builder.AddField(XAxisValueField, s => XAxisValueField = s);
-            for (var i = 0; i < YAxisValueFields.Count; ++i)
+            if (CategoryField != null) builder.AddField(CategoryField, s => CategoryField = s);
+            for (var i = 0; i < SeriesFields.Count; ++i)
             {
-                Action<string> change = s => YAxisValueFields[i] = s;
-                builder.AddField(YAxisValueFields[8], change);
+                Action<string> change = s => SeriesFields[i] = s;
+                builder.AddField(SeriesFields[8], change);
             }
 
             return builder.Build();

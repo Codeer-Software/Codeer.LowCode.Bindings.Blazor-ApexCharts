@@ -102,11 +102,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             _data = items
                 .Select((e, i) => new SeriesData
                 {
-                    XValue = Format(GetValue(e.GetField(Design.XAxisValueField))) ?? i,
+                    XValue = Format(GetValue(e.GetField(Design.CategoryField))) ?? i,
                     Data = e.GetFields().OfType<NumberField>().ToDictionary(x => x.Design.Name, x => x.Value),
                 })
                 .ToList();
-            _series = Design.YAxisValueFields ?? [];
+            _series = Design.SeriesFields ?? [];
 
             NotifyStateChanged();
         }
@@ -148,8 +148,8 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         private object? Format(object? value)
         {
             if (value is null) return value;
-            if (string.IsNullOrEmpty(Design.Format)) return value;
-            return value.GetType().GetMethod("ToString", [typeof(string)])?.Invoke(value, [Design.Format]) ?? value;
+            if (string.IsNullOrEmpty(Design.CategoryFormat)) return value;
+            return value.GetType().GetMethod("ToString", [typeof(string)])?.Invoke(value, [Design.CategoryFormat]) ?? value;
         }
     }
 }
