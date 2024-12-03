@@ -102,7 +102,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             _data = items
                 .Select((e, i) => new SeriesData
                 {
-                    XValue = Format(GetValue(e.GetField(Design.CategoryField))) ?? i,
+                    XValue = Format(GetValue(e.GetField(Design.CategoryField))) ?? i.ToString(),
                     Data = e.GetFields().OfType<NumberField>().ToDictionary(x => x.Design.Name, x => x.Value),
                 })
                 .ToList();
