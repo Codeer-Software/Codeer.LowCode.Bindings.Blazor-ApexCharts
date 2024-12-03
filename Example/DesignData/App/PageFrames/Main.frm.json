@@ -17,6 +17,12 @@
         "Icon": "",
         "PageFrame": "",
         "Module": "Chart"
+      },
+      {
+        "Title": "ChartData",
+        "Icon": "",
+        "PageFrame": "",
+        "Module": "ChartData"
       }
     ],
     "Foreground": "#ffffff",

@@ -98,6 +98,7 @@
       "DisplayName": "",
       "SeriesType": "Area",
       "SeriesFields": [
+        "A",
         "B"
       ],
       "ShowLegend": true,
