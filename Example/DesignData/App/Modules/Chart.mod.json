@@ -9,6 +9,7 @@
   "CanDelete": true,
   "CanBulkDataUpdate": false,
   "CanBulkDataDownload": false,
+  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "SearchCondition": {
@@ -25,6 +26,9 @@
       },
       "DisplayName": "",
       "SeriesType": "Line",
+      "SeriesFields": [
+        "A"
+      ],
       "ShowLegend": true,
       "Name": "ApexChart",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
@@ -44,6 +48,12 @@
       },
       "DisplayName": "",
       "SeriesType": "Bar",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
       "ShowLegend": true,
       "Name": "ApexChart1",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
@@ -63,6 +73,11 @@
       },
       "DisplayName": "",
       "SeriesType": "Bar",
+      "CategoryField": "A",
+      "SeriesFields": [
+        "B",
+        "C"
+      ],
       "ShowLegend": true,
       "Name": "ApexChart2",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
@@ -82,6 +97,9 @@
       },
       "DisplayName": "",
       "SeriesType": "Area",
+      "SeriesFields": [
+        "B"
+      ],
       "ShowLegend": true,
       "Name": "ApexChart3",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
