@@ -110,6 +110,231 @@
       "RelativeField": "",
       "Name": "Label",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "ChartData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesType": "Donut",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
+      "ShowLegend": true,
+      "Name": "ApexChart11",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "ChartData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesType": "Heatmap",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
+      "ShowLegend": true,
+      "Name": "ApexChart111",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "ChartData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesType": "Pie",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
+      "ShowLegend": true,
+      "Name": "ApexChart112",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "ChartData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesType": "PolarArea",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
+      "ShowLegend": true,
+      "Name": "ApexChart113",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "ChartData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesType": "Radar",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
+      "ShowLegend": true,
+      "Name": "ApexChart114",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "ChartData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesType": "RadialBar",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
+      "ShowLegend": true,
+      "Name": "ApexChart115",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "ChartData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesType": "Scatter",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
+      "ShowLegend": true,
+      "Name": "ApexChart116",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "ChartData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesType": "Treemap",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
+      "ShowLegend": true,
+      "Name": "ApexChart117",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "ChartData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesType": "RangeArea",
+      "CategoryField": "",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
+      "ShowLegend": true,
+      "Name": "ApexChart118",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -213,6 +438,148 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ApexChart11",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "ApexChart111",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ApexChart112",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "ApexChart113",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ApexChart114",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "ApexChart115",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ApexChart116",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "ApexChart117",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ApexChart118",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
                 "Border": "None",
                 "CanResize": false
               }
