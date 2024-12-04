@@ -36,6 +36,9 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         public List<string> SeriesFields { get; set; } = [];
 
         [Designer]
+        public int SeriesFractionDigits { get; set; } = 2;
+
+        [Designer]
         public bool ShowLegend { get; set; } = true;
 
         public override string GetWebComponentTypeFullName() => typeof(ApexChartFieldComponent).FullName!;

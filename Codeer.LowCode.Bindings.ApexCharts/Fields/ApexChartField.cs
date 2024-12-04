@@ -94,7 +94,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             {
                 Labels = new YAxisLabels
                 {
-                    Formatter = "function(value) { return Number(value).toFixed(2); }"
+                    Formatter = $"function(value) {{ return Number(value).toFixed({Design.SeriesFractionDigits}); }}"
                 }
             }];
 
