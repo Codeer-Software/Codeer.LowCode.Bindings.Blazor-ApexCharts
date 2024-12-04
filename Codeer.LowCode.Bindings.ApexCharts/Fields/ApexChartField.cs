@@ -13,7 +13,7 @@ using Codeer.LowCode.Blazor.Script.Internal.ScriptServices;
 
 namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 {
-    public class ApexChartField : FieldBase<ApexChartFieldDesign>, ISearchResultsViewField
+    public class ApexChartField : FieldBase<ApexChartFieldDesignBase>, ISearchResultsViewField
     {
         private List<SeriesData> _data = [];
         private List<string> _series = [];
@@ -41,7 +41,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 
         public override bool IsModified => false;
 
-        public ApexChartField(ApexChartFieldDesign design) : base(design)
+        public ApexChartField(ApexChartFieldDesignBase design) : base(design)
         {
             Options = new ApexChartOptions<SeriesData>();
             Options.Chart.Id = "a" + Guid.NewGuid().ToString().Replace("-", "");
@@ -90,13 +90,18 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         public async Task ReloadAsync()
         {
             Options.Legend = new Legend { Position = Design.ShowLegend ? LegendPosition.Bottom : null };
-            Options.Yaxis = [new YAxis
-            {
-                Labels = new YAxisLabels
+            Options.Yaxis =
+            [
+                new YAxis
                 {
-                    Formatter = $"function(value) {{ return Number(value).toFixed({Design.SeriesFractionDigits}); }}"
+                    Labels = new YAxisLabels
+                    {
+                        Formatter = Design.SeriesType != SeriesType.Heatmap
+                            ? $"function(value) {{ return Number(value).toFixed({Design.SeriesFractionDigits}); }}"
+                            : null
+                    }
                 }
-            }];
+            ];
 
             var items = await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None);
             _data = items
@@ -106,7 +111,14 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                     Data = e.GetFields().OfType<NumberField>().ToDictionary(x => x.Design.Name, x => x.Value),
                 })
                 .ToList();
-            _series = Design.SeriesFields ?? [];
+            _series = Design switch
+            {
+                ApexRadialChartFieldDesign radialDesign => radialDesign.SeriesField == null
+                    ? []
+                    : [radialDesign.SeriesField],
+                ApexChartFieldDesign chartDesign => chartDesign.SeriesFields,
+                _ => []
+            };
 
             NotifyStateChanged();
         }
@@ -119,11 +131,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         private List<SeriesData> GetDesignSeriesData() => Enumerable.Range(1, 10)
             .Select(d => Tuple.Create(Math.Sqrt(d) * 3, Math.Cos(d * 9 / 57.2958) * 10))
             .Select((data, i) => new SeriesData
-                {
-                    XValue = i,
-                    Data = new Dictionary<string, decimal?>
+            {
+                XValue = i,
+                Data = new Dictionary<string, decimal?>
                         { { "ChartA", (decimal)data.Item1 }, { "ChartB", (decimal)data.Item2 } }
-                }
+            }
             ).ToList();
 
         private object? GetValue(FieldBase? fieldBase)

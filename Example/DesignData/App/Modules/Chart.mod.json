@@ -12,6 +12,10 @@
   "UseListPageSubmitButton": false,
   "Fields": [
     {
+      "SeriesType": "Line",
+      "SeriesFields": [
+        "A"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -25,15 +29,18 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Line",
-      "SeriesFields": [
-        "A"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
+      "SeriesType": "Bar",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -47,18 +54,18 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Bar",
       "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart1",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
+      "SeriesType": "Bar",
+      "SeriesFields": [
+        "B",
+        "C"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -72,17 +79,18 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Bar",
       "CategoryField": "A",
-      "SeriesFields": [
-        "B",
-        "C"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart2",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
+      "SeriesType": "Area",
+      "SeriesFields": [
+        "A",
+        "B"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -96,11 +104,7 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Area",
-      "SeriesFields": [
-        "A",
-        "B"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart3",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
@@ -113,6 +117,8 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
+      "SeriesType": "Donut",
+      "SeriesField": "A",
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -126,18 +132,19 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Donut",
-      "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "CategoryField": "Id",
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart11",
-      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign"
     },
     {
+      "SeriesType": "Heatmap",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -151,18 +158,15 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Heatmap",
       "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart111",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
+      "SeriesType": "Pie",
+      "SeriesField": "B",
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -176,18 +180,15 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Pie",
-      "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "CategoryField": "Id",
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart112",
-      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign"
     },
     {
+      "SeriesType": "PolarArea",
+      "SeriesField": "C",
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -201,18 +202,19 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "PolarArea",
-      "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "CategoryField": "Id",
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart113",
-      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign"
     },
     {
+      "SeriesType": "Radar",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -226,18 +228,19 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Radar",
       "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart114",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
+      "SeriesType": "RadialBar",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -251,18 +254,19 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "RadialBar",
       "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart115",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
+      "SeriesType": "Scatter",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -276,18 +280,19 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Scatter",
       "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart116",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
+      "SeriesType": "Treemap",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -301,18 +306,19 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "Treemap",
       "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart117",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
+      "SeriesType": "RangeArea",
+      "SeriesFields": [
+        "A",
+        "B",
+        "C"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -326,13 +332,8 @@
         }
       },
       "DisplayName": "",
-      "SeriesType": "RangeArea",
       "CategoryField": "",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart118",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
