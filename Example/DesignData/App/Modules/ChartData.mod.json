@@ -9,6 +9,7 @@
   "CanDelete": true,
   "CanBulkDataUpdate": true,
   "CanBulkDataDownload": true,
+  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "DbColumn": "Id",
@@ -91,6 +92,8 @@
     {
       "Text": "Submit",
       "Icon": "",
+      "Variant": "Primary",
+      "IsBlock": true,
       "Name": "Submit",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
     }

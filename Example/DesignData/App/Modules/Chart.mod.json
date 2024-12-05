@@ -29,7 +29,7 @@
         }
       },
       "DisplayName": "",
-      "SeriesFractionDigits": 2,
+      "SeriesFractionDigits": 0,
       "ShowLegend": true,
       "Name": "ApexChart",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
@@ -118,12 +118,12 @@
     },
     {
       "SeriesType": "Donut",
-      "SeriesField": "A",
+      "SeriesField": "Value",
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
         "SelectFields": [],
-        "ModuleName": "ChartData",
+        "ModuleName": "ChartData2",
         "Condition": {
           "IsOrMatch": false,
           "Children": [],
@@ -132,8 +132,8 @@
         }
       },
       "DisplayName": "",
-      "CategoryField": "Id",
-      "SeriesFractionDigits": 2,
+      "CategoryField": "Title",
+      "SeriesFractionDigits": 0,
       "ShowLegend": true,
       "Name": "ApexChart11",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign"
@@ -166,21 +166,15 @@
     },
     {
       "SeriesType": "Pie",
-      "SeriesField": "B",
+      "SeriesField": "Value",
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
         "SelectFields": [],
-        "ModuleName": "ChartData",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
+        "ModuleName": "ChartData2"
       },
       "DisplayName": "",
-      "CategoryField": "Id",
+      "CategoryField": "Title",
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart112",
@@ -188,21 +182,15 @@
     },
     {
       "SeriesType": "PolarArea",
-      "SeriesField": "C",
+      "SeriesField": "Value",
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
         "SelectFields": [],
-        "ModuleName": "ChartData",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
+        "ModuleName": "ChartData2"
       },
       "DisplayName": "",
-      "CategoryField": "Id",
+      "CategoryField": "Title",
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart113",
