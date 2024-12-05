@@ -97,7 +97,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                     Labels = new YAxisLabels
                     {
                         Formatter = Design.SeriesType != SeriesType.Heatmap
-                            ? $"function(value) {{ return Number(value).toFixed({Design.SeriesFractionDigits}); }}"
+                            ? $"function(value) {{ return Number(value).toFixed({Math.Max(0, Design.SeriesFractionDigits)}); }}"
                             : null
                     }
                 }
