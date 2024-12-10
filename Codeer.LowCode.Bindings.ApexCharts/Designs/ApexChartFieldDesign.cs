@@ -22,6 +22,9 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         [TargetFieldType(Types = [typeof(NumberFieldDesign)])]
         public List<string> SeriesFields { get; set; } = [];
 
+        [Designer(Category = "ApexChart - Bar")]
+        public bool FullWidthBar { get; set; }
+
         public override List<DesignCheckInfo> CheckDesign(DesignCheckContext context)
         {
             var result = base.CheckDesign(context);

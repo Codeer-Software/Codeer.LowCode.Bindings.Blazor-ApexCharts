@@ -103,6 +103,13 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                 }
             ];
 
+            if ((Design as ApexChartFieldDesign)?.FullWidthBar == true)
+            {
+                Options.PlotOptions ??= new PlotOptions();
+                Options.PlotOptions.Bar ??= new PlotOptionsBar();
+                Options.PlotOptions.Bar.ColumnWidth = "100%";
+            }
+
             var items = await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None);
             _data = items
                 .Select((e, i) => new SeriesData
