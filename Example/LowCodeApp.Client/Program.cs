@@ -1,9 +1,14 @@
+using ApexCharts;
+using Codeer.LowCode.Bindings.ApexCharts.Designs;
 using Codeer.LowCode.Blazor.RequestInterfaces;
 using LowCodeApp.Client;
 using LowCodeApp.Client.Shared;
 using LowCodeApp.Client.Shared.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+
+typeof(ApexChartFieldDesign).ToString();
+typeof(SeriesType).ToString();
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
