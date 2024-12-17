@@ -13,9 +13,19 @@
   "Fields": [
     {
       "SeriesType": "Line",
-      "SeriesFields": [
-        "A"
-      ],
+      "Series": {
+        "Series": [
+          {
+            "Name": "A",
+            "Type": "Line"
+          },
+          {
+            "Name": "B",
+            "Type": "Bar"
+          }
+        ]
+      },
+      "FullWidthBar": false,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -36,11 +46,19 @@
     },
     {
       "SeriesType": "Bar",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "Series": {
+        "Series": [
+          {
+            "Name": "A",
+            "Type": "Bar"
+          },
+          {
+            "Name": "B",
+            "Type": "Bar"
+          }
+        ]
+      },
+      "FullWidthBar": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -62,10 +80,23 @@
     },
     {
       "SeriesType": "Bar",
-      "SeriesFields": [
-        "B",
-        "C"
-      ],
+      "Series": {
+        "Series": [
+          {
+            "Name": "A",
+            "Type": "Line"
+          },
+          {
+            "Name": "B",
+            "Type": "Area"
+          },
+          {
+            "Name": "C",
+            "Type": "Area"
+          }
+        ]
+      },
+      "FullWidthBar": false,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -87,10 +118,23 @@
     },
     {
       "SeriesType": "Area",
-      "SeriesFields": [
-        "A",
-        "B"
-      ],
+      "Series": {
+        "Series": [
+          {
+            "Name": "A",
+            "Type": "Line"
+          },
+          {
+            "Name": "B",
+            "Type": "Bar"
+          },
+          {
+            "Name": "C",
+            "Type": "Bar"
+          }
+        ]
+      },
+      "FullWidthBar": false,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -140,11 +184,23 @@
     },
     {
       "SeriesType": "Heatmap",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "Series": {
+        "Series": [
+          {
+            "Name": "A",
+            "Type": "Heatmap"
+          },
+          {
+            "Name": "B",
+            "Type": "Heatmap"
+          },
+          {
+            "Name": "C",
+            "Type": "Heatmap"
+          }
+        ]
+      },
+      "FullWidthBar": false,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -171,7 +227,13 @@
         "SortFieldVariable": "",
         "SortDescending": false,
         "SelectFields": [],
-        "ModuleName": "ChartData2"
+        "ModuleName": "ChartData2",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
       },
       "DisplayName": "",
       "CategoryField": "Title",
@@ -187,7 +249,13 @@
         "SortFieldVariable": "",
         "SortDescending": false,
         "SelectFields": [],
-        "ModuleName": "ChartData2"
+        "ModuleName": "ChartData2",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
       },
       "DisplayName": "",
       "CategoryField": "Title",
@@ -198,11 +266,10 @@
     },
     {
       "SeriesType": "Radar",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "Series": {
+        "Series": []
+      },
+      "FullWidthBar": false,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -224,11 +291,10 @@
     },
     {
       "SeriesType": "RadialBar",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "Series": {
+        "Series": []
+      },
+      "FullWidthBar": false,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -250,11 +316,10 @@
     },
     {
       "SeriesType": "Scatter",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "Series": {
+        "Series": []
+      },
+      "FullWidthBar": false,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -276,11 +341,10 @@
     },
     {
       "SeriesType": "Treemap",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "Series": {
+        "Series": []
+      },
+      "FullWidthBar": false,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -302,11 +366,10 @@
     },
     {
       "SeriesType": "RangeArea",
-      "SeriesFields": [
-        "A",
-        "B",
-        "C"
-      ],
+      "Series": {
+        "Series": []
+      },
+      "FullWidthBar": false,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,

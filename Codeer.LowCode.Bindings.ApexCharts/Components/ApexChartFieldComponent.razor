@@ -10,40 +10,42 @@
   <div class="container vertical">
     <div class="container vertical fill" @key="@Field.Design.SeriesType">
       <ApexChart TItem="SeriesData" Title="@Field.Design.DisplayName" Options="Field.Options">
-        @switch (Field.Design.SeriesType) {
-          case SeriesType.Area:
-          case SeriesType.Bar:
-          case SeriesType.Heatmap:
-          case SeriesType.Line:
-            foreach (var series in Field.Series) {
+        @foreach (var series in Field.Series) {
+          switch (series.Type) {
+            case SeriesType.Area:
+            case SeriesType.Bar:
+            case SeriesType.Heatmap:
+            case SeriesType.Line:
               <ApexPointSeries TItem="SeriesData"
                                Items="Field.SeriesData"
-                               Name="@series"
-                               SeriesType="@Field.Design.SeriesType"
+                               Name="@series.Name"
+                               SeriesType="@series.Type"
                                XValue="data => data.XValue"
-                               YAggregate="data => data.Sum(y => y.Data[series])"/>
-            }
-            break;
-          case SeriesType.Scatter:
-            foreach (var series in Field.Series) {
+                               YAggregate="data => data.Sum(y => y.Data[series.Name])"/>
+              break;
+            case SeriesType.Scatter:
               <ApexPointSeries TItem="SeriesData"
                                Items="Field.SeriesData"
-                               Name="@series"
-                               SeriesType="@Field.Design.SeriesType"
+                               Name="@series.Name"
+                               SeriesType="@series.Type"
                                XValue="data => data.XValue"
-                               YValue="data => data.Data[series]"/>
-            }
+                               YValue="data => data.Data[series.Name]"/>
+              break;
+            case SeriesType.Donut:
+            case SeriesType.Pie:
+            case SeriesType.PolarArea:
+              <ApexPointSeries TItem="SeriesData"
+                               Items="Field.SeriesData"
+                               SeriesType="@series.Type"
+                               XValue="data => data.XValue"
+                               YAggregate="@(data => data.Sum(y => y.Data[series.Name]))"/>
+              break;
+            default: break;
+          }
+
+          if (series.Type is SeriesType.Donut or SeriesType.Pie or SeriesType.PolarArea) {
             break;
-          case SeriesType.Donut:
-          case SeriesType.Pie:
-          case SeriesType.PolarArea:
-            <ApexPointSeries TItem="SeriesData"
-                             Items="Field.SeriesData"
-                             SeriesType="@Field.Design.SeriesType"
-                             XValue="data => data.XValue"
-                             YAggregate="@(data => data.Sum(y => y.Data[Field.Series.ElementAtOrDefault(0) ?? ""]))"/>
-            break;
-          default: break;
+          } 
         }
       </ApexChart>
     </div>

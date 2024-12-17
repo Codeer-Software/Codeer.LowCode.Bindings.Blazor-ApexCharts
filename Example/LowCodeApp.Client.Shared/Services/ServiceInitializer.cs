@@ -18,6 +18,7 @@ namespace LowCodeApp.Client.Shared.Services
             services.AddScoped<Codeer.LowCode.Blazor.RequestInterfaces.Services>();
             services.AddScoped<ILogger, Logger>();
             services.AddSingleton<ModuleDialogService>();
+            services.AddSingleton<ModulePanelService>();
             services.AddSingleton<MessageBoxService>();
             services.AddSingleton<LoadingService>();
             services.AddSingleton<PageFrameContext>();

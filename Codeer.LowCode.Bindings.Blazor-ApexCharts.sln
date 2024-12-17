@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{E74C2E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{C03AD475-B316-47A9-B768-EC6769434E2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeer.LowCode.Bindings.ApexCharts.Designer", "Codeer.LowCode.Bindings.ApexCharts.Designer\Codeer.LowCode.Bindings.ApexCharts.Designer.csproj", "{04014E54-B600-44A4-BE2A-6B0EC5CFB5FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{3C1EA1D2-ACA6-4511-BBEE-2CB77CB31637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C1EA1D2-ACA6-4511-BBEE-2CB77CB31637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C1EA1D2-ACA6-4511-BBEE-2CB77CB31637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04014E54-B600-44A4-BE2A-6B0EC5CFB5FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04014E54-B600-44A4-BE2A-6B0EC5CFB5FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04014E54-B600-44A4-BE2A-6B0EC5CFB5FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04014E54-B600-44A4-BE2A-6B0EC5CFB5FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

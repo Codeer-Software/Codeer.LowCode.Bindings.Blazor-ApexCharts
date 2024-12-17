@@ -1,4 +1,5 @@
 ﻿using ApexCharts;
+using Codeer.LowCode.Bindings.ApexCharts.Models;
 using Codeer.LowCode.Blazor.DesignLogic.Check;
 using Codeer.LowCode.Blazor.DesignLogic.Refactor;
 using Codeer.LowCode.Blazor.Repository.Design;
@@ -7,20 +8,10 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
 {
     public class ApexChartFieldDesign() : ApexChartFieldDesignBase(typeof(ApexChartFieldDesign).FullName!)
     {
-        [Designer]
-        [EnumIgnore(SeriesType.Treemap)]
-        [EnumIgnore(SeriesType.RangeArea)]
-        [EnumIgnore(SeriesType.Radar)]
-        [EnumIgnore(SeriesType.RadialBar)]
-        [EnumIgnore(SeriesType.Donut)]
-        [EnumIgnore(SeriesType.Pie)]
-        [EnumIgnore(SeriesType.PolarArea)]
         public override SeriesType SeriesType { get; set; } = SeriesType.Bar;
 
-        [Designer(CandidateType = CandidateType.Field)]
-        [ModuleMember(Member = $"{nameof(SearchCondition)}.{nameof(SearchCondition.ModuleName)}")]
-        [TargetFieldType(Types = [typeof(NumberFieldDesign)])]
-        public List<string> SeriesFields { get; set; } = [];
+        [Designer]
+        public ChartSeries Series { get; set; } = new();
 
         [Designer(Category = "ApexChart - Bar")]
         public bool FullWidthBar { get; set; }
@@ -28,9 +19,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         public override List<DesignCheckInfo> CheckDesign(DesignCheckContext context)
         {
             var result = base.CheckDesign(context);
-            foreach (var s in SeriesFields)
+            foreach (var s in Series.Series)
             {
-                context.CheckFieldRelativeFieldExistence(Name, nameof(SeriesFields), SearchCondition.ModuleName, s).AddTo(result);
+                context.CheckFieldRelativeFieldExistence(Name, nameof(s.Name), SearchCondition.ModuleName,
+                        s.Name)
+                    .AddTo(result);
             }
 
             return result;
@@ -40,10 +33,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         {
             var builder = context.Builder(base.ChangeName(context));
             if (CategoryField != null) builder.AddField(CategoryField, s => CategoryField = s);
-            for (var i = 0; i < SeriesFields.Count; ++i)
+            for (var i = 0; i < Series.Series.Count; ++i)
             {
-                Action<string> change = s => SeriesFields[i] = s;
-                builder.AddField(SeriesFields[8], change);
+                var index = i;
+                Action<string> change = s => Series.Series[index].Name = s;
+                builder.AddField(Series.Series[index].Name, change);
             }
 
             return builder.Build();

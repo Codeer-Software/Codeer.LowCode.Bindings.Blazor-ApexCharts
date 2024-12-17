@@ -16,7 +16,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
     public class ApexChartField : FieldBase<ApexChartFieldDesignBase>, ISearchResultsViewField
     {
         private List<SeriesData> _data = [];
-        private List<string> _series = [];
+        private List<Series> _series = [];
         private SearchCondition? _additionalCondition;
 
         [ScriptHide]
@@ -32,7 +32,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 
         public ApexChartOptions<SeriesData> Options { get; }
 
-        public List<string> Series => (Services.AppInfoService.IsDesignMode ? GetDesignSeries() : _series).ToList();
+        public List<Series> Series => (Services.AppInfoService.IsDesignMode ? GetDesignSeries() : _series).ToList();
 
         public List<SeriesData> SeriesData =>
             (Services.AppInfoService.IsDesignMode ? GetDesignSeriesData() : _data).ToList();
@@ -122,8 +122,8 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             {
                 ApexRadialChartFieldDesign radialDesign => radialDesign.SeriesField == null
                     ? []
-                    : [radialDesign.SeriesField],
-                ApexChartFieldDesign chartDesign => chartDesign.SeriesFields,
+                    : [new Series { Name = radialDesign.SeriesField, Type = radialDesign.SeriesType }],
+                ApexChartFieldDesign chartDesign => chartDesign.Series.Series,
                 _ => []
             };
 
@@ -133,16 +133,20 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         private SearchCondition GetSearchCondition()
             => Design.SearchCondition.MergeSearchCondition(_additionalCondition);
 
-        private List<string> GetDesignSeries() => ["ChartA", "ChartB"];
+        private List<Series> GetDesignSeries() =>
+        [
+            new() { Name = "ChartA", Type = _series.ElementAtOrDefault(0)?.Type ?? SeriesType.Bar },
+            new() { Name = "ChartB", Type = _series.ElementAtOrDefault(0)?.Type ?? SeriesType.Bar },
+        ];
 
         private List<SeriesData> GetDesignSeriesData() => Enumerable.Range(1, 10)
             .Select(d => Tuple.Create(Math.Sqrt(d) * 3, Math.Cos(d * 9 / 57.2958) * 10))
             .Select((data, i) => new SeriesData
-            {
-                XValue = i,
-                Data = new Dictionary<string, decimal?>
+                {
+                    XValue = i,
+                    Data = new Dictionary<string, decimal?>
                         { { "ChartA", (decimal)data.Item1 }, { "ChartB", (decimal)data.Item2 } }
-            }
+                }
             ).ToList();
 
         private object? GetValue(FieldBase? fieldBase)
@@ -160,7 +164,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             if (data is null) return [];
             return Series.Select(key => new SeriesData
             {
-                Data = new Dictionary<string, decimal?> { { "XValue", data.Data[key] } }
+                Data = new Dictionary<string, decimal?> { { "XValue", data.Data[key.Name] } }
             }).ToList();
         }
 
@@ -168,7 +172,8 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         {
             if (value is null) return value;
             if (string.IsNullOrEmpty(Design.CategoryFormat)) return value;
-            return value.GetType().GetMethod("ToString", [typeof(string)])?.Invoke(value, [Design.CategoryFormat]) ?? value;
+            return value.GetType().GetMethod("ToString", [typeof(string)])?.Invoke(value, [Design.CategoryFormat]) ??
+                   value;
         }
     }
 }

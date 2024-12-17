@@ -12,7 +12,10 @@ using System.IO;
 using System.IO.Compression;
 using System.Windows;
 using ApexCharts;
+using Codeer.LowCode.Bindings.ApexCharts.Designer.Controls;
 using Codeer.LowCode.Bindings.ApexCharts.Designs;
+using Codeer.LowCode.Bindings.ApexCharts.Models;
+using Codeer.LowCode.Blazor.Components.AppParts.PageFrame;
 
 namespace LowCodeApp.Designer
 {
@@ -26,6 +29,7 @@ namespace LowCodeApp.Designer
                 bool.TryParse(ConfigurationManager.AppSettings["IsLicenseAutoUpdate"], out var val) ? val : true;
 
             Services.AddSingleton<IDbAccessorFactory, DbAccessorFactory>();
+            Services.AddSingleton<PageFrameContext>();
             Services.AddApexCharts();
             ScriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
             ScriptRuntimeTypeManager.AddType(typeof(LowCodeApp.Client.Shared.ScriptObjects.Excel));
@@ -33,6 +37,8 @@ namespace LowCodeApp.Designer
             ScriptRuntimeTypeManager.AddService(new WebApiService(null!, null!));
             ScriptRuntimeTypeManager.AddType<WebApiResult>();
             ScriptRuntimeTypeManager.AddService(new MailService());
+
+            PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();
 
             IconCandidate.Icons.AddRange(LowCodeApp.Designer.Properties.Resources.bootstrap_icons
                 .Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries).Order());
