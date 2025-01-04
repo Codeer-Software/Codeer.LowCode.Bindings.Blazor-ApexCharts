@@ -9,34 +9,32 @@ using Codeer.LowCode.Blazor.Repository.Design;
 namespace Codeer.LowCode.Bindings.ApexCharts.Designer.Controls
 {
     public partial class ChartSeriesPropertyControl : UserControl,
-        ICustomPropertyControl<ApexChartFieldDesign, ChartSeries>
+        ICustomPropertyControl
     {
-        private ChartSeries? _value;
-        private Action<bool?, object?>? _completion;
+        private ChartSeries _value = new();
+        private Action<bool> _completion = _ => { };
         private ChartSeriesViewModel _dataContext = null!;
+
+        public object? Value => _value;
 
         public ChartSeriesPropertyControl()
         {
             InitializeComponent();
         }
 
-        public void OpenDialog(DesignData designData, ApexChartFieldDesign design, ChartSeries? value,
-            Action<bool?, object?> completion)
+        public void Initialize(CustomPropertyItemInfo propertyItemInfo, object? value,
+            Action<bool> completion)
         {
-            _value = value;
+            _value = (value as ChartSeries) ?? new();
             _completion = completion;
-            DataContext = _dataContext = new ChartSeriesViewModel(designData, design, value!);
+            DataContext = _dataContext = new ChartSeriesViewModel(propertyItemInfo.DesignData, (ApexChartFieldDesign)propertyItemInfo.FieldDesign, _value);
         }
 
         private void OkClick(object sender, RoutedEventArgs e)
-        {
-            _completion!(true, _value);
-        }
+            => _completion!(true);
 
         private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            _completion!(false, null);
-        }
+            => _completion!(false);
 
         private void DeleteItem(object sender, RoutedEventArgs e)
         {
