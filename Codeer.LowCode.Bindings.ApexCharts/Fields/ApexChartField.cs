@@ -102,6 +102,8 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                     }
                 }
             ];
+            Options.Chart ??= new Chart();
+            Options.Chart.Height = "100%";
 
             if ((Design as ApexChartFieldDesign)?.FullWidthBar == true)
             {
