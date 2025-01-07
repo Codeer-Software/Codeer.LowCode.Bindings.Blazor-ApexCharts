@@ -32,12 +32,12 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         public override RenameResult ChangeName(RenameContext context)
         {
             var builder = context.Builder(base.ChangeName(context));
-            if (CategoryField != null) builder.AddField(CategoryField, s => CategoryField = s);
+            if (CategoryField != null) builder.AddField(SearchCondition.ModuleName, CategoryField, s => CategoryField = s);
             for (var i = 0; i < Series.Series.Count; ++i)
             {
                 var index = i;
                 Action<string> change = s => Series.Series[index].Name = s;
-                builder.AddField(Series.Series[index].Name, change);
+                builder.AddField(SearchCondition.ModuleName, Series.Series[index].Name, change);
             }
 
             return builder.Build();
