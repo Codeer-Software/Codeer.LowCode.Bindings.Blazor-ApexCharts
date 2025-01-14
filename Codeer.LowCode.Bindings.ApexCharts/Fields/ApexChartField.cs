@@ -120,10 +120,12 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 
         [ScriptName("Reload")]
         public async Task ReloadAsync()
-            => SetSeriesDataAsync(await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None));
+        {
+            if (!AllowLoad) return;
+            SetSeriesData(await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None));
+        }
 
-        [ScriptName("SetSeriesData")]
-        public void SetSeriesDataAsync(List<Module> items)
+        public void SetSeriesData(List<Module> items)
         {
             _data = items
                 .Select((e, i) => new SeriesData
