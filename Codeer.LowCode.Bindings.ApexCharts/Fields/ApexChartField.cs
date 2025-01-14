@@ -45,6 +45,38 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         {
             Options = new ApexChartOptions<SeriesData>();
             Options.Chart.Id = "a" + Guid.NewGuid().ToString().Replace("-", "");
+
+            Options.Legend = new Legend { Position = Design.ShowLegend ? LegendPosition.Bottom : null };
+            Options.Yaxis =
+            [
+                new YAxis
+                {
+                    Labels = new YAxisLabels
+                    {
+                        Formatter = Design.SeriesType != SeriesType.Heatmap
+                            ? $"function(value) {{ return Number(value).toFixed({Math.Max(0, Design.SeriesFractionDigits)}); }}"
+                            : null
+                    }
+                }
+            ];
+            Options.Chart ??= new Chart();
+            Options.Chart.Height = "100%";
+
+            if ((Design as ApexChartFieldDesign)?.FullWidthBar == true)
+            {
+                Options.PlotOptions ??= new PlotOptions();
+                Options.PlotOptions.Bar ??= new PlotOptionsBar();
+                Options.PlotOptions.Bar.ColumnWidth = "101%";
+            }
+
+            _series = Design switch
+            {
+                ApexRadialChartFieldDesign radialDesign => radialDesign.SeriesField == null
+                    ? []
+                    : [new Series { Name = radialDesign.SeriesField, Type = radialDesign.SeriesType }],
+                ApexChartFieldDesign chartDesign => chartDesign.Series.Series,
+                _ => []
+            };
         }
 
         [ScriptHide]
@@ -88,31 +120,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 
         [ScriptName("Reload")]
         public async Task ReloadAsync()
+            => SetSeriesDataAsync(await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None));
+
+        [ScriptName("SetSeriesData")]
+        public void SetSeriesDataAsync(List<Module> items)
         {
-            Options.Legend = new Legend { Position = Design.ShowLegend ? LegendPosition.Bottom : null };
-            Options.Yaxis =
-            [
-                new YAxis
-                {
-                    Labels = new YAxisLabels
-                    {
-                        Formatter = Design.SeriesType != SeriesType.Heatmap
-                            ? $"function(value) {{ return Number(value).toFixed({Math.Max(0, Design.SeriesFractionDigits)}); }}"
-                            : null
-                    }
-                }
-            ];
-            Options.Chart ??= new Chart();
-            Options.Chart.Height = "100%";
-
-            if ((Design as ApexChartFieldDesign)?.FullWidthBar == true)
-            {
-                Options.PlotOptions ??= new PlotOptions();
-                Options.PlotOptions.Bar ??= new PlotOptionsBar();
-                Options.PlotOptions.Bar.ColumnWidth = "101%";
-            }
-
-            var items = await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None);
             _data = items
                 .Select((e, i) => new SeriesData
                 {
@@ -120,15 +132,6 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                     Data = e.GetFields().OfType<NumberField>().ToDictionary(x => x.Design.Name, x => x.Value),
                 })
                 .ToList();
-            _series = Design switch
-            {
-                ApexRadialChartFieldDesign radialDesign => radialDesign.SeriesField == null
-                    ? []
-                    : [new Series { Name = radialDesign.SeriesField, Type = radialDesign.SeriesType }],
-                ApexChartFieldDesign chartDesign => chartDesign.Series.Series,
-                _ => []
-            };
-
             NotifyStateChanged();
         }
 

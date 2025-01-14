@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Codeer.LowCode.Blazor" Version="1.1.19" />
+    <PackageReference Include="Codeer.LowCode.Blazor" Version="1.1.22" />
   </ItemGroup>
 
   <ItemGroup>

@@ -420,8 +420,7 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
-            "IsHeader": false,
-            "IsFooter": false,
+            "GridRowType": "Normal",
             "BackgroundColor": "",
             "Columns": [
               {
@@ -443,8 +442,7 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
-            "IsHeader": false,
-            "IsFooter": false,
+            "GridRowType": "Normal",
             "BackgroundColor": "",
             "Columns": [
               {
@@ -478,8 +476,7 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
-            "IsHeader": false,
-            "IsFooter": false,
+            "GridRowType": "Normal",
             "BackgroundColor": "",
             "Columns": [
               {
@@ -513,8 +510,7 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
-            "IsHeader": false,
-            "IsFooter": false,
+            "GridRowType": "Normal",
             "BackgroundColor": "",
             "Columns": [
               {
@@ -548,8 +544,7 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
-            "IsHeader": false,
-            "IsFooter": false,
+            "GridRowType": "Normal",
             "BackgroundColor": "",
             "Columns": [
               {
@@ -583,8 +578,7 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
-            "IsHeader": false,
-            "IsFooter": false,
+            "GridRowType": "Normal",
             "BackgroundColor": "",
             "Columns": [
               {
@@ -618,8 +612,7 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
-            "IsHeader": false,
-            "IsFooter": false,
+            "GridRowType": "Normal",
             "BackgroundColor": "",
             "Columns": [
               {
@@ -653,8 +646,7 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
-            "IsHeader": false,
-            "IsFooter": false,
+            "GridRowType": "Normal",
             "BackgroundColor": "",
             "Columns": [
               {
@@ -722,8 +714,7 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
-            "IsHeader": false,
-            "IsFooter": false,
+            "GridRowType": "Normal",
             "BackgroundColor": "",
             "Columns": [
               {
