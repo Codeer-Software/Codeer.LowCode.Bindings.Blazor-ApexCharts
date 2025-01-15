@@ -388,6 +388,90 @@
       "ShowLegend": true,
       "Name": "ApexChart118",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SeriesType": "Bar",
+      "Series": {
+        "Series": [
+          {
+            "Name": "sample_mean",
+            "Type": "Line"
+          },
+          {
+            "Name": "xbar_ucl",
+            "Type": "Line"
+          },
+          {
+            "Name": "xbar_lcl",
+            "Type": "Line"
+          },
+          {
+            "Name": "xbar_cl",
+            "Type": "Line"
+          }
+        ]
+      },
+      "FullWidthBar": false,
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "XRData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "CategoryField": "sample_group",
+      "SeriesFractionDigits": 2,
+      "ShowLegend": true,
+      "Name": "ApexChart4",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SeriesType": "Bar",
+      "Series": {
+        "Series": [
+          {
+            "Name": "sample_range",
+            "Type": "Line"
+          },
+          {
+            "Name": "R_ucl",
+            "Type": "Line"
+          },
+          {
+            "Name": "R_lcl",
+            "Type": "Line"
+          },
+          {
+            "Name": "R_cl",
+            "Type": "Line"
+          }
+        ]
+      },
+      "FullWidthBar": false,
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "XRData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "CategoryField": "sample_group",
+      "SeriesFractionDigits": 2,
+      "ShowLegend": true,
+      "Name": "ApexChart41",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -435,6 +519,50 @@
                 "Background": "",
                 "Border": "None",
                 "HorizontalAlignment": "Center",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Height": 388,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ApexChart4",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Background": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Height": 388,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ApexChart41",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Background": "",
+                "Border": "None",
                 "CanResize": false
               }
             ]
