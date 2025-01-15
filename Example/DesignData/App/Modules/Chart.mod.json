@@ -472,6 +472,36 @@
       "ShowLegend": true,
       "Name": "ApexChart41",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SeriesType": "Bar",
+      "Series": {
+        "Series": [
+          {
+            "Name": "frequency",
+            "Type": "Bar"
+          }
+        ]
+      },
+      "FullWidthBar": true,
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "Histogram",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "CategoryField": "range",
+      "SeriesFractionDigits": 2,
+      "ShowLegend": true,
+      "Name": "ApexChart5",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -519,6 +549,28 @@
                 "Background": "",
                 "Border": "None",
                 "HorizontalAlignment": "Center",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Height": 388,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ApexChart5",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Background": "",
+                "Border": "None",
                 "CanResize": false
               }
             ]
