@@ -16,7 +16,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
     public class ApexChartField : FieldBase<ApexChartFieldDesignBase>, ISearchResultsViewField
     {
         private List<SeriesData> _data = [];
-        private List<Series> _series = [];
+        private readonly List<Series> _series;
         private SearchCondition? _additionalCondition;
 
         [ScriptHide]
@@ -43,6 +43,17 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 
         public ApexChartField(ApexChartFieldDesignBase design) : base(design)
         {
+            var series = Design switch
+            {
+                ApexRadialChartFieldDesign radialDesign => radialDesign.SeriesField == null
+                    ? []
+                    : [new Series { Name = radialDesign.SeriesField, Type = radialDesign.SeriesType }],
+                ApexChartFieldDesign chartDesign => chartDesign.Series.Series,
+                _ => []
+            };
+            var isHeatmap = series.FirstOrDefault()?.Type == SeriesType.Heatmap;
+            _series = series.Where(s => (s.Type == SeriesType.Heatmap) == isHeatmap).ToList();
+
             Options = new ApexChartOptions<SeriesData>();
             Options.Chart.Id = "a" + Guid.NewGuid().ToString().Replace("-", "");
 

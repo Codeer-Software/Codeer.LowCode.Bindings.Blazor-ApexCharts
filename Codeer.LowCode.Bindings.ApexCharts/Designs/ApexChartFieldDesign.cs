@@ -1,6 +1,7 @@
 ﻿using ApexCharts;
 using Codeer.LowCode.Bindings.ApexCharts.Models;
 using Codeer.LowCode.Blazor.DesignLogic.Check;
+using Codeer.LowCode.Blazor.DesignLogic.Location;
 using Codeer.LowCode.Blazor.DesignLogic.Refactor;
 using Codeer.LowCode.Blazor.Repository.Design;
 
@@ -24,6 +25,21 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
                 context.CheckFieldRelativeFieldExistence(Name, nameof(s.Name), SearchCondition.ModuleName,
                         s.Name)
                     .AddTo(result);
+            }
+
+            var hasHeatmap = Series.Series.Any(s => s.Type == SeriesType.Heatmap);
+            if (hasHeatmap && Series.Series.Any(s => s.Type != SeriesType.Heatmap))
+            {
+                result.Add(new FieldDesignCheckInfo()
+                {
+                    Location = new FieldDesignDataLocation()
+                    {
+                        Module = context.OwnerModule,
+                        Field = Name,
+                        Member = nameof(Series)
+                    },
+                    Message = "Heatmap series and non-heatmap series cannot be mixed."
+                });
             }
 
             return result;
