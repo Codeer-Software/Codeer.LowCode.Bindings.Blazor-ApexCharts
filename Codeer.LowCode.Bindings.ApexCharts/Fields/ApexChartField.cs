@@ -80,14 +80,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                 Options.PlotOptions.Bar.ColumnWidth = "101%";
             }
 
-            _series = Design switch
+            if (_series.Any(series => series.Type == SeriesType.Scatter))
             {
-                ApexRadialChartFieldDesign radialDesign => radialDesign.SeriesField == null
-                    ? []
-                    : [new Series { Name = radialDesign.SeriesField, Type = radialDesign.SeriesType }],
-                ApexChartFieldDesign chartDesign => chartDesign.Series.Series,
-                _ => []
-            };
+                Options.Markers ??= new Markers();
+                Options.Markers.Size = new Size(5, 5, 5, 5);
+            }
         }
 
         [ScriptHide]
@@ -160,11 +157,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         private List<SeriesData> GetDesignSeriesData() => Enumerable.Range(1, 10)
             .Select(d => Tuple.Create(Math.Sqrt(d) * 3, Math.Cos(d * 9 / 57.2958) * 10))
             .Select((data, i) => new SeriesData
-                {
-                    XValue = i,
-                    Data = new Dictionary<string, decimal?>
+            {
+                XValue = i,
+                Data = new Dictionary<string, decimal?>
                         { { "ChartA", (decimal)data.Item1 }, { "ChartB", (decimal)data.Item2 } }
-                }
+            }
             ).ToList();
 
         private object? GetValue(FieldBase? fieldBase)
