@@ -26,15 +26,17 @@
                   <ColumnDefinition />
                   <ColumnDefinition />
                   <ColumnDefinition />
+                  <ColumnDefinition Width="Auto"/>
                   <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <ComboBox Margin="0,0,3,0" IsEditable="True" Text="{Binding Name,Mode=TwoWay}"
                           ItemsSource="{Binding NameCandidates}" />
-                <TextBox Grid.Column="1" Margin="0,0,3,0" Text="{Binding Color,Mode=TwoWay}"/>
-                <ComboBox Grid.Column="2" Margin="0,0,3,0"
+                <ComboBox Grid.Column="1" Margin="0,0,3,0"
                           SelectedItem="{Binding Type,Mode=TwoWay,Converter={StaticResource SeriesTypeToStringConverter}}"
                           ItemsSource="{Binding TypeCandidates}" />
-                <Button Grid.Column="3" FontFamily="Segoe Fluent Icons" Content="&#xE74D;" Width="24"
+                <TextBox Grid.Column="2" Text="{Binding Color,Mode=TwoWay}"/>
+                <Button Grid.Column="3" Margin="0,0,3,0" FontFamily="Segoe Fluent Icons" Content="&#xe790;" Command="{Binding ChooseColorCommand}"/>
+                <Button Grid.Column="4" FontFamily="Segoe Fluent Icons" Content="&#xE74D;" Width="24"
                         Click="DeleteItem" />
               </Grid>
             </DataTemplate>
