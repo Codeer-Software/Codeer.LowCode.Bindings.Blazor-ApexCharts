@@ -2,6 +2,7 @@
 @using Codeer.LowCode.Blazor.RequestInterfaces
 @using ApexCharts
 @using Codeer.LowCode.Bindings.ApexCharts.Models
+@using Codeer.LowCode.Blazor.Repository.Design
 @using global::ApexCharts
 @inherits FieldComponentBase<Codeer.LowCode.Bindings.ApexCharts.Fields.ApexChartField>
 @inject Services Services
@@ -16,7 +17,7 @@
         case SeriesType.Line:
           <ApexPointSeries TItem="SeriesData"
                            Items="Field.SeriesData"
-                           Name="@series.Name"
+                           Name="@GetDisplayText(series.Name)"
                            SeriesType="@series.Type"
                            XValue="data => data.XValue"
                            YAggregate="data => data.Sum(y => y.Data[series.Name])"/>
@@ -24,7 +25,7 @@
         case SeriesType.Scatter:
           <ApexPointSeries TItem="SeriesData"
                            Items="Field.SeriesData"
-                           Name="@series.Name"
+                           Name="@GetDisplayText(series.Name)"
                            SeriesType="@series.Type"
                            XValue="data => data.XValue"
                            YValue="data => data.Data[series.Name]"/>
@@ -57,6 +58,18 @@
   protected override async Task OnParametersSetAsync() {
     await base.OnParametersSetAsync();
     Field.SetStateChangedReceiver(StateHasChanged);
+  }
+
+  private ModuleDesign? GetModule(string name) => Services.AppInfoService.GetDesignData().Modules.Find(name);
+
+  private string GetDisplayText(string fieldName)
+  {
+    var module = GetModule(Field.Design.SearchCondition.ModuleName);
+    if (module == null) return fieldName;
+    var field = module.Fields.Find(field => field.Name == fieldName);
+    if (field is IDisplayName displayName && !string.IsNullOrEmpty(displayName.DisplayName))
+      return displayName.DisplayName;
+    return fieldName;
   }
 
 }
