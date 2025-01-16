@@ -15,6 +15,8 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 {
     public class ApexChartField : FieldBase<ApexChartFieldDesignBase>, ISearchResultsViewField
     {
+        private static readonly string[] DefaultTheme = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
+
         private List<SeriesData> _data = [];
         private readonly List<Series> _series;
         private SearchCondition? _additionalCondition;
@@ -54,8 +56,14 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             var isHeatmap = series.FirstOrDefault()?.Type == SeriesType.Heatmap;
             _series = series.Where(s => (s.Type == SeriesType.Heatmap) == isHeatmap).ToList();
 
+            var colors = _series.Select((t, i) => string.IsNullOrEmpty(t.Color) ? DefaultTheme[i % 5] : t.Color).ToList();
+
             Options = new ApexChartOptions<SeriesData>();
             Options.Chart.Id = "a" + Guid.NewGuid().ToString().Replace("-", "");
+            if (Design is ApexChartFieldDesign)
+            {
+                Options.Colors = colors;
+            }
 
             Options.Legend = new Legend { Position = Design.ShowLegend ? LegendPosition.Bottom : null };
             Options.Yaxis =

@@ -20,6 +20,17 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.ViewModels
             }
         }
 
+        public string Color
+        {
+            get => Model.Color;
+            set
+            {
+                if (value == Model.Color) return;
+                Model.Color = value;
+                OnPropertyChanged();
+            }
+        }
+
         public SeriesType Type
         {
             get => Model.Type;
