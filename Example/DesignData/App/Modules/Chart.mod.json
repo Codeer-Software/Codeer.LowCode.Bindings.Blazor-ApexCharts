@@ -17,10 +17,12 @@
         "Series": [
           {
             "Name": "A",
+            "Color": "",
             "Type": "Line"
           },
           {
             "Name": "B",
+            "Color": "",
             "Type": "Bar"
           }
         ]
@@ -50,10 +52,12 @@
         "Series": [
           {
             "Name": "A",
+            "Color": "",
             "Type": "Bar"
           },
           {
             "Name": "B",
+            "Color": "",
             "Type": "Bar"
           }
         ]
@@ -84,14 +88,17 @@
         "Series": [
           {
             "Name": "A",
+            "Color": "",
             "Type": "Line"
           },
           {
             "Name": "B",
+            "Color": "",
             "Type": "Area"
           },
           {
             "Name": "C",
+            "Color": "",
             "Type": "Area"
           }
         ]
@@ -122,14 +129,17 @@
         "Series": [
           {
             "Name": "A",
+            "Color": "",
             "Type": "Line"
           },
           {
             "Name": "B",
+            "Color": "",
             "Type": "Bar"
           },
           {
             "Name": "C",
+            "Color": "",
             "Type": "Bar"
           }
         ]
@@ -188,14 +198,17 @@
         "Series": [
           {
             "Name": "A",
+            "Color": "",
             "Type": "Heatmap"
           },
           {
             "Name": "B",
+            "Color": "",
             "Type": "Heatmap"
           },
           {
             "Name": "C",
+            "Color": "",
             "Type": "Heatmap"
           }
         ]
@@ -395,18 +408,22 @@
         "Series": [
           {
             "Name": "sample_mean",
+            "Color": "#000000",
             "Type": "Line"
           },
           {
             "Name": "xbar_ucl",
+            "Color": "#0000FF",
             "Type": "Line"
           },
           {
             "Name": "xbar_lcl",
+            "Color": "#0000FF",
             "Type": "Line"
           },
           {
             "Name": "xbar_cl",
+            "Color": "#FF0000",
             "Type": "Line"
           }
         ]
@@ -437,18 +454,22 @@
         "Series": [
           {
             "Name": "sample_range",
+            "Color": "#000000",
             "Type": "Line"
           },
           {
             "Name": "R_ucl",
+            "Color": "#0000FF",
             "Type": "Line"
           },
           {
             "Name": "R_lcl",
+            "Color": "#0000FF",
             "Type": "Line"
           },
           {
             "Name": "R_cl",
+            "Color": "#FF0000",
             "Type": "Line"
           }
         ]
@@ -479,6 +500,7 @@
         "Series": [
           {
             "Name": "frequency",
+            "Color": "",
             "Type": "Bar"
           }
         ]
