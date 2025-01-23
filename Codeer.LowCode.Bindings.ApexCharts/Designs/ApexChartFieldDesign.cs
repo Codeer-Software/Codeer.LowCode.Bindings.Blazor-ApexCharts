@@ -14,8 +14,14 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         [Designer]
         public ChartSeries Series { get; set; } = new();
 
-        [Designer(Category = "ApexChart - Bar")]
+        [Designer(Category = "ApexCharts - Bar")]
         public bool FullWidthBar { get; set; }
+
+        [Designer(Category = "ApexCharts - Grid", DisplayName = "Show X-axis Grid")]
+        public bool ShowXAxisGrid { get; set; }
+
+        [Designer(Category = "ApexCharts - Grid", DisplayName = "Show Y-axis Grid")]
+        public bool ShowYAxisGrid { get; set; } = true;
 
         public override List<DesignCheckInfo> CheckDesign(DesignCheckContext context)
         {

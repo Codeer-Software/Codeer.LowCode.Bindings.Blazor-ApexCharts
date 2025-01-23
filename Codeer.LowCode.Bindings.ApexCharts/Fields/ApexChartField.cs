@@ -45,14 +45,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 
         public ApexChartField(ApexChartFieldDesignBase design) : base(design)
         {
-            var series = Design switch
-            {
-                ApexRadialChartFieldDesign radialDesign => radialDesign.SeriesField == null
-                    ? []
-                    : [new Series { Name = radialDesign.SeriesField, Type = radialDesign.SeriesType }],
-                ApexChartFieldDesign chartDesign => chartDesign.Series.Series,
-                _ => []
-            };
+            var series = NormalizeSeries(design);
             var isHeatmap = series.FirstOrDefault()?.Type == SeriesType.Heatmap;
             _series = series.Where(s => (s.Type == SeriesType.Heatmap) == isHeatmap).ToList();
 
@@ -75,24 +68,49 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                         Formatter = Design.SeriesType != SeriesType.Heatmap
                             ? $"function(value) {{ return Number(value).toFixed({Math.Max(0, Design.SeriesFractionDigits)}); }}"
                             : null
-                    }
+                    },
                 }
             ];
             Options.Chart ??= new Chart();
             Options.Chart.Height = "100%";
 
-            if ((Design as ApexChartFieldDesign)?.FullWidthBar == true)
+            if (Design is ApexChartFieldDesign chartDesign)
             {
-                Options.PlotOptions ??= new PlotOptions();
-                Options.PlotOptions.Bar ??= new PlotOptionsBar();
-                Options.PlotOptions.Bar.ColumnWidth = "101%";
+                if (chartDesign.FullWidthBar)
+                {
+                    Options.PlotOptions ??= new PlotOptions();
+                    Options.PlotOptions.Bar ??= new PlotOptionsBar();
+                    Options.PlotOptions.Bar.ColumnWidth = "101%";
+                }
+
+                Options.Grid ??= new Grid();
+                Options.Grid.Xaxis ??= new GridXAxis();
+                Options.Grid.Xaxis.Lines ??= new Lines();
+                Options.Grid.Xaxis.Lines.Show = chartDesign.ShowXAxisGrid;
+
+                Options.Grid.Yaxis ??= new GridYAxis();
+                Options.Grid.Yaxis.Lines ??= new Lines();
+                Options.Grid.Yaxis.Lines.Show = chartDesign.ShowYAxisGrid;
             }
 
-            if (_series.Any(series => series.Type == SeriesType.Scatter))
+            if (_series.Any(s => s.Type == SeriesType.Scatter))
             {
                 Options.Markers ??= new Markers();
                 Options.Markers.Size = new Size(5, 5, 5, 5);
             }
+        }
+
+        private static List<Series> NormalizeSeries(ApexChartFieldDesignBase design)
+        {
+            var series = design switch
+            {
+                ApexRadialChartFieldDesign radialDesign => radialDesign.SeriesField == null
+                    ? []
+                    : [new Series { Name = radialDesign.SeriesField, Type = radialDesign.SeriesType }],
+                ApexChartFieldDesign chartDesign => chartDesign.Series.Series,
+                _ => []
+            };
+            return series;
         }
 
         [ScriptHide]
@@ -198,5 +216,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             return value.GetType().GetMethod("ToString", [typeof(string)])?.Invoke(value, [Design.CategoryFormat]) ??
                    value;
         }
+
+
     }
 }
