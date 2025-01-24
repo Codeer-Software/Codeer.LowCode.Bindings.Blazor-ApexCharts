@@ -188,6 +188,8 @@
         "Series": []
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -241,29 +243,32 @@
             "BackgroundColor": "",
             "Columns": [
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
@@ -281,11 +286,11 @@
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
             "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           }
         ]
       ]
@@ -311,29 +316,32 @@
             "BackgroundColor": "",
             "Columns": [
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
       }
     }

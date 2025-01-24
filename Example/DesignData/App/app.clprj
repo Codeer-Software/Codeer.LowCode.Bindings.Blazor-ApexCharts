@@ -2,5 +2,18 @@
   "CurrentUserModuleDesignName": "",
   "AppAccessConditions": {
     "ModuleName": ""
-  }
+  },
+  "BackgroundColor": "",
+  "Color": "",
+  "FontFamily": "",
+  "Versions": [
+    {
+      "AssemblyName": "Codeer.LowCode.Bindings.ApexCharts",
+      "Version": "0.9.0.0"
+    },
+    {
+      "AssemblyName": "Codeer.LowCode.Blazor",
+      "Version": "1.1.29.0"
+    }
+  ]
 }

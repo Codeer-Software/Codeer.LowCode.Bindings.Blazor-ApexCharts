@@ -28,6 +28,8 @@
         ]
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -63,6 +65,8 @@
         ]
       },
       "FullWidthBar": true,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -104,6 +108,8 @@
         ]
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -145,6 +151,8 @@
         ]
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -165,6 +173,7 @@
     },
     {
       "Text": "Chart",
+      "Icon": "",
       "Style": "H2",
       "RelativeField": "",
       "Name": "Label",
@@ -214,6 +223,8 @@
         ]
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -283,6 +294,8 @@
         "Series": []
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -308,6 +321,8 @@
         "Series": []
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -333,6 +348,8 @@
         "Series": []
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -358,6 +375,8 @@
         "Series": []
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -383,6 +402,8 @@
         "Series": []
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -429,6 +450,8 @@
         ]
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": true,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -475,6 +498,8 @@
         ]
       },
       "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -506,6 +531,8 @@
         ]
       },
       "FullWidthBar": true,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -564,14 +591,15 @@
                   "FieldName": "Label",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
                 "HorizontalAlignment": "Center",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
@@ -587,19 +615,20 @@
                   "FieldName": "ApexChart5",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
           {
             "IsWrap": false,
-            "Height": 388,
+            "Height": 500,
             "IsRowMarginRemoved": false,
             "GridRowType": "Normal",
             "BackgroundColor": "",
@@ -609,13 +638,14 @@
                   "FieldName": "ApexChart4",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
@@ -631,13 +661,14 @@
                   "FieldName": "ApexChart41",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
@@ -652,26 +683,28 @@
                   "FieldName": "ApexChart",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
                 "Layout": {
                   "FieldName": "ApexChart3",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
@@ -686,26 +719,28 @@
                   "FieldName": "ApexChart1",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
                 "Layout": {
                   "FieldName": "ApexChart2",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
@@ -720,26 +755,28 @@
                   "FieldName": "ApexChart11",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
                 "Layout": {
                   "FieldName": "ApexChart111",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
@@ -754,26 +791,28 @@
                   "FieldName": "ApexChart112",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
                 "Layout": {
                   "FieldName": "ApexChart113",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
@@ -788,26 +827,28 @@
                   "FieldName": "ApexChart114",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
                 "Layout": {
                   "FieldName": "ApexChart115",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
@@ -822,26 +863,28 @@
                   "FieldName": "ApexChart116",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
                 "Layout": {
                   "FieldName": "ApexChart117",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           },
@@ -856,23 +899,24 @@
                   "FieldName": "ApexChart118",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
@@ -890,11 +934,11 @@
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
             "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           }
         ]
       ]
@@ -920,29 +964,32 @@
             "BackgroundColor": "",
             "Columns": [
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               },
               {
-                "Background": "",
+                "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
+                "CanResize": false,
+                "Background": ""
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
       }
     }

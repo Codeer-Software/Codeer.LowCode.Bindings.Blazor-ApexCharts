@@ -16,19 +16,25 @@
         "Title": "Chart",
         "Icon": "",
         "PageFrame": "",
-        "Module": "Chart"
+        "Module": "Chart",
+        "Id": ""
       },
       {
         "Title": "ChartData",
         "Icon": "",
         "PageFrame": "",
-        "Module": "ChartData"
+        "Module": "ChartData",
+        "Id": ""
       }
     ],
+    "Color": "#ffffff",
+    "BackgroundColorStart": "#052767",
+    "BackgroundColorEnd": "#3a0647",
+    "UserName": "",
+    "ModuleName": "",
     "Foreground": "#ffffff",
     "BackgroundStart": "#052767",
-    "BackgroundEnd": "#3a0647",
-    "UserName": ""
+    "BackgroundEnd": "#3a0647"
   },
   "Right": {
     "IsVisible": false,
@@ -39,15 +45,19 @@
       "ResourcePath": ""
     },
     "Links": [],
+    "Color": "#ffffff",
+    "BackgroundColorStart": "#052767",
+    "BackgroundColorEnd": "#3a0647",
+    "UserName": "",
+    "ModuleName": "",
     "Foreground": "#ffffff",
     "BackgroundStart": "#052767",
-    "BackgroundEnd": "#3a0647",
-    "UserName": ""
+    "BackgroundEnd": "#3a0647"
   },
   "Header": {
     "IsVisible": false,
-    "Foreground": "#000000",
-    "Background": "#f8f9fa",
+    "Color": "#000000",
+    "BackgroundColor": "#f8f9fa",
     "Home": {
       "Type": "None",
       "Text": "",
@@ -55,10 +65,16 @@
       "ResourcePath": ""
     },
     "Links": [],
-    "UserName": ""
+    "UserName": "",
+    "ModuleName": "",
+    "Foreground": "#000000",
+    "Background": "#f8f9fa"
   },
   "OtherPages": [],
   "UserReadCondition": {
     "ModuleName": ""
-  }
+  },
+  "BackgroundColor": "",
+  "Color": "",
+  "FontFamily": ""
 }
