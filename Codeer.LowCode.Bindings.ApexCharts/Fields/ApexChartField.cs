@@ -43,6 +43,8 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 
         public override bool IsModified => false;
 
+        public int Page => 0;
+
         public ApexChartField(ApexChartFieldDesignBase design) : base(design)
         {
             var series = NormalizeSeries(design);
