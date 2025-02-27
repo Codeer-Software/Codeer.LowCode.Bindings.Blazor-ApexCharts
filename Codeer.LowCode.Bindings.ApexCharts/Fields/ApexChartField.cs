@@ -19,7 +19,9 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 
         private List<SeriesData> _data = [];
         private readonly List<Series> _series;
+        private readonly Dictionary<string, ChartAnnotation> _annotations = new();
         private SearchCondition? _additionalCondition;
+        private Guid _refreshKey = Guid.NewGuid();
 
         [ScriptHide]
         public Func<SearchCondition?, Task> OnQueryChangedAsync { get; set; } = _ => Task.CompletedTask;
@@ -44,6 +46,9 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         public override bool IsModified => false;
 
         public int Page => 0;
+
+        [ScriptHide]
+        public string RefreshKey => Design.SeriesType.ToString() + _refreshKey;
 
         public ApexChartField(ApexChartFieldDesignBase design) : base(design)
         {
@@ -100,6 +105,10 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                 Options.Markers ??= new Markers();
                 Options.Markers.Size = new Size(5, 5, 5, 5);
             }
+
+            Options.Annotations ??= new Annotations();
+            Options.Annotations.Xaxis ??= [];
+            Options.Annotations.Yaxis ??= [];
         }
 
         private static List<Series> NormalizeSeries(ApexChartFieldDesignBase design)
@@ -161,6 +170,31 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             SetSeriesData(await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None));
         }
 
+        public void AddAnnotation(string name, AnnotationAxis axis, double value, string color, string? label)
+        {
+            _annotations[name] = new ChartAnnotation
+            {
+                Axis = axis,
+                Value = value,
+                Color = color,
+                Label = label,
+            };
+            ApplyAnnotations();
+        }
+
+        public void RemoveAnnotation(string name)
+        {
+            if (!_annotations.ContainsKey(name)) return;
+            _annotations.Remove(name);
+            ApplyAnnotations();
+        }
+
+        public void ClearAnnotation()
+        {
+            _annotations.Clear();
+            ApplyAnnotations();
+        }
+
         public void SetSeriesData(List<Module> items)
         {
             _data = items
@@ -219,6 +253,53 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                    value;
         }
 
+        private void ApplyAnnotations()
+        {
+            Options.Annotations.Xaxis.Clear();
+            Options.Annotations.Yaxis.Clear();
+            foreach (var annotation in _annotations.Values)
+            {
+                if (annotation.Axis == AnnotationAxis.X)
+                {
+                    Options.Annotations.Xaxis.Add(new AnnotationsXAxis()
+                    {
+                        X = annotation.Value,
+                        BorderColor = annotation.Color,
+                        Label = annotation.Label != null ? new Label()
+                        {
+                            BorderColor = annotation.Color,
+                            Style = new Style
+                            {
+                                Color = AutoColor.ContrastColor(annotation.Color),
+                                Background = annotation.Color,
+                            },
+                            Text = annotation.Label
+                        } : new Label()
+                    });
+                }
+                else if (annotation.Axis == AnnotationAxis.Y)
+                {
+                    Options.Annotations.Yaxis.Add(new AnnotationsYAxis()
+                    {
+                        Y = annotation.Value,
+                        BorderColor = annotation.Color,
+                        Label = annotation.Label != null ? new Label()
+                        {
+                            BorderColor = annotation.Color,
+                            Style = new Style
+                            {
+                                Color = AutoColor.ContrastColor(annotation.Color),
+                                Background = annotation.Color,
+                            },
+                            Text = annotation.Label
+                        } : new Label()
+                    });
+                }
+            }
 
+            _refreshKey = Guid.NewGuid();
+
+            NotifyStateChanged();
+        }
     }
 }
