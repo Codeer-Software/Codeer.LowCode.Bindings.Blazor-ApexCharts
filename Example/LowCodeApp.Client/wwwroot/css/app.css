@@ -103,3 +103,16 @@ a, .btn-link {
 .nav-link {
   padding: 0.5rem 1rem;
 }
+
+/*change anotation line style*/
+/*
+.apexcharts-xaxis-annotations line {
+    stroke-width: 10px;
+    stroke-dasharray: 0;
+}
+
+.apexcharts-yaxis-annotations line {
+    stroke-width: 10px;
+    stroke-dasharray: 0;
+}
+*/

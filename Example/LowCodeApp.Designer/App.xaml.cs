@@ -37,6 +37,7 @@ namespace LowCodeApp.Designer
             ScriptRuntimeTypeManager.AddService(new WebApiService(null!, null!));
             ScriptRuntimeTypeManager.AddType<WebApiResult>();
             ScriptRuntimeTypeManager.AddService(new MailService());
+            ScriptRuntimeTypeManager.AddType<AnnotationAxis>();
 
             PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();
 

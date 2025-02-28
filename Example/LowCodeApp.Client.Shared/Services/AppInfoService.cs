@@ -1,3 +1,4 @@
+using Codeer.LowCode.Bindings.ApexCharts.Models;
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.DesignLogic.Transfer;
 using Codeer.LowCode.Blazor.Repository;
@@ -47,6 +48,7 @@ namespace LowCodeApp.Client.Shared.Services
             _scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
             _scriptRuntimeTypeManager.AddService(new Toaster(toaster));
             _scriptRuntimeTypeManager.AddService(new MailService());
+            _scriptRuntimeTypeManager.AddType<AnnotationAxis>();
         }
 
         public async Task InitializeAppAsync()
