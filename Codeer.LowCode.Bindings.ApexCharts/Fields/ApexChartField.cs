@@ -170,7 +170,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             SetSeriesData(await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None));
         }
 
-        public void AddAnnotation(string name, AnnotationAxis axis, double value, string color, string? label)
+        public void AddAnnotation(string name, AnnotationAxis axis, double value, string color, string? label, bool isDashed)
         {
             _annotations[name] = new ChartAnnotation
             {
@@ -178,6 +178,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                 Value = value,
                 Color = color,
                 Label = label,
+                IsDashed = isDashed,
             };
             ApplyAnnotations();
         }
@@ -265,6 +266,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                     {
                         X = annotation.Value,
                         BorderColor = annotation.Color,
+                        StrokeDashArray = annotation.IsDashed ? null : 0,
                         Label = annotation.Label != null ? new Label()
                         {
                             BorderColor = annotation.Color,
@@ -283,6 +285,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                     {
                         Y = annotation.Value,
                         BorderColor = annotation.Color,
+                        StrokeDashArray = annotation.IsDashed ? null : 0,
                         Label = annotation.Label != null ? new Label()
                         {
                             BorderColor = annotation.Color,

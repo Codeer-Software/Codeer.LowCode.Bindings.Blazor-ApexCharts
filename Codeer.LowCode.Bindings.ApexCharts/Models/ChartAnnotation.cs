@@ -6,5 +6,6 @@
         public double Value { get; set; }
         public string Color { get; set; } = "#00E396";
         public string? Label { get; set; }
+        public bool IsDashed { get; set; }
     }
 }
