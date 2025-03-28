@@ -16,6 +16,15 @@ LowCodeApp.Client.Shared プロジェクトにNuGetから次のパッケージ�
 
 - LowCodeApp.Server
 - LowCodeApp.Designer
+- 
+#### LowCodeApp.Client
+
+`Program.cs` に以下のコードを追加してください。
+
+```csharp
+typeof(ApexChartFieldDesign).ToString();
+typeof(SeriesType).ToString();
+```
 
 #### LowCodeApp.Server
 
@@ -32,6 +41,9 @@ typeof(SeriesType).ToString();
 
 ```csharp
 typeof(ApexChartFieldDesign).ToString();
+typeof(SeriesType).ToString();
+Services.AddApexCharts();
+PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();
 ```
 
 ## 使用方法
