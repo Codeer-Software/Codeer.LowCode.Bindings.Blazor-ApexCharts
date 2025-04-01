@@ -170,7 +170,6 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             SetSeriesData(await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None));
         }
 
-        /*
         public void AddAnnotation(string name, AnnotationAxis axis, object value, string color, string? label, bool isDashed)
         {
             _annotations[name] = new ChartAnnotation
@@ -196,7 +195,6 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             _annotations.Clear();
             ApplyAnnotations();
         }
-        */
 
         public void SetSeriesData(List<Module> items)
         {
