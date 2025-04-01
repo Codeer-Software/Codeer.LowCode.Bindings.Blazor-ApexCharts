@@ -46,6 +46,8 @@
       "SeriesFractionDigits": 0,
       "ShowLegend": true,
       "Name": "ApexChart",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -84,6 +86,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart1",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -127,6 +131,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart2",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -169,6 +175,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart3",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -178,6 +186,8 @@
       "RelativeField": "",
       "OnClick": "",
       "Name": "Label",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
@@ -200,6 +210,8 @@
       "SeriesFractionDigits": 0,
       "ShowLegend": true,
       "Name": "ApexChart11",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign"
     },
     {
@@ -243,6 +255,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart111",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -265,6 +279,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart112",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign"
     },
     {
@@ -287,6 +303,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart113",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign"
     },
     {
@@ -314,6 +332,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart114",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -341,6 +361,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart115",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -368,6 +390,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart116",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -395,6 +419,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart117",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -422,6 +448,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart118",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -470,6 +498,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart4",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -518,6 +548,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart41",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
@@ -551,6 +583,8 @@
       "SeriesFractionDigits": 2,
       "ShowLegend": true,
       "Name": "ApexChart5",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     }
   ],
@@ -571,6 +605,9 @@
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "DetailLayoutDesign_OnAfterInitialization",
       "DataOnlyFields": [],
+      "ClassName": "",
+      "Color": "",
+      "BackgroundColor": "",
       "Layout": {
         "Name": "",
         "Padding": {},
@@ -580,11 +617,14 @@
         "IsExpandable": false,
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -611,6 +651,7 @@
             "Height": 388,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -637,6 +678,7 @@
             "Height": 500,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -662,6 +704,7 @@
             "Height": 388,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -686,6 +729,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -725,6 +769,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -764,6 +809,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -803,6 +849,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -842,6 +889,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -881,6 +929,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -920,6 +969,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -989,11 +1039,14 @@
         "IsExpandable": true,
         "ExpanderLabel": "検索条件",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -1058,6 +1111,8 @@
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
     "Name": "",
+    "ClassName": "",
+    "ContextMenu": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   }
 }
