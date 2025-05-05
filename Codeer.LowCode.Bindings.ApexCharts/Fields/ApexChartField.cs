@@ -104,7 +104,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                 {
                     Options.PlotOptions ??= new PlotOptions();
                     Options.PlotOptions.Bar ??= new PlotOptionsBar();
-                    Options.PlotOptions.Bar.ColumnWidth = "101%";
+                    Options.PlotOptions.Bar.ColumnWidth = "100%";
                 }
 
                 Options.Grid ??= new Grid();
