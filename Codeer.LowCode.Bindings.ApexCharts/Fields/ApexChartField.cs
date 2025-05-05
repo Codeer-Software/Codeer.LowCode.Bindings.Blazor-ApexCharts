@@ -15,6 +15,9 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 {
     public class ApexChartField : FieldBase<ApexChartFieldDesignBase>, ISearchResultsViewField
     {
+        //memo
+        //Apex._chartInstances[0].chart.w.globals.gridWidth
+
         private static readonly string[] DefaultTheme = ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"];
 
         private List<SeriesData> _data = [];
