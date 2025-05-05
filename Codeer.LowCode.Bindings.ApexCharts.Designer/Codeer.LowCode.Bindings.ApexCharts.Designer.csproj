@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.11.0</Version>
+    <Version>0.16.0</Version>
     <Description>You can use Blazor-ApexCharts with Codeer.LowCode.Blazor.</Description>
     <PackageProjectUrl>https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts</RepositoryUrl>
