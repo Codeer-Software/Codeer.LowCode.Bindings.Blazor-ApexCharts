@@ -170,16 +170,9 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             SetSeriesData(await this.GetChildModulesAsync(GetSearchCondition(), ModuleLayoutType.None));
         }
 
-        public void AddAnnotation(string name, AnnotationAxis axis, object value, string color, string? label, bool isDashed)
+        public void AddAnnotation(string name, ChartAnnotation annotation)
         {
-            _annotations[name] = new ChartAnnotation
-            {
-                Axis = axis,
-                Value = value,
-                Color = color,
-                Label = label,
-                IsDashed = isDashed,
-            };
+            _annotations[name] = annotation;
             ApplyAnnotations();
         }
 

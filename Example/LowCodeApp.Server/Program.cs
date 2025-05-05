@@ -8,11 +8,9 @@ using PdfSharp.Fonts;
 using System.Globalization;
 using System.Text.Json.Serialization;
 using ApexCharts;
-using Codeer.LowCode.Bindings.ApexCharts.Designs;
+using Codeer.LowCode.Bindings.ApexCharts;
 
-//load dll.
-typeof(ApexChartFieldDesign).ToString();
-typeof(SeriesType).ToString();
+ApexChartsServerInitializer.Initialize();
 
 var builder = WebApplication.CreateBuilder(args);
 

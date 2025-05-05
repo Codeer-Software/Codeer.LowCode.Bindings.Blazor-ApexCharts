@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="Codeer.LowCode.Blazor" Version="1.1.37" />
+    <PackageReference Include="Codeer.LowCode.Blazor.Designer" Version="1.1.37" />
   </ItemGroup>
 
   <ItemGroup>
