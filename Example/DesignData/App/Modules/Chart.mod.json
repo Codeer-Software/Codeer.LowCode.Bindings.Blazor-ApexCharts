@@ -660,8 +660,8 @@
                   "FieldName": "ApexChart5",
                   "FontFamily": "",
                   "FontSize": 20,
-                  "Color": "",
-                  "BackgroundColor": "",
+                  "Color": "#ff0000",
+                  "BackgroundColor": "#000000",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
