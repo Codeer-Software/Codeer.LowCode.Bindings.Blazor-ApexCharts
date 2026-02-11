@@ -95,7 +95,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             Options.Chart ??= new Chart();
             Options.Chart.Height = "100%";
 
-            var color = Color.Or(this.GetFontAppearance()?.Color) ?? "";
+            //var color = Color.Or(this.GetFontAppearance()?.Color) ?? "";
+
+            //TODO
+            var color = Color;
+
             if (!string.IsNullOrEmpty(color)) Options.Chart.ForeColor = color;
 
             var backgroundColor = BackgroundColor.Or(this.GetBackgroundColor()) ?? "";
@@ -322,6 +326,8 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
     {
         internal static string? Or(this string? that, string? then) => string.IsNullOrEmpty(that) ? then : that;
 
+        //TODO
+        /*
         internal static IFontAppearance? GetFontAppearance(this FieldBase field)
         {
             switch (field.ModuleLayoutType)
@@ -345,7 +351,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                     return null;
             }
         }
-
+        */
         internal static string? GetBackgroundColor(this FieldBase field)
         {
             switch (field.ModuleLayoutType)
