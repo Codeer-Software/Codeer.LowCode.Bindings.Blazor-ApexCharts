@@ -14,27 +14,36 @@
       {
         "Title": "Chart",
         "Icon": "",
+        "IconType": "Font",
+        "HideTitle": false,
         "ModulePageType": "Auto",
+        "ModuleUrlSegment": "",
+        "ActiveModuleSegments": [],
         "PageFrame": "",
         "Module": "Chart",
         "Id": "",
         "Parameters": "",
         "ListPageDesign": {
           "SearchLayoutName": "",
+          "UserUrlParameter": true,
           "PageTitle": "",
+          "HeaderTitle": "",
           "CanBulkDataUpdate": false,
           "CanBulkDataDownload": false,
           "UseSubmitButton": false,
+          "UseNavigateToCreate": true,
           "ListFieldDesign": {
             "LayoutName": "",
             "CanNavigateToDetail": true,
-            "IsStriped": false,
+            "NavigateModuleUrlSegment": "",
+            "CanCustomizeColumns": false,
             "DisplayName": "",
             "SearchCondition": {
               "LimitCount": 50,
+              "SelectFields": [],
+              "SortConditions": [],
               "SortFieldVariable": "",
               "SortDescending": false,
-              "SelectFields": [],
               "ModuleName": ""
             },
             "PagerPosition": "Bottom",
@@ -42,48 +51,58 @@
             "DeleteTogether": false,
             "CanCreate": false,
             "CanUpdate": false,
-            "CanDelete": false,
+            "CanDelete": true,
             "CanUserSort": true,
             "CanSelect": false,
             "OnDataChanged": "",
             "OnSearchDataChanged": "",
             "OnSelectedIndexChanged": "",
             "OnSelectedIndexChanging": "",
+            "OnDoubleClickRow": "",
             "Name": "",
-            "ClassName": "",
-            "ContextMenu": "",
+            "IgnoreModification": false,
             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
           }
         },
         "DetailPageDesign": {
           "PageTitle": "",
-          "LayoutName": ""
+          "LayoutName": "",
+          "UrlParameter": ""
         }
       },
       {
         "Title": "ChartData",
         "Icon": "",
+        "IconType": "Font",
+        "HideTitle": false,
         "ModulePageType": "Auto",
+        "ModuleUrlSegment": "",
+        "ActiveModuleSegments": [],
         "PageFrame": "",
         "Module": "ChartData",
         "Id": "",
         "Parameters": "",
         "ListPageDesign": {
           "SearchLayoutName": "",
+          "UserUrlParameter": true,
           "PageTitle": "",
+          "HeaderTitle": "",
           "CanBulkDataUpdate": true,
           "CanBulkDataDownload": true,
           "UseSubmitButton": false,
+          "UseNavigateToCreate": true,
           "ListFieldDesign": {
             "LayoutName": "",
             "CanNavigateToDetail": true,
-            "IsStriped": false,
+            "NavigateModuleUrlSegment": "",
+            "CanCustomizeColumns": false,
             "DisplayName": "",
             "SearchCondition": {
               "LimitCount": 50,
+              "SelectFields": [],
+              "SortConditions": [],
               "SortFieldVariable": "",
               "SortDescending": false,
-              "SelectFields": [],
               "ModuleName": ""
             },
             "PagerPosition": "Bottom",
@@ -91,22 +110,23 @@
             "DeleteTogether": false,
             "CanCreate": false,
             "CanUpdate": false,
-            "CanDelete": false,
+            "CanDelete": true,
             "CanUserSort": true,
             "CanSelect": false,
             "OnDataChanged": "",
             "OnSearchDataChanged": "",
             "OnSelectedIndexChanged": "",
             "OnSelectedIndexChanging": "",
+            "OnDoubleClickRow": "",
             "Name": "",
-            "ClassName": "",
-            "ContextMenu": "",
+            "IgnoreModification": false,
             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
           }
         },
         "DetailPageDesign": {
           "PageTitle": "",
-          "LayoutName": ""
+          "LayoutName": "",
+          "UrlParameter": ""
         }
       }
     ],
@@ -166,26 +186,33 @@
   "OtherPageModuleDesigns": [],
   "TopPageModuleDesign": {
     "ModulePageType": "Auto",
+    "ModuleUrlSegment": "",
+    "ActiveModuleSegments": [],
     "PageFrame": "",
     "Module": "Chart",
     "Id": "",
     "Parameters": "",
     "ListPageDesign": {
       "SearchLayoutName": "",
+      "UserUrlParameter": true,
       "PageTitle": "",
+      "HeaderTitle": "",
       "CanBulkDataUpdate": false,
       "CanBulkDataDownload": false,
       "UseSubmitButton": false,
+      "UseNavigateToCreate": true,
       "ListFieldDesign": {
         "LayoutName": "",
         "CanNavigateToDetail": true,
-        "IsStriped": false,
+        "NavigateModuleUrlSegment": "",
+        "CanCustomizeColumns": false,
         "DisplayName": "",
         "SearchCondition": {
           "LimitCount": 50,
+          "SelectFields": [],
+          "SortConditions": [],
           "SortFieldVariable": "",
           "SortDescending": false,
-          "SelectFields": [],
           "ModuleName": ""
         },
         "PagerPosition": "Bottom",
@@ -193,22 +220,23 @@
         "DeleteTogether": false,
         "CanCreate": false,
         "CanUpdate": false,
-        "CanDelete": false,
+        "CanDelete": true,
         "CanUserSort": true,
         "CanSelect": false,
         "OnDataChanged": "",
         "OnSearchDataChanged": "",
         "OnSelectedIndexChanged": "",
         "OnSelectedIndexChanging": "",
+        "OnDoubleClickRow": "",
         "Name": "",
-        "ClassName": "",
-        "ContextMenu": "",
+        "IgnoreModification": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
       }
     },
     "DetailPageDesign": {
       "PageTitle": "",
-      "LayoutName": ""
+      "LayoutName": "",
+      "UrlParameter": ""
     }
   },
   "TopPageModule": "Chart",

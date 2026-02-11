@@ -9,11 +9,12 @@
   "Versions": [
     {
       "AssemblyName": "Codeer.LowCode.Bindings.ApexCharts",
-      "Version": "0.14.0.0"
+      "Version": "0.16.0.0"
     },
     {
       "AssemblyName": "Codeer.LowCode.Blazor",
-      "Version": "1.2.2.0"
+      "Version": "1.2.46.0"
     }
-  ]
+  ],
+  "LocalizeResourcePath": ""
 }
