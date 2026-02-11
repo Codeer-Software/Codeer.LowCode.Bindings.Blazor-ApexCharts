@@ -1,8 +1,8 @@
-using Codeer.LowCode.Blazor.DesignLogic;
-using Codeer.LowCode.Blazor.Repository.Design;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using Codeer.LowCode.Blazor.DesignLogic;
+using Codeer.LowCode.Blazor.Repository.Design;
 
 namespace LowCodeApp.Designer.Lib.SeleniumPageObject
 {
@@ -42,6 +42,7 @@ namespace LowCodeApp.Designer.Lib.SeleniumPageObject
             {
                 UsingNamespaces =
                 {
+                    "Codeer.LowCode.Blazor.SeleniumDrivers",
                     "OpenQA.Selenium",
                     "Selenium.StandardControls",
                     "Selenium.StandardControls.PageObjectUtility",
@@ -381,6 +382,7 @@ namespace LowCodeApp.Designer.Lib.SeleniumPageObject
             {
                 UsingNamespaces =
                 {
+                    "Codeer.LowCode.Blazor.SeleniumDrivers",
                     "OpenQA.Selenium",
                     "Selenium.StandardControls",
                     "Selenium.StandardControls.PageObjectUtility",

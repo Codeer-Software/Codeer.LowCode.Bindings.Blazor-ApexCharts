@@ -1,6 +1,5 @@
 using Codeer.LowCode.Blazor.RequestInterfaces;
 using LowCodeApp.Client;
-using LowCodeApp.Client.Shared;
 using LowCodeApp.Client.Shared.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
-builder.RootComponents.Add<AfterBodyOutlet>("body::after");
 
 builder.Services.AddSharedServices();
 builder.Services.AddScoped<INavigationService, NavigationService>();

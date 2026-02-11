@@ -1,8 +1,8 @@
+using System.Text;
 using Codeer.LowCode.Blazor.Json;
 using Codeer.LowCode.Blazor.RequestInterfaces;
 using Codeer.LowCode.Blazor.Script;
 using LowCodeApp.Client.Shared.Services;
-using System.Text;
 
 namespace LowCodeApp.Client.Shared.ScriptObjects
 {

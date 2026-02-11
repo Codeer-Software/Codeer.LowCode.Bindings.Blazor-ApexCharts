@@ -1,15 +1,19 @@
+using Codeer.LowCode.Bindings.ApexCharts;
 using Codeer.LowCode.Blazor.Json;
 using Codeer.LowCode.Blazor.License;
 using Codeer.LowCode.Blazor.SystemSettings;
+using LowCodeApp.Client.Shared.Samples.ColorPicker;
 using LowCodeApp.Server.Services;
+using LowCodeApp.Server.Services.AI;
 using LowCodeApp.Server.Services.DataChangeHistory;
 using LowCodeApp.Server.Services.FileManagement;
+using Microsoft.AspNetCore.Localization;
 using PdfSharp.Fonts;
 using System.Globalization;
 using System.Text.Json.Serialization;
-using ApexCharts;
-using Codeer.LowCode.Bindings.ApexCharts;
 
+//load dll.
+typeof(ColorPickerField).ToString(); 
 ApexChartsServerInitializer.Initialize();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +23,7 @@ GlobalFontSettings.FontResolver = new CustomFontResolver();
 LicenseManager.DomainLicense = builder.Configuration.GetSection("DomainLicense").Get<string>() ?? string.Empty;
 LicenseManager.IsAutoUpdate = builder.Configuration.GetSection("IsLicenseAutoUpdate").Get<bool>();
 SystemConfig.Instance.UseHotReload = builder.Configuration.GetSection("UseHotReload").Get<bool>();
+SystemConfig.Instance.CanScriptDebug = builder.Configuration.GetSection("CanScriptDebug").Get<bool>();
 SystemConfig.Instance.DataSources = builder.Configuration.GetSection("DataSources").Get<DataSource[]>() ?? [];
 SystemConfig.Instance.FileStorages = builder.Configuration.GetSection("FileStorages").Get<FileStorage[]>() ?? [];
 SystemConfig.Instance.DataChangeHistoryTableInfo = builder.Configuration.GetSection("DataChangeHistoryTableInfo").Get<DataChangeHistoryTableInfo[]>() ?? [];
@@ -26,12 +31,12 @@ SystemConfig.Instance.TemporaryFileTableInfo = builder.Configuration.GetSection(
 SystemConfig.Instance.DesignFileDirectory = builder.Configuration["DesignFileDirectory"] ?? string.Empty;
 SystemConfig.Instance.FontFileDirectory = builder.Configuration["FontFileDirectory"] ?? string.Empty;
 SystemConfig.Instance.MailSettings = builder.Configuration.GetSection("MailSettings").Get<MailSettings>() ?? new();
+SystemConfig.Instance.AISettings = builder.Configuration.GetSection("AISettings").Get<AISettings>() ?? new();
 SystemConfig.Instance.DataSources.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
 SystemConfig.Instance.FileStorages.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddApexCharts();
 
 builder.Services.AddControllers()
       .AddJsonOptions(options =>
@@ -54,9 +59,23 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     {
         new CultureInfo("ja-JP")
     };
+    //set neutral as default
+    options.DefaultRequestCulture = new RequestCulture(string.Empty);
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
+
+    options.RequestCultureProviders.Add(new CustomRequestCultureProvider(async context =>
+    {
+        //localization by the request header
+        var userLanguages = context.Request.Headers["Accept-Language"].ToString();
+        var firstLanguage = userLanguages.Split(',').FirstOrDefault();
+        if (firstLanguage == "ja") firstLanguage = "ja-JP";
+
+        return await Task.FromResult(new ProviderCultureResult(firstLanguage));
+    }));
 });
+
+builder.Services.AddScoped<DataService>();
 
 var app = builder.Build();
 

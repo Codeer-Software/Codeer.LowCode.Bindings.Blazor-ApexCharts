@@ -22,6 +22,10 @@ a, .btn-link {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+button.image-button.focus-visual:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
 .content {
     padding-top: 1.1rem;
 }
@@ -104,15 +108,16 @@ a, .btn-link {
   padding: 0.5rem 1rem;
 }
 
-/*change anotation line style*/
-/*
-.apexcharts-xaxis-annotations line {
-    stroke-width: 10px;
-    stroke-dasharray: 0;
+.app-init-note {
+  color: #1B6EFF;
+  margin-top: 10px;
+  text-align: center;
+  font-size: .9rem;
+  line-height: 1.2;
+  animation: fadePulse 1.6s ease-in-out infinite;
 }
-
-.apexcharts-yaxis-annotations line {
-    stroke-width: 10px;
-    stroke-dasharray: 0;
+@keyframes fadePulse {
+  0%   { opacity: .45; }
+  50%  { opacity: 1; }
+  100% { opacity: .45; }
 }
-*/

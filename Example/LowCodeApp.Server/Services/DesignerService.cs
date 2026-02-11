@@ -1,12 +1,12 @@
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.DesignLogic.Transfer;
-using Codeer.LowCode.Blazor.Json;
 using Codeer.LowCode.Blazor.Repository.Data;
 using LowCodeApp.Client.Shared.Services;
+using LowCodeApp.Server.Shared;
 
 namespace LowCodeApp.Server.Services
 {
-    static class DesignerService
+    internal static class DesignerService
     {
         static object _sync = new();
         static DesignData _designData = new();
@@ -18,6 +18,7 @@ namespace LowCodeApp.Server.Services
             {
                 var designData = DesignDataFileManager.GetDesignData(SystemConfig.Instance.DesignFileDirectory, _designData);
                 if (ReferenceEquals(_designData, designData)) return _designData;
+                DbAccessor.ClearTableDefinitionCache();
                 _designData = designData;
                 _transferData = _designData.CreateTransferDesignData();
                 return _designData;

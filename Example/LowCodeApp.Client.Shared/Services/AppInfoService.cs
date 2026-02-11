@@ -1,5 +1,5 @@
 using Codeer.LowCode.Bindings.ApexCharts;
-using Codeer.LowCode.Bindings.ApexCharts.Models;
+using Codeer.LowCode.Blazor.Components.AppParts.Loading;
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.DesignLogic.Transfer;
 using Codeer.LowCode.Blazor.Repository;
@@ -14,34 +14,48 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 namespace LowCodeApp.Client.Shared.Services
 {
-    public class AppInfoService : IAppInfoService
+    public interface IAppInfoServiceExtension : IAppInfoService
+    {
+        Guid Guid { get; set; }
+        event EventHandler OnHotReload;
+        Task InitializeAppAsync();
+        void SetCurrentUserId(string id);
+    }
+
+    public class AppInfoService : IAppInfoServiceExtension
     {
         readonly NavigationManager _navigationManager;
         readonly HttpService _http;
         readonly ScriptRuntimeTypeManager _scriptRuntimeTypeManager = new();
         readonly ToasterEx _toaster;
+        readonly LoadingService _loadingService;
         HubConnection? _hubConnection;
-        bool? _useHotReload;
         DesignData? _design;
         DateTime _lastHotReload = DateTime.Now;
+        SystemConfigForFront? _config;
+        LocalizeService? _localizeService;
 
         public ModuleData? CurrentUserData { get; private set; }
 
-        public string CurrentUserId { get; set; } = string.Empty;
+        public string CurrentUserId { get; private set; } = string.Empty;
 
         public Guid Guid { get; set; } = Guid.NewGuid();
 
         public event EventHandler OnHotReload = delegate { };
 
-        public bool IsDesignMode => false;
-
         public DesignData GetDesignData() => _design ?? new();
 
-        public AppInfoService(HttpService http, NavigationManager navigationManager, ILogger logger, ToasterEx toaster)
+        public bool CanScriptDebug => _config?.CanScriptDebug == true;
+
+        public string Localize(string text)
+            => _localizeService?.Localize(text) ?? text;
+
+        public AppInfoService(HttpService http, LoadingService loadingService, NavigationManager navigationManager, ILogger logger, ToasterEx toaster)
         {
             _http = http;
             _navigationManager = navigationManager;
             _toaster = toaster;
+            _loadingService = loadingService;
             _scriptRuntimeTypeManager.AddCustomInjector(() => http);
             _scriptRuntimeTypeManager.AddType(typeof(ScriptObjects.Excel));
             _scriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
@@ -49,23 +63,35 @@ namespace LowCodeApp.Client.Shared.Services
             _scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
             _scriptRuntimeTypeManager.AddService(new Toaster(toaster));
             _scriptRuntimeTypeManager.AddService(new MailService());
+            _scriptRuntimeTypeManager.AddService(loadingService);
+            _scriptRuntimeTypeManager.AddType<LoadingService.LoadingScope>();
+            _scriptRuntimeTypeManager.UseDesignCache();
             ApexChartsClientInitializer.Initialize(this);
         }
+        public void SetCurrentUserId(string id) => CurrentUserId = id;
 
         public async Task InitializeAppAsync()
         {
+            using var scope = _loadingService.StartLoading(int.MaxValue);
+
             await InitializeHotReloadAsync();
             if (_design != null) return;
 
-            _design = DesignDataTransferLogic.ToDesignData(await _http.GetFromStreamAsync($"/api/module_data/design"));
+            using var designDataStream = await _http.GetFromStreamAsync($"/api/module_data/design");
+            _design = DesignDataTransferLogic.ToDesignData(designDataStream);
+            _localizeService = await this.CreateLocalizeService();
+
             var currentUserModule = _design.Modules.Find(_design.AppSettings.CurrentUserModuleDesignName);
             if (currentUserModule == null || string.IsNullOrEmpty(CurrentUserId)) return;
-            CurrentUserData = (await _http.PostAsJsonAsync<SearchCondition, Paging<ModuleData>>($"/api/module_data/list",
-                new()
+            var currentUserRequest = new GetListRequest
+            {
+                Condition = new()
                 {
                     ModuleName = currentUserModule.Name,
                     Condition = new FieldValueMatchCondition { SearchTargetVariable = "Id.Value", Comparison = MatchComparison.Equal, Value = MultiTypeValue.Create(CurrentUserId) }
-                }))?.Items.FirstOrDefault();
+                }
+            };
+            CurrentUserData = (await ModuleDataService.GetListAsync(_http, [currentUserRequest]))?.FirstOrDefault()?.Items.FirstOrDefault();
         }
 
         public ScriptRuntimeTypeManager GetScriptRuntimeTypeManager()
@@ -73,19 +99,28 @@ namespace LowCodeApp.Client.Shared.Services
 
         public async Task<MemoryStream?> GetResourceAsync(string resourcePath)
         {
-            var result = await _http.GetAsync($"/api/module_data/resource?resource={resourcePath}");
+            var result = await _http.GetAsync($"/api/module_data/resource?resource={resourcePath}", false);
             if (result == null) return null;
             return (MemoryStream)await result.Content.ReadAsStreamAsync();
         }
 
+        public void ClearDesignData()
+        {
+            _toaster.Clear();
+            Guid = Guid.NewGuid();
+            _design = null;
+            CurrentUserData = null;
+            _scriptRuntimeTypeManager.ClearDesignCache();
+        }
+
         async Task InitializeHotReloadAsync()
         {
-            if (_useHotReload == null)
+            if (_config == null)
             {
-                _useHotReload = (await _http.GetFromJsonAsync<ValueWrapper<bool>>($"/api/module_data/use_hot_reload"))?.Value;
+                _config = await _http.GetFromJsonAsync<SystemConfigForFront>($"/api/module_data/config");
             }
 
-            if (_useHotReload == true && _hubConnection == null)
+            if (_config?.UseHotReload == true && _hubConnection == null)
             {
                 _hubConnection = new HubConnectionBuilder()
                     .WithUrl(_navigationManager.ToAbsoluteUri("/hot_reload_hub"))
@@ -99,20 +134,12 @@ namespace LowCodeApp.Client.Shared.Services
 
                     _lastHotReload = now;
 
-                    ClearByHotReload();
+                    ClearDesignData();
                     await InitializeAppAsync();
                     OnHotReload?.Invoke(this, EventArgs.Empty);
                 });
                 await _hubConnection.StartAsync();
             }
-        }
-
-        void ClearByHotReload()
-        {
-            _toaster.Clear();
-            Guid = Guid.NewGuid();
-            _design = null;
-            CurrentUserData = null;
         }
     }
 }

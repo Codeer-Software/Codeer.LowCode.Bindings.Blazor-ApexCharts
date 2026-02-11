@@ -1,9 +1,9 @@
+using System.Globalization;
 using Codeer.LowCode.Blazor.Components.AppParts.Loading;
-using Codeer.LowCode.Blazor.Components.Dialog;
 using Codeer.LowCode.Blazor.RequestInterfaces;
+using LowCodeApp.Client.Shared.AITextAnalyzer;
 using Microsoft.Extensions.DependencyInjection;
 using Sotsera.Blazor.Toaster.Core.Models;
-using System.Globalization;
 
 namespace LowCodeApp.Client.Shared.Services
 {
@@ -16,11 +16,7 @@ namespace LowCodeApp.Client.Shared.Services
             services.AddScoped<IUIService, UIService>();
             services.AddScoped<Codeer.LowCode.Blazor.RequestInterfaces.Services>();
             services.AddScoped<ILogger, Logger>();
-            services.AddSingleton<ModuleDialogService>();
-            services.AddSingleton<ModulePanelService>();
-            services.AddSingleton<MessageBoxService>();
             services.AddSingleton<LoadingService>();
-            services.AddSingleton<ContextMenuService>();
             services.AddToaster(config =>
             {
                 config.PositionClass = Defaults.Classes.Position.BottomRight;
@@ -31,6 +27,7 @@ namespace LowCodeApp.Client.Shared.Services
             });
             services.AddScoped<ToasterEx>();
             services.AddScoped<HttpService>();
+            services.AddScoped<IAITextAnalyzerCore, AITextAnalyzerCore>();
 
             var cultureName = CultureInfo.CurrentCulture.Name;
             if (cultureName == "ja") cultureName = "ja-JP";

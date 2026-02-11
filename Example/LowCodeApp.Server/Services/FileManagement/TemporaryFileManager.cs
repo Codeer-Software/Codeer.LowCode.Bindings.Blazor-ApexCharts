@@ -10,7 +10,13 @@ namespace LowCodeApp.Server.Services.FileManagement
         readonly IDbAccessor _dbAccessor;
         readonly TemporaryFileTableInfo[] _temporaryFilesManagements;
 
-        static string Blanket(string x) => $"\"{x}\"";
+        private class SqlParts
+        {
+            DataSourceType _type;
+            public SqlParts(DataSourceType type) => _type = type;
+            public string Blanket(string x) => _type == DataSourceType.SQLServer ? $"[{x}]" :
+                                                _type == DataSourceType.MySQL ? $"`{x}`" : $"\"{x}\"";
+        }
 
         public TemporaryFileManager(IDbAccessor db, TemporaryFileTableInfo[] temporaryFilesManagements)
         {
@@ -22,6 +28,7 @@ namespace LowCodeApp.Server.Services.FileManagement
         {
             var dataSource = _dbAccessor.GetDataSource(dataSourceName);
             if (dataSource == null) return;
+            var parts = new SqlParts(dataSource.DataSourceType);
             var parameterPrefix = dataSource.DataSourceType == DataSourceType.Oracle ? ":p" : "@p";
 
             var dateTime = DateTime.UtcNow;
@@ -32,7 +39,7 @@ namespace LowCodeApp.Server.Services.FileManagement
             //Make it a temporary file and wait for it to be deleted
             var p1 = parameterPrefix + 1;
             var p2 = parameterPrefix + 2;
-            var sql = $"insert into {Blanket(mgr.Table)}({Blanket(mgr.GuidColumn)},{Blanket(mgr.CreatedDateTimeColumn)}) values({p1}, {p2})";
+            var sql = $"insert into {parts.Blanket(mgr.Table)}({parts.Blanket(mgr.GuidColumn)},{parts.Blanket(mgr.CreatedDateTimeColumn)}) values({p1}, {p2})";
             await _dbAccessor.ExecuteAsync(dataSourceName, sql, new Dictionary<string, object?> { { p1, guid }, { p2, dateTime } });
         }
 
@@ -40,12 +47,13 @@ namespace LowCodeApp.Server.Services.FileManagement
         {
             var dataSource = _dbAccessor.GetDataSource(dataSourceName);
             if (dataSource == null) return;
+            var parts = new SqlParts(dataSource.DataSourceType);
             var parameterPrefix = dataSource.DataSourceType == DataSourceType.Oracle ? ":p" : "@p";
 
             var mgr = _temporaryFilesManagements.FirstOrDefault(e => e.DataSourceName == dataSourceName);
             if (mgr == null) throw LowCodeException.Create($"{dataSourceName} No file management settings");
             var p1 = parameterPrefix + 1;
-            var sql = $"delete from {Blanket(mgr.Table)} where {Blanket(mgr.GuidColumn)}={p1}";
+            var sql = $"delete from {parts.Blanket(mgr.Table)} where {parts.Blanket(mgr.GuidColumn)}={p1}";
             await _dbAccessor.ExecuteAsync(dataSourceName, sql, new Dictionary<string, object?> { { p1, guid } });
         }
 
@@ -70,7 +78,8 @@ namespace LowCodeApp.Server.Services.FileManagement
 
         async Task DeleteTmpFiles(string dataSourceName, string storageName)
         {
-            var oldFiles = await GetOldTemporaryFiles(dataSourceName);
+            //You can delete up to 10 items at a time.
+            var oldFiles = (await GetOldTemporaryFiles(dataSourceName)).Take(10).ToArray();
             await StorageAccess.DeleteFiles(storageName, oldFiles);
             await RemoveTmpFiles(dataSourceName, oldFiles);
         }
@@ -85,6 +94,7 @@ namespace LowCodeApp.Server.Services.FileManagement
         {
             var dataSource = _dbAccessor.GetDataSource(dataSourceName);
             if (dataSource == null) return [];
+            var parts = new SqlParts(dataSource.DataSourceType);
             var parameterPrefix = dataSource.DataSourceType == DataSourceType.Oracle ? ":p" : "@p";
 
             var mgr = _temporaryFilesManagements.FirstOrDefault(e => e.DataSourceName == dataSourceName);
@@ -94,11 +104,11 @@ namespace LowCodeApp.Server.Services.FileManagement
             old = new DateTime(old.Year, old.Month, old.Day, old.Hour, old.Minute, old.Second, old.Millisecond);
 
             var p1 = parameterPrefix + 1;
-            var sql = $"select {Blanket(mgr.GuidColumn)} from {Blanket(mgr.Table)} where {Blanket(mgr.CreatedDateTimeColumn)} < {p1}";
+            var sql = $"select {parts.Blanket(mgr.GuidColumn)} from {parts.Blanket(mgr.Table)} where {parts.Blanket(mgr.CreatedDateTimeColumn)} < {p1}";
             var list = new List<Guid>();
             foreach (var e in await _dbAccessor.QueryAsync(dataSourceName, sql, new() { { p1, new ParamAndRawDbTypeName { Value = old } } }))
             {
-                list.Add((Guid)e[mgr.GuidColumn]);
+                if (Guid.TryParse(e[mgr.GuidColumn].ToString(), out var guid)) list.Add(guid);
             }
             return list.ToArray();
         }
@@ -107,6 +117,7 @@ namespace LowCodeApp.Server.Services.FileManagement
         {
             var dataSource = _dbAccessor.GetDataSource(dataSourceName);
             if (dataSource == null) return;
+            var parts = new SqlParts(dataSource.DataSourceType);
             var parameterPrefix = dataSource.DataSourceType == DataSourceType.Oracle ? ":p" : "@p";
 
             if (!oldFiles.Any()) return;
@@ -115,7 +126,7 @@ namespace LowCodeApp.Server.Services.FileManagement
             if (mgr == null) throw LowCodeException.Create($"{dataSourceName} No file management settings");
 
             var dic = oldFiles.Select((e, i) => new { key = $"{parameterPrefix}{i}", value = e }).ToDictionary(e => e.key, e => (object?)e.value);
-            var sql = $"delete from {Blanket(mgr.Table)} where {Blanket(mgr.GuidColumn)} in({string.Join(",", dic.Keys)})";
+            var sql = $"delete from {parts.Blanket(mgr.Table)} where {parts.Blanket(mgr.GuidColumn)} in({string.Join(",", dic.Keys)})";
             await _dbAccessor.ExecuteAsync(dataSourceName, sql, dic);
         }
     }
