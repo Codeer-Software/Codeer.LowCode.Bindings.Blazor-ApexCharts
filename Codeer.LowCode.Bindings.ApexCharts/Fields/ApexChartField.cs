@@ -95,10 +95,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             Options.Chart ??= new Chart();
             Options.Chart.Height = "100%";
 
-            //var color = Color.Or(this.GetFontAppearance()?.Color) ?? "";
-
-            //TODO
-            var color = Color;
+            var color = Color.Or(this.GetFontAppearance()?.Color) ?? "";
 
             if (!string.IsNullOrEmpty(color)) Options.Chart.ForeColor = color;
 
@@ -326,32 +323,12 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
     {
         internal static string? Or(this string? that, string? then) => string.IsNullOrEmpty(that) ? then : that;
 
-        //TODO
-        /*
-        internal static IFontAppearance? GetFontAppearance(this FieldBase field)
+        internal static FieldLayoutDesign? GetFontAppearance(this FieldBase field)
         {
-            switch (field.ModuleLayoutType)
-            {
-                case ModuleLayoutType.List:
-                    {
-                        if (!field.Module.Design.ListLayouts.TryGetValue(field.LayoutName, out var layout)) return null;
-                        return layout.Elements.SelectMany(e => e).FirstOrDefault(e => e.FieldName == field.Design.Name);
-                    }
-                case ModuleLayoutType.Detail:
-                    {
-                        if (!field.Module.Design.DetailLayouts.TryGetValue(field.LayoutName, out var layout)) return null;
-                        return layout.Layout.GetDescendantFields().FirstOrDefault(e => e.FieldName == field.Design.Name);
-                    }
-                case ModuleLayoutType.Search:
-                    {
-                        if (!field.Module.Design.SearchLayouts.TryGetValue(field.LayoutName, out var layout)) return null;
-                        return layout.Layout.GetDescendantFields().FirstOrDefault(e => e.FieldName == field.Design.Name);
-                    }
-                default:
-                    return null;
-            }
+            if (!field.Module.Design.DetailLayouts.TryGetValue(field.LayoutName, out var layout)) return null;
+            return layout.Layout.GetDescendantFields().FirstOrDefault(e => e.FieldName == field.Design.Name);
         }
-        */
+
         internal static string? GetBackgroundColor(this FieldBase field)
         {
             switch (field.ModuleLayoutType)
