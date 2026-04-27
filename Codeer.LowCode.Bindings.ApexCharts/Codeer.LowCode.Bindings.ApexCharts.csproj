@@ -6,7 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>0.20.0</Version>
+		<Version>0.21.0</Version>
 		<Description>You can use Blazor-ApexCharts with Codeer.LowCode.Blazor.</Description>
 		<PackageProjectUrl>https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts</RepositoryUrl>
@@ -20,7 +20,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Blazor-ApexCharts" Version="6.0.0" />
-		<PackageReference Include="Codeer.LowCode.Blazor" Version="1.2.55" />
+		<PackageReference Include="Codeer.LowCode.Blazor" Version="1.2.58" />
 		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.8" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
