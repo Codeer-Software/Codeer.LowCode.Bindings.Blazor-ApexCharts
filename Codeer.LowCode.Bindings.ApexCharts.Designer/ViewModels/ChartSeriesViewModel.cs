@@ -12,10 +12,10 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.ViewModels
     public class ChartSeriesViewModel : INotifyPropertyChanged
     {
         private readonly DesignData _designData;
-        private readonly ApexChartFieldDesign _design;
+        private readonly ApexChartFieldDesignBase _design;
         private readonly ChartSeries _value;
 
-        public ChartSeriesViewModel(DesignData designData, ApexChartFieldDesign design, ChartSeries value)
+        public ChartSeriesViewModel(DesignData designData, ApexChartFieldDesignBase design, ChartSeries value)
         {
             _designData = designData;
             _design = design;
@@ -29,6 +29,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.ViewModels
         public ObservableCollection<SeriesViewModel> Series { get; } = [];
         public IEnumerable<string> NameCandidates => GetFields();
         public IEnumerable<string> TypeCandidates => GetSeriesTypes();
+        public bool IsTypeEditable => _design is not ApexHBarChartFieldDesign;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

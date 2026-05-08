@@ -57,6 +57,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.ViewModels
 
         public IEnumerable<string> NameCandidates => _viewModel.NameCandidates;
         public IEnumerable<string> TypeCandidates => _viewModel.TypeCandidates;
+        public bool IsTypeEditable => _viewModel.IsTypeEditable;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

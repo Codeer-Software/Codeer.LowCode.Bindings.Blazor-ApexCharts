@@ -74,24 +74,24 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             var colors = _series.Select((t, i) => string.IsNullOrEmpty(t.Color) ? DefaultTheme[i % 5] : t.Color).ToList();
 
             Options.Chart.Id = "a" + Guid.NewGuid().ToString().Replace("-", "");
-            if (Design is ApexChartFieldDesign)
+            if (Design is ApexChartFieldDesign or ApexHBarChartFieldDesign)
             {
                 Options.Colors = colors;
             }
 
             Options.Legend = new Legend { Position = Design.ShowLegend ? LegendPosition.Bottom : null };
-            Options.Yaxis =
-            [
-                new YAxis
-                {
-                    Labels = new YAxisLabels
-                    {
-                        Formatter = Design.SeriesType != SeriesType.Heatmap
-                            ? $"function(value) {{ return Number(value).toFixed({Math.Max(0, Design.SeriesFractionDigits)}); }}"
-                            : null
-                    },
-                }
-            ];
+            var formatter = Design.SeriesType != SeriesType.Heatmap
+                ? $"function(value) {{ return Number(value).toFixed({Math.Max(0, Design.SeriesFractionDigits)}); }}"
+                : null;
+            if (Design is ApexHBarChartFieldDesign)
+            {
+                Options.Xaxis = new XAxis { Labels = new XAxisLabels { Formatter = formatter } };
+                Options.Yaxis = [new YAxis()];
+            }
+            else
+            {
+                Options.Yaxis = [new YAxis { Labels = new YAxisLabels { Formatter = formatter } }];
+            }
             Options.Chart ??= new Chart();
             Options.Chart.Height = "100%";
 
@@ -121,6 +121,13 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                 Options.Grid.Yaxis.Lines.Show = chartDesign.ShowYAxisGrid;
             }
 
+            if (Design is ApexHBarChartFieldDesign)
+            {
+                Options.PlotOptions ??= new PlotOptions();
+                Options.PlotOptions.Bar ??= new PlotOptionsBar();
+                Options.PlotOptions.Bar.Horizontal = true;
+            }
+
             if (_series.Any(s => s.Type == SeriesType.Scatter))
             {
                 Options.Markers ??= new Markers();
@@ -143,6 +150,9 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                 ApexRadialChartFieldDesign radialDesign => radialDesign.SeriesField == null
                     ? []
                     : [new Series { Name = radialDesign.SeriesField, Type = radialDesign.SeriesType }],
+                ApexHBarChartFieldDesign hbarDesign => hbarDesign.Series.Series
+                    .Select(s => new Series { Name = s.Name, Color = s.Color, Type = SeriesType.Bar })
+                    .ToList(),
                 ApexChartFieldDesign chartDesign => chartDesign.Series.Series,
                 _ => []
             };
@@ -230,11 +240,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             new() { Name = "ChartB", Type = _series.ElementAtOrDefault(0)?.Type ?? SeriesType.Bar },
         ];
 
-        private List<SeriesData> GetDesignSeriesData() => Enumerable.Range(1, 10)
+        private List<SeriesData> GetDesignSeriesData() => Enumerable.Range(1, Design is ApexHBarChartFieldDesign ? 5 : 10)
             .Select(d => Tuple.Create(Math.Sqrt(d) * 3, Math.Cos(d * 9 / 57.2958) * 10))
             .Select((data, i) => new SeriesData
             {
-                XValue = i,
+                XValue = Design is ApexHBarChartFieldDesign ? (object)i.ToString() : i,
                 Data = new Dictionary<string, decimal?>
                         { { "ChartA", (decimal)data.Item1 }, { "ChartB", (decimal)data.Item2 } }
             }

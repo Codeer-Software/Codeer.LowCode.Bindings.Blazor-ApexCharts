@@ -27,7 +27,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.Controls
         {
             _value = (value as ChartSeries) ?? new();
             _completion = completion;
-            DataContext = _dataContext = new ChartSeriesViewModel(propertyItemInfo.DesignData, (ApexChartFieldDesign)propertyItemInfo.FieldDesign, _value);
+            DataContext = _dataContext = new ChartSeriesViewModel(propertyItemInfo.DesignData, (ApexChartFieldDesignBase)propertyItemInfo.FieldDesign, _value);
         }
 
         private void OkClick(object sender, RoutedEventArgs e)
