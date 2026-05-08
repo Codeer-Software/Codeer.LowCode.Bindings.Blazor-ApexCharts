@@ -46,7 +46,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.Controls
 
         private void AddItem(object sender, RoutedEventArgs e)
         {
-            _dataContext.Add(new Series());
+            _dataContext.Add();
         }
     }
 }

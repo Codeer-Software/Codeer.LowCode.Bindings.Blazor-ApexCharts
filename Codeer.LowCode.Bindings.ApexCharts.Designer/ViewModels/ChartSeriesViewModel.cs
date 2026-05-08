@@ -33,8 +33,13 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public void Add(Series model)
+        public void Add()
         {
+            var model = new Series();
+            if (_design is ApexHBarChartFieldDesign)
+            {
+                model.Type = SeriesType.Bar;
+            }
             Series.Add(new SeriesViewModel(this, model));
             _value.Series.Add(model);
         }
