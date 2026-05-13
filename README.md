@@ -38,7 +38,7 @@ ApexChartsServerInitializer.Initialize();
 `App.xaml.cs` に以下のコードを追加してください。
 
 ```csharp
-ApexChartsDesignerInitializer.Initialize();
+ApexChartsDesignerInitializer.Initialize(BlazorRuntime);
 ```
 
 ## 使用方法

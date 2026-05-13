@@ -36,7 +36,7 @@ namespace LowCodeApp.Designer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            ApexChartsDesignerInitializer.Initialize();
+            ApexChartsDesignerInitializer.Initialize(BlazorRuntime);
 
             AISettings.Instance.OpenAIEndPoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_ENDPOINT") ?? string.Empty;
             AISettings.Instance.OpenAIKey = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_KEY") ?? string.Empty;
