@@ -26,4 +26,12 @@
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
 	</ItemGroup>
 
+	<!-- フィールド型の AI 用ドキュメント。ApexChartsFieldDocProvider(IFieldDocProvider)が
+	     LogicalName "<アセンブリ名>.FieldDocs.<型名>.md" で読み出す。 -->
+	<ItemGroup>
+		<EmbeddedResource Include="FieldDocs\**\*.md">
+			<LogicalName>Codeer.LowCode.Bindings.ApexCharts.FieldDocs.%(Filename)%(Extension)</LogicalName>
+		</EmbeddedResource>
+	</ItemGroup>
+
 </Project>

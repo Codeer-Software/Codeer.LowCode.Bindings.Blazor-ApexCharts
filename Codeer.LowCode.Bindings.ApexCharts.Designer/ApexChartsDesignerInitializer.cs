@@ -26,6 +26,10 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer
             DesignerApp.ScriptRuntimeTypeManager.AddType<AnnotationAxis>();
             DesignerApp.ScriptRuntimeTypeManager.AddType<ChartAnnotation>();
             PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();
+
+            //AI 用フィールドドキュメントを登録(ライブラリ本体は Designer を参照しないため、ここで吸収する)。
+            foreach (var kv in ApexChartsFieldDocs.GetFieldDocs())
+                FieldCatalog.Add(kv.Key, kv.Value);
         }
     }
 }
