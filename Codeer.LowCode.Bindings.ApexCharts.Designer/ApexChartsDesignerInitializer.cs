@@ -27,9 +27,10 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer
             DesignerApp.ScriptRuntimeTypeManager.AddType<ChartAnnotation>();
             PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();
 
-            //AI 用フィールドドキュメントを登録(ライブラリ本体は Designer を参照しないため、ここで吸収する)。
-            foreach (var kv in ApexChartsFieldDocs.GetFieldDocs())
-                FieldCatalog.Add(kv.Key, kv.Value);
+            //AI 用フィールドドキュメント。.md は本体プロジェクトにあるが、WASM に配信しないため
+            //このアセンブリに埋め込まれている (リンク EmbeddedResource)。FieldCatalog が
+            //`.FieldDocs.<型名>.md` 規約で解決できるよう、探索先として登録する。
+            FieldCatalog.AddDocAssembly(typeof(ApexChartsDesignerInitializer).Assembly);
         }
     }
 }
