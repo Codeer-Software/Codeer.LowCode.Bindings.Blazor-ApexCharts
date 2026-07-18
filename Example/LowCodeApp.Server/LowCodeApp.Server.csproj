@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LowCodeApp.Server.Shared\LowCodeApp.Server.Shared.csproj" />
+    <PackageReference Include="Codeer.LowCode.Blazor.DbAccess" Version="0.1.0" />
     <ProjectReference Include="..\LowCodeApp.Client\LowCodeApp.Client.csproj" />
   </ItemGroup>
   <ItemGroup>
