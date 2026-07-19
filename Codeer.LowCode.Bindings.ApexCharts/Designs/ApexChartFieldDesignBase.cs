@@ -11,6 +11,7 @@ using Codeer.LowCode.Blazor.Repository.Match;
 
 namespace Codeer.LowCode.Bindings.ApexCharts.Designs
 {
+    [IgnoreBaseProperties(nameof(FieldDesignBase.IgnoreModification), nameof(FieldDesignBase.OnValidateInput))]
     public abstract class ApexChartFieldDesignBase(string fullName) : FieldDesignBase(fullName), IDisplayName, ISearchResultsViewFieldDesign
     {
         [Designer(Scope = DesignerScope.All)]
