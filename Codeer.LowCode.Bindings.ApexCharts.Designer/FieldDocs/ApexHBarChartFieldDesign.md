@@ -16,7 +16,7 @@
 
 ### プロパティ
 
-> 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。
+> 共通プロパティ（Name）は [_FieldCommon.md](_FieldCommon.md) を参照。
 
 ### ApexChartFieldDesignBase 共通プロパティ
 

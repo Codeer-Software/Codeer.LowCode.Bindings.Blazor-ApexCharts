@@ -16,7 +16,7 @@
 
 ### プロパティ
 
-> 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。
+> 共通プロパティ（Name）は [_FieldCommon.md](_FieldCommon.md) を参照。
 > ApexChartFieldDesignBase 共通プロパティ（SearchCondition, DisplayName, CategoryField, CategoryFormat, SeriesFractionDigits, ShowLegend）は [ApexChartField.md](ApexChartField.md) の「ApexChartFieldDesignBase 共通プロパティ」を参照。
 
 ### ApexRadialChartFieldDesign 固有プロパティ
