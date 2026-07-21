@@ -14,6 +14,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
+- Designer-side support for hiding unnecessary inherited properties.
 - AI documentation resources (field docs) are now embedded in this Designer-side assembly instead of the runtime assembly, keeping them out of the WebAssembly download.
     </PackageReleaseNotes>
     <PackageId>Codeer.LowCode.Bindings.Blazor-ApexCharts.Designer</PackageId>
