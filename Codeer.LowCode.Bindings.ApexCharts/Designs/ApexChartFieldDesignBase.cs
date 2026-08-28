@@ -1,6 +1,6 @@
-﻿using ApexCharts;
-using Codeer.LowCode.Bindings.ApexCharts.Components;
+﻿using Codeer.LowCode.Bindings.ApexCharts.Components;
 using Codeer.LowCode.Bindings.ApexCharts.Fields;
+using Codeer.LowCode.Bindings.ApexCharts.Models;
 using Codeer.LowCode.Blazor.DesignLogic.Check;
 using Codeer.LowCode.Blazor.DesignLogic.Refactor;
 using Codeer.LowCode.Blazor.DesignLogic;
@@ -14,23 +14,23 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
     [IgnoreBaseProperties(nameof(FieldDesignBase.IgnoreModification), nameof(FieldDesignBase.OnValidateInput))]
     public abstract class ApexChartFieldDesignBase(string fullName) : FieldDesignBase(fullName), IDisplayName, ISearchResultsViewFieldDesign
     {
-        [Designer(Scope = DesignerScope.All)]
+        [Designer(Scope = DesignerScope.All, DisplayName = "$SearchCondition")]
         public SearchCondition SearchCondition { get; set; } = new();
 
-        [Designer]
+        [Designer(DisplayName = "$DisplayName")]
         public string DisplayName { get; set; } = string.Empty;
 
-        [Designer(CandidateType = CandidateType.Field)]
+        [Designer(CandidateType = CandidateType.Field, DisplayName = "$CategoryField")]
         [ModuleMember(Member = $"{nameof(SearchCondition)}.{nameof(SearchCondition.ModuleName)}")]
         public string? CategoryField { get; set; }
 
-        [Designer]
+        [Designer(DisplayName = "$CategoryFormat")]
         public string? CategoryFormat { get; set; }
 
-        [Designer]
+        [Designer(DisplayName = "$SeriesFractionDigits")]
         public int SeriesFractionDigits { get; set; } = 2;
 
-        [Designer]
+        [Designer(DisplayName = "$ShowLegend")]
         public bool ShowLegend { get; set; } = true;
 
         public abstract SeriesType SeriesType { get; set; }

@@ -42,7 +42,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.ViewModels
             }
         }
 
-        public global::ApexCharts.SeriesType Type
+        public SeriesType Type
         {
             get => Model.Type;
             set

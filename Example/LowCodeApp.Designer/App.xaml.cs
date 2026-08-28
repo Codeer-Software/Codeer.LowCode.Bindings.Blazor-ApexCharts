@@ -87,7 +87,7 @@ namespace LowCodeApp.Designer
 
             if (!string.IsNullOrEmpty(AISettings.Instance.OpenAIKey))
             {
-                QuerySettingPropertyControl.CreateQueryChat = dataSource => new QueryChat(DesignerEnvironment, AISettings.Instance, dataSource);
+                DesignerEnvironment.CreateQueryChat = editor => new QueryChat(DesignerEnvironment, AISettings.Instance, editor);
                 DesignerEnvironment.AddMainMenu(CreateModulesByAI, "Tools", "Create Modules by AI");
                 DesignerEnvironment.AddSolutionExplorerMenu(e => CreateDBInformation(e, true), SolutionExplorerMenuTarget.Module, "Create DB Name (AI)", "All");
                 DesignerEnvironment.AddSolutionExplorerMenu(e => CreateDBInformation(e, false), SolutionExplorerMenuTarget.Module, "Create DB Name (AI)", "Empty Only");

@@ -6,22 +6,21 @@ using Codeer.LowCode.Blazor.Designer.Extensibility;
 using Codeer.LowCode.Blazor.Json;
 using Codeer.LowCode.Blazor.Repository.Design;
 using OpenAI.Chat;
-using static Codeer.LowCode.Blazor.Designer.Extra.QuerySettingPropertyControl;
 
 namespace LowCodeApp.Designer.Lib.AI
 {
-    internal class QueryChat : IQueryAIChat
+    internal class QueryChat : IAIChat
     {
         List<ChatMessage> _chatHistory = new();
         AzureOpenAIClient _azureClient;
         ChatClient _chatClient;
 
-        public event EventHandler<QueryAIChatEventArgs> DetermineSql = (_, __) => { };
+        readonly IQueryEditor _editor;
 
-        public string Module { get; set; } = string.Empty;
-
-        public QueryChat(DesignerEnvironment designerEnvironment, AISettings settings, string dataSourceName)
+        public QueryChat(DesignerEnvironment designerEnvironment, AISettings settings, IQueryEditor editor)
         {
+            _editor = editor;
+            var dataSourceName = editor.GetDataSourceName();
             _azureClient = new AzureOpenAIClient(
                 new Uri(settings.OpenAIEndPoint),
                 new ApiKeyCredential(settings.OpenAIKey));
@@ -123,7 +122,7 @@ SQLの解説も基本的には必要ありません。
 
             if (!string.IsNullOrEmpty(sql))
             {
-                DetermineSql(this, new QueryAIChatEventArgs { Sql = sql, Params = dbParams });
+                _editor.ApplySqlAndParameters(sql, dbParams);
                 return "作成しました、ご確認お願いします。";
             }
 

@@ -1,5 +1,4 @@
-﻿using ApexCharts;
-using Codeer.LowCode.Bindings.ApexCharts.Designs;
+﻿using Codeer.LowCode.Bindings.ApexCharts.Designs;
 
 namespace Codeer.LowCode.Bindings.ApexCharts
 {
@@ -9,7 +8,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts
         {
             //load dll.
             typeof(ApexChartFieldDesign).ToString();
-            typeof(SeriesType).ToString();
+            typeof(global::ApexCharts.SeriesType).ToString();
         }
     }
 }

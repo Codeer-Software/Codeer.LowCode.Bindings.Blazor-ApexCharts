@@ -1,5 +1,4 @@
-﻿using ApexCharts;
-using Codeer.LowCode.Bindings.ApexCharts.Models;
+﻿using Codeer.LowCode.Bindings.ApexCharts.Models;
 using Codeer.LowCode.Blazor.DesignLogic.Check;
 using Codeer.LowCode.Blazor.DesignLogic.Location;
 using Codeer.LowCode.Blazor.DesignLogic.Refactor;
@@ -7,20 +6,21 @@ using Codeer.LowCode.Blazor.Repository.Design;
 
 namespace Codeer.LowCode.Bindings.ApexCharts.Designs
 {
+    [Designer(DisplayName = "$ApexChartField")]
     public class ApexChartFieldDesign() : ApexChartFieldDesignBase(typeof(ApexChartFieldDesign).FullName!)
     {
         public override SeriesType SeriesType { get; set; } = SeriesType.Bar;
 
-        [Designer]
+        [Designer(DisplayName = "$Series")]
         public ChartSeries Series { get; set; } = new();
 
-        [Designer(Category = "ApexCharts - Bar")]
+        [Designer(Category = "$CategoryBar", DisplayName = "$FullWidthBar")]
         public bool FullWidthBar { get; set; }
 
-        [Designer(Category = "ApexCharts - Grid", DisplayName = "Show X-axis Grid")]
+        [Designer(Category = "$CategoryGrid", DisplayName = "$ShowXAxisGrid")]
         public bool ShowXAxisGrid { get; set; }
 
-        [Designer(Category = "ApexCharts - Grid", DisplayName = "Show Y-axis Grid")]
+        [Designer(Category = "$CategoryGrid", DisplayName = "$ShowYAxisGrid")]
         public bool ShowYAxisGrid { get; set; } = true;
 
         public override List<DesignCheckInfo> CheckDesign(DesignCheckContext context)

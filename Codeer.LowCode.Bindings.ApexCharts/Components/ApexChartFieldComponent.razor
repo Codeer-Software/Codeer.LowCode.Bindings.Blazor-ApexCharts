@@ -4,6 +4,7 @@
 @using Codeer.LowCode.Bindings.ApexCharts.Models
 @using Codeer.LowCode.Blazor.Repository.Design
 @using global::ApexCharts
+@using SeriesType = Codeer.LowCode.Bindings.ApexCharts.Models.SeriesType
 @inherits FieldComponentBase<Codeer.LowCode.Bindings.ApexCharts.Fields.ApexChartField>
 @inject Services Services
 
@@ -18,7 +19,7 @@
           <ApexPointSeries TItem="SeriesData"
                            Items="Field.SeriesData"
                            Name="@GetDisplayText(series.Name)"
-                           SeriesType="@series.Type"
+                           SeriesType="@series.Type.ToApexSeriesType()"
                            XValue="data => data.XValue"
                            YAggregate="data => data.Sum(y => y.Data[series.Name])"/>
           break;
@@ -26,7 +27,7 @@
           <ApexPointSeries TItem="SeriesData"
                            Items="Field.SeriesData"
                            Name="@GetDisplayText(series.Name)"
-                           SeriesType="@series.Type"
+                           SeriesType="@series.Type.ToApexSeriesType()"
                            XValue="data => data.XValue"
                            YValue="data => data.Data[series.Name]"/>
           break;
@@ -35,7 +36,7 @@
         case SeriesType.PolarArea:
           <ApexPointSeries TItem="SeriesData"
                            Items="Field.SeriesData"
-                           SeriesType="@series.Type"
+                           SeriesType="@series.Type.ToApexSeriesType()"
                            XValue="data => data.XValue"
                            YAggregate="@(data => data.Sum(y => y.Data[series.Name]))"/>
           break;

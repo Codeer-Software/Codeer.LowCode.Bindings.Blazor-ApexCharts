@@ -1,5 +1,4 @@
-﻿using ApexCharts;
-using Codeer.LowCode.Bindings.ApexCharts.Designer.Controls;
+﻿using Codeer.LowCode.Bindings.ApexCharts.Designer.Controls;
 using Codeer.LowCode.Bindings.ApexCharts.Designs;
 using Codeer.LowCode.Bindings.ApexCharts.Models;
 using Codeer.LowCode.Blazor.Designer;
@@ -22,7 +21,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer
         {
             //load dll.
             typeof(ApexChartFieldDesign).ToString();
-            typeof(SeriesType).ToString();
+            typeof(global::ApexCharts.SeriesType).ToString();
             DesignerApp.ScriptRuntimeTypeManager.AddType<AnnotationAxis>();
             DesignerApp.ScriptRuntimeTypeManager.AddType<ChartAnnotation>();
             PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();

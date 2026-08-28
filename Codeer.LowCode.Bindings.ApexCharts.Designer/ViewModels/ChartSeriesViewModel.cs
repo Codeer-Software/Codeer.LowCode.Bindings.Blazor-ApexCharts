@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using ApexCharts;
 using Codeer.LowCode.Bindings.ApexCharts.Designs;
 using Codeer.LowCode.Bindings.ApexCharts.Models;
 using Codeer.LowCode.Blazor.DesignLogic;
@@ -76,11 +75,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.ViewModels
 
         private IEnumerable<string> GetSeriesTypes()
         {
-            yield return SeriesType.Area.ToString();
-            yield return SeriesType.Bar.ToString();
-            yield return SeriesType.Heatmap.ToString();
-            yield return SeriesType.Line.ToString();
-            yield return SeriesType.Scatter.ToString();
+            yield return SeriesType.Area.GetDisplayName();
+            yield return SeriesType.Bar.GetDisplayName();
+            yield return SeriesType.Heatmap.GetDisplayName();
+            yield return SeriesType.Line.GetDisplayName();
+            yield return SeriesType.Scatter.GetDisplayName();
         }
 
         private bool IsCandidateType(FieldDesignBase field) => field is NumberFieldDesign;

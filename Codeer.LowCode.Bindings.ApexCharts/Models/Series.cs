@@ -1,5 +1,4 @@
-﻿using ApexCharts;
-
+﻿
 namespace Codeer.LowCode.Bindings.ApexCharts.Models
 {
     public class Series

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Codeer.LowCode.Bindings.ApexCharts.Designer.ViewModels"
              xmlns:converters="clr-namespace:Codeer.LowCode.Bindings.ApexCharts.Designer.Converters"
+             xmlns:properties="clr-namespace:Codeer.LowCode.Bindings.ApexCharts.Designer.Properties"
              mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModels:ChartSeriesViewModel}">
   <UserControl.Resources>
@@ -43,13 +44,13 @@
             </DataTemplate>
           </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Button Content="Add" Click="AddItem" />
+        <Button Content="{x:Static properties:Resources.Add}" Click="AddItem" />
       </StackPanel>
     </ScrollViewer>
 
     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-      <Button Width="100" Margin="5,0,0,0" Content="OK" Click="OkClick" />
-      <Button Width="100" Margin="5,0,0,0" Content="Cancel" Click="CancelClick" />
+      <Button Width="100" Margin="5,0,0,0" Content="{x:Static properties:Resources.OK}" Click="OkClick" />
+      <Button Width="100" Margin="5,0,0,0" Content="{x:Static properties:Resources.Cancel}" Click="CancelClick" />
     </StackPanel>
   </Grid>
 </UserControl>

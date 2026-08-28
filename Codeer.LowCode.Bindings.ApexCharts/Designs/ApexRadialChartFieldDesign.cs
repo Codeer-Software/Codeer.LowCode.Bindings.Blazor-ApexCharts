@@ -1,13 +1,14 @@
-﻿using ApexCharts;
+﻿using Codeer.LowCode.Bindings.ApexCharts.Models;
 using Codeer.LowCode.Blazor.DesignLogic.Check;
 using Codeer.LowCode.Blazor.DesignLogic.Refactor;
 using Codeer.LowCode.Blazor.Repository.Design;
 
 namespace Codeer.LowCode.Bindings.ApexCharts.Designs
 {
+    [Designer(DisplayName = "$ApexRadialChartField")]
     public class ApexRadialChartFieldDesign() : ApexChartFieldDesignBase(typeof(ApexRadialChartFieldDesign).FullName!)
     {
-        [Designer]
+        [Designer(DisplayName = "$SeriesType")]
         [EnumIgnore(SeriesType.Treemap)]
         [EnumIgnore(SeriesType.RangeArea)]
         [EnumIgnore(SeriesType.Radar)]
@@ -19,7 +20,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         [EnumIgnore(SeriesType.Scatter)]
         public override SeriesType SeriesType { get; set; } = SeriesType.Bar;
 
-        [Designer(CandidateType = CandidateType.Field)]
+        [Designer(CandidateType = CandidateType.Field, DisplayName = "$SeriesField")]
         [ModuleMember(Member = $"{nameof(SearchCondition)}.{nameof(SearchCondition.ModuleName)}")]
         [TargetFieldType(Types = [typeof(NumberFieldDesign)])]
         public string? SeriesField { get; set; }

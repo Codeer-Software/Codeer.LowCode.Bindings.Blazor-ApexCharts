@@ -1,4 +1,3 @@
-using ApexCharts;
 using Codeer.LowCode.Bindings.ApexCharts.Models;
 using Codeer.LowCode.Blazor.DesignLogic.Check;
 using Codeer.LowCode.Blazor.DesignLogic.Refactor;
@@ -6,11 +5,12 @@ using Codeer.LowCode.Blazor.Repository.Design;
 
 namespace Codeer.LowCode.Bindings.ApexCharts.Designs
 {
+    [Designer(DisplayName = "$ApexHBarChartField")]
     public class ApexHBarChartFieldDesign() : ApexChartFieldDesignBase(typeof(ApexHBarChartFieldDesign).FullName!)
     {
         public override SeriesType SeriesType { get; set; } = SeriesType.Bar;
 
-        [Designer]
+        [Designer(DisplayName = "$Series")]
         public ChartSeries Series { get; set; } = new();
 
         public override List<DesignCheckInfo> CheckDesign(DesignCheckContext context)

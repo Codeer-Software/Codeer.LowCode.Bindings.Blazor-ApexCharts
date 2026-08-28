@@ -10,6 +10,7 @@ using Codeer.LowCode.Blazor.Repository.Design;
 using Codeer.LowCode.Blazor.Repository.Match;
 using Codeer.LowCode.Blazor.Script;
 using Codeer.LowCode.Blazor.Script.Internal.ScriptServices;
+using SeriesType = Codeer.LowCode.Bindings.ApexCharts.Models.SeriesType;
 
 namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 {

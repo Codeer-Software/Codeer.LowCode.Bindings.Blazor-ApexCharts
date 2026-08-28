@@ -62,6 +62,8 @@ ApexChartField と ApexRadialChartField の両方が継承する共通プロパ�
 
 ### SeriesType（ApexChartFieldDesign で使用可能な値）
 
+`Codeer.LowCode.Bindings.ApexCharts.Models.SeriesType`。JSON にはメンバー名を文字列で書く。
+
 | 値 | 説明 |
 |---|---|
 | `Bar` | 棒グラフ |

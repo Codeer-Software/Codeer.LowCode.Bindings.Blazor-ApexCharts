@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+    <data name="SeriesType_Area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="SeriesType_Bar" xml:space="preserve">
+    <value>Bar</value>
+  </data>
+  <data name="SeriesType_Donut" xml:space="preserve">
+    <value>Donut</value>
+  </data>
+  <data name="SeriesType_Heatmap" xml:space="preserve">
+    <value>Heatmap</value>
+  </data>
+  <data name="SeriesType_Line" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="SeriesType_Pie" xml:space="preserve">
+    <value>Pie</value>
+  </data>
+  <data name="SeriesType_PolarArea" xml:space="preserve">
+    <value>PolarArea</value>
+  </data>
+  <data name="SeriesType_Radar" xml:space="preserve">
+    <value>Radar</value>
+  </data>
+  <data name="SeriesType_RadialBar" xml:space="preserve">
+    <value>RadialBar</value>
+  </data>
+  <data name="SeriesType_Scatter" xml:space="preserve">
+    <value>Scatter</value>
+  </data>
+  <data name="SeriesType_Treemap" xml:space="preserve">
+    <value>Treemap</value>
+  </data>
+  <data name="SeriesType_RangeArea" xml:space="preserve">
+    <value>RangeArea</value>
+  </data>
+  <data name="ApexChartField" xml:space="preserve">
+    <value>Chart</value>
+  </data>
+  <data name="ApexHBarChartField" xml:space="preserve">
+    <value>Horizontal Bar Chart</value>
+  </data>
+  <data name="ApexRadialChartField" xml:space="preserve">
+    <value>Radial Chart</value>
+  </data>
+  <data name="SearchCondition" xml:space="preserve">
+    <value>Search Condition</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="CategoryField" xml:space="preserve">
+    <value>Category Field</value>
+  </data>
+  <data name="CategoryFormat" xml:space="preserve">
+    <value>Category Format</value>
+  </data>
+  <data name="SeriesFractionDigits" xml:space="preserve">
+    <value>Series Fraction Digits</value>
+  </data>
+  <data name="ShowLegend" xml:space="preserve">
+    <value>Show Legend</value>
+  </data>
+  <data name="SeriesType" xml:space="preserve">
+    <value>Series Type</value>
+  </data>
+  <data name="Series" xml:space="preserve">
+    <value>Series</value>
+  </data>
+  <data name="SeriesField" xml:space="preserve">
+    <value>Series Field</value>
+  </data>
+  <data name="FullWidthBar" xml:space="preserve">
+    <value>Full Width Bar</value>
+  </data>
+  <data name="ShowXAxisGrid" xml:space="preserve">
+    <value>Show X-axis Grid</value>
+  </data>
+  <data name="ShowYAxisGrid" xml:space="preserve">
+    <value>Show Y-axis Grid</value>
+  </data>
+  <data name="CategoryBar" xml:space="preserve">
+    <value>ApexCharts - Bar</value>
+  </data>
+  <data name="CategoryGrid" xml:space="preserve">
+    <value>ApexCharts - Grid</value>
+  </data>
+</root>

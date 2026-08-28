@@ -65,7 +65,6 @@ namespace LowCodeApp.Client.Shared.Services
             _scriptRuntimeTypeManager.AddService(new MailService());
             _scriptRuntimeTypeManager.AddService(loadingService);
             _scriptRuntimeTypeManager.AddType<LoadingService.LoadingScope>();
-            _scriptRuntimeTypeManager.UseDesignCache();
             ApexChartsClientInitializer.Initialize(this);
         }
         public void SetCurrentUserId(string id) => CurrentUserId = id;
