@@ -13,12 +13,12 @@
     <PackageTags>Blazor;LowCode;Codeer</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Dependency update: Codeer.LowCode.Bindings.Blazor-ApexCharts 0.26.1, Codeer.LowCode.Blazor 1.3.26 and Codeer.LowCode.Blazor.Designer 1.3.27. No functional change.</PackageReleaseNotes>
+    <PackageReleaseNotes>Dependency update: Codeer.LowCode.Bindings.Blazor-ApexCharts 0.26.1, Codeer.LowCode.Blazor 1.3.27 and Codeer.LowCode.Blazor.Designer 1.3.27. No functional change.</PackageReleaseNotes>
     <PackageId>Codeer.LowCode.Bindings.Blazor-ApexCharts.Designer</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Codeer.LowCode.Blazor" Version="1.3.26" />
+    <PackageReference Include="Codeer.LowCode.Blazor" Version="1.3.27" />
     <PackageReference Include="Codeer.LowCode.Blazor.Designer" Version="1.3.27" />
   </ItemGroup>
 
