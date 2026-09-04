@@ -9,6 +9,12 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
     [Designer(DisplayName = "$ApexChartField")]
     public class ApexChartFieldDesign() : ApexChartFieldDesignBase(typeof(ApexChartFieldDesign).FullName!)
     {
+        /// <summary>デザインチェック指摘の番号。DesignCheckCode.Create で発行クラス名と結合して "クラス名:番号" になる。番号は固定(追加は末尾・欠番は再利用しない)。</summary>
+        public static class Codes
+        {
+            public const int HeatmapCannotBeMixed = 1;
+        }
+
         public override SeriesType SeriesType { get; set; } = SeriesType.Bar;
 
         [Designer(DisplayName = "$Series")]
@@ -38,6 +44,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
             {
                 result.Add(new FieldDesignCheckInfo()
                 {
+                    Code = DesignCheckCode.Create(typeof(ApexChartFieldDesign), Codes.HeatmapCannotBeMixed),
                     Location = new FieldDesignDataLocation()
                     {
                         Module = context.OwnerModule,

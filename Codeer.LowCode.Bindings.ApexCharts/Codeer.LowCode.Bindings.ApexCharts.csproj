@@ -6,23 +6,21 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>0.26.0</Version>
+		<Version>0.26.1</Version>
 		<Description>You can use Blazor-ApexCharts with Codeer.LowCode.Blazor.</Description>
 		<PackageProjectUrl>https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts</RepositoryUrl>
 		<PackageTags>Blazor;LowCode;Codeer</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<PackageReleaseNotes>
-- SeriesType is now defined in this library (Codeer.LowCode.Bindings.ApexCharts.Models.SeriesType) instead of exposing ApexCharts.SeriesType directly, so the designer can show localized names (Japanese included). Member names and JSON values are unchanged; use ToApexSeriesType() / ToSeriesType() to convert when calling ApexCharts.
-- Designer property names, categories and field type names are now localizable (Japanese included).
-		</PackageReleaseNotes>
+		<PackageReleaseNotes>The design check finding of ApexChartField (heatmap series mixed with other series) now carries a code (ApexChartFieldDesign:1) so it can be suppressed through SuppressedDesignChecks of the field, like the built-in checks.
+Requires Codeer.LowCode.Blazor 1.3.26.</PackageReleaseNotes>
 		<PackageId>Codeer.LowCode.Bindings.Blazor-ApexCharts</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Blazor-ApexCharts" Version="6.0.0" />
-		<PackageReference Include="Codeer.LowCode.Blazor" Version="1.3.23" />
+		<PackageReference Include="Codeer.LowCode.Blazor" Version="1.3.26" />
 		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.8" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
