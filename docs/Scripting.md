@@ -29,9 +29,17 @@ ApexChart1.Reload();
 
 ```csharp
 ApexChart1.SetAdditionalCondition(Searcher1);
+ApexChart1.Reload();
 ```
 
+`SetAdditionalCondition` は条件を設定するだけで、再取得はしません。続けて `Reload()` を呼んでください。
+設定した追加検索条件は保持され、以降の `Reload()` や自動リロードにも使われます。別の条件を設定し直すと置き換わります。
+
 外部フィールド (`OnExternalFieldChanged`) と連動して、参照中のフィールドが変わったときに自動でリロードもされます。
+
+### `SetSeriesData(modules)`
+
+検索せずに、渡したモジュールの一覧をデータとして描画します。`CategoryField` の値がカテゴリ、各モジュールの数値フィールドが系列の値になります。
 
 ## アノテーション
 
@@ -75,11 +83,14 @@ ApexChart5.ClearAnnotation();
 | --- | --- | --- |
 | `AllowLoad` | `bool` | `false` の場合 `Reload()` を呼んでもデータ取得しません。初期表示を抑制したい場合に使用します。 |
 | `Options` | `ApexChartOptions<SeriesData>` | Blazor-ApexCharts のオプションオブジェクト。詳細な見た目調整に直接アクセスできます。 |
+| `Series` | `List<Series>` | 描画対象の系列 (読み取り専用)。 |
+| `SeriesData` | `List<SeriesData>` | 取得済みのデータ (読み取り専用)。 |
 
-> ※ `Options` を直接書き換える場合、初期化処理 (`Reload()` / 系列変更等) で一部の値が上書きされる場合があります。
-> 詳細は `Codeer.LowCode.Bindings.ApexCharts/Fields/ApexChartField.cs` の `InitilaizeCore` を参照してください。
+> ※ `Options` はフィールドの初期化時に設定されます (色・凡例・軸ラベルの書式・グリッド・ツールバー/ツールチップの無効化など)。初期化の後 (`OnAfterInitialization` など) に書き換えてください。`Reload()` では上書きされません。
+> ※ `AddAnnotation` / `RemoveAnnotation` / `ClearAnnotation` を呼ぶと `Options.Annotations` の X 軸 / Y 軸の内容は作り直されます。`Options.Annotations` に直接追加した基準線は消えるため、基準線は `AddAnnotation` で追加してください。
 
 ## 注意
 
+- スクリプトでの名前は `Reload` / `SetAdditionalCondition` です (C# 側のメソッド名は `ReloadAsync` / `SetAdditionalConditionAsync`)。
 - スクリプトから `AnnotationAxis` / `ChartAnnotation` を使用するには、`ApexChartsClientInitializer.Initialize(this)` (Client.Shared) と `ApexChartsDesignerInitializer.Initialize(BlazorRuntime)` (Designer) で型登録が行われている必要があります。
 - イベントハンドラ系のプロパティ (`OnQueryChangedAsync` / `OnSearchDataChangedAsync`) は `[ScriptHide]` でスクリプト公開対象外です。

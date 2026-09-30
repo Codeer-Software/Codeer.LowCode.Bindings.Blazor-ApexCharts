@@ -23,7 +23,7 @@
 
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
-| `SeriesType` | SeriesType | `"Donut"` | チャートタイプ。`"Donut"` / `"Pie"` / `"PolarArea"`。 |
+| `SeriesType` | SeriesType | `"Bar"` | チャートタイプ。**必ず `"Donut"` / `"Pie"` / `"PolarArea"` のいずれかを指定する**（既定の `"Bar"` のままだと円形にならず縦棒で描画される）。 |
 | `SeriesField` | string? | `null` | 表示するNumberFieldのフィールド名。`SearchCondition.ModuleName` のモジュール内のNumberFieldを指定する。 |
 
 ### 列挙型

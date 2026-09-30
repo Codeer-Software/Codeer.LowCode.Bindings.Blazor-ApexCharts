@@ -7,11 +7,13 @@
 
 ## プロパティ
 
-[共通プロパティ](ApexChart.md#共通プロパティ) に加えて、以下を持ちます。
+Designer 上のフィールド名は「横棒チャート」です。[共通プロパティ](ApexChart.md#共通プロパティ) に加えて、以下を持ちます。
 
-| プロパティ | 型 | 既定値 | 説明 |
-| --- | --- | --- | --- |
-| `Series` | `ChartSeries` | (空リスト) | 系列の一覧。系列タイプは内部的に `Bar` に固定されます (Designer 上の Type 編集は無効化)。`Name` / `Color` のみ変更可能。 |
+| プロパティ | 表示名 | 型 | 既定値 | 説明 |
+| --- | --- | --- | --- | --- |
+| `Series` | 系列 | `ChartSeries` | (空リスト) | 系列の一覧。系列タイプは内部的に `Bar` に固定されます (Designer 上の Type 編集は無効化)。`Name` / `Color` のみ変更可能。 |
+
+デザインファイル (JSON) の `SeriesType` や各系列の `Type` に何を書いても、常に `Bar` として描画されます。
 
 横棒チャートでは:
 
@@ -23,9 +25,10 @@
 
 [ApexChart のセクション](ApexChart.md#配色) と同じ。
 
-## アノテーション
+## スクリプト / アノテーション
 
-[docs/Scripting.md](Scripting.md#アノテーション) を参照。横棒の場合 `AnnotationAxis.X` は値軸 (横方向)、`AnnotationAxis.Y` はカテゴリ軸 (縦方向) に作用します。
+`Reload()` / `SetAdditionalCondition()` などのスクリプト API は ApexChart と共通です。[docs/Scripting.md](Scripting.md) を参照。
+アノテーションは [docs/Scripting.md](Scripting.md#アノテーション) を参照。横棒の場合 `AnnotationAxis.X` は値軸 (横方向)、`AnnotationAxis.Y` はカテゴリ軸 (縦方向) に作用します。
 
 ## デザインチェック
 

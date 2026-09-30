@@ -23,7 +23,7 @@
 
 ### ApexChartFieldDesignBase 共通プロパティ
 
-ApexChartField と ApexRadialChartField の両方が継承する共通プロパティ。
+ApexChartField / ApexHBarChartField / ApexRadialChartField の 3 種すべてが継承する共通プロパティ。
 
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
@@ -38,7 +38,7 @@ ApexChartField と ApexRadialChartField の両方が継承する共通プロパ�
 
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
-| `SeriesType` | SeriesType | `"Bar"` | デフォルトのチャートタイプ。`"Bar"` / `"Line"` / `"Area"` / `"Scatter"` / `"Heatmap"`。Series 内の個別設定で上書き可能。 |
+| `SeriesType` | SeriesType | `"Bar"` | デザイナ非表示。描画する種類には使われない（系列の種類は `Series[].Type` で決まる）。既定の `"Bar"` のままでよい。 |
 | `Series` | ChartSeries | `{ "Series": [] }` | 表示する系列の定義。各系列で対象フィールド名、チャートタイプ、色を指定する。 |
 | `FullWidthBar` | bool | `false` | `true` で棒グラフのカラム幅を100%にする。棒グラフ間の隙間がなくなる。 |
 | `ShowXAxisGrid` | bool | `false` | X軸のグリッド線を表示するか。 |
@@ -55,7 +55,7 @@ ApexChartField と ApexRadialChartField の両方が継承する共通プロパ�
 | `Type` | SeriesType | `"Line"` | この系列のチャートタイプ。`"Bar"` / `"Line"` / `"Area"` / `"Scatter"` / `"Heatmap"`。 |
 
 **注意事項:**
-- Heatmap 系列と非 Heatmap 系列を混在させることはできない。
+- Heatmap 系列と非 Heatmap 系列を混在させることはできない。混在させると先頭の系列の種類に合わせて片方だけが描画される（先頭が Heatmap なら Heatmap だけ、それ以外なら Heatmap 以外だけ）。デザインチェックで `ApexChartFieldDesign:1` の警告が出る。
 - 系列の `Name` には `SearchCondition.ModuleName` で指定したモジュール内の **NumberField** のフィールド名のみ使用可能。
 
 ### 列挙型
@@ -315,7 +315,7 @@ ApexChartField と ApexRadialChartField の両方が継承する共通プロパ�
 
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
-| `Axis` | AnnotationAxis | - | `AnnotationAxis.X`（縦線）または `AnnotationAxis.Y`（横線） |
+| `Axis` | AnnotationAxis | `X` | `AnnotationAxis.X`（縦線）または `AnnotationAxis.Y`（横線） |
 | `Value` | object | `0` | 線を描画する位置の値 |
 | `Color` | string | `"#00E396"` | 線の色（HEX形式） |
 | `Label` | string? | `null` | 線に付けるラベルテキスト。`null` でラベルなし。 |

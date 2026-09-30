@@ -35,7 +35,7 @@ ApexChartField / ApexHBarChartField / ApexRadialChartField が継承する共通
 
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
-| `SeriesType` | SeriesType | `"Bar"` | チャートタイプ。横棒グラフでは `"Bar"` を使う。 |
+| `SeriesType` | SeriesType | `"Bar"` | デザイナ非表示。値に関係なく常に横棒で描画される。 |
 | `Series` | ChartSeries | `{ "Series": [] }` | 表示する系列の定義。各系列で対象フィールド名と色を指定する。 |
 
 ### Series（ChartSeries）の構造
@@ -46,7 +46,7 @@ ApexChartField / ApexHBarChartField / ApexRadialChartField が継承する共通
 |---|---|---|---|
 | `Name` | string | `""` | 表示する NumberField のフィールド名。`SearchCondition.ModuleName` のモジュール内の NumberField を指定する。 |
 | `Color` | string | `""` | 系列の色（HEX形式、例: `"#FF4560"`）。空の場合はデフォルトテーマ色が自動割り当てされる。 |
-| `Type` | SeriesType | `"Line"` | 系列のチャートタイプ。横棒グラフでは `"Bar"` を指定する。 |
+| `Type` | SeriesType | `"Line"` | 無視される（常に `Bar` として描画）。デザイナのダイアログで追加すると `"Bar"` になる。 |
 
 **注意事項:**
 - 系列の `Name` には `SearchCondition.ModuleName` で指定したモジュール内の **NumberField** のフィールド名のみ使用可能。デザインチェックで存在確認される。
@@ -87,7 +87,7 @@ ApexChartField / ApexHBarChartField / ApexRadialChartField が継承する共通
 
 | 値 | 説明 |
 |---|---|
-| `Bar` | 棒（横棒グラフではこれを使う） |
+| `Bar` | 棒（横棒グラフでは値に関係なく常にこれ） |
 | `Line` | 折れ線 |
 | `Area` | 面 |
 | `Scatter` | 散布 |
@@ -95,7 +95,7 @@ ApexChartField / ApexHBarChartField / ApexRadialChartField が継承する共通
 
 ## Script
 
-表示専用フィールド。共通スクリプトプロパティ（`Color` / `BackgroundColor` / `IsEnabled` / `IsVisible` / `IsViewOnly` 等）は [_FieldCommon.md](_FieldCommon.md)・[_ScriptApi.md](_ScriptApi.md) を参照。
+ApexChartField と同じ実装。`Reload()` / `SetAdditionalCondition()` / `AddAnnotation()` / `RemoveAnnotation()` / `ClearAnnotation()` / `AllowLoad` / `Options` が使える（詳細は ApexChartField の Script 節）。横棒では `AnnotationAxis.X` が値軸、`AnnotationAxis.Y` がカテゴリ軸。共通スクリプトプロパティ（`Color` / `BackgroundColor` / `IsEnabled` / `IsVisible` / `IsViewOnly` 等）は [_FieldCommon.md](_FieldCommon.md)・[_ScriptApi.md](_ScriptApi.md) を参照。
 
 ## CSS
 

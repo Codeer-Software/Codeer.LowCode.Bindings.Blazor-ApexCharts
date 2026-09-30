@@ -6,12 +6,14 @@ Donut / Pie / PolarArea のような単一系列の円形チャートに対応�
 
 ## プロパティ
 
-[共通プロパティ](ApexChart.md#共通プロパティ) に加えて、以下を持ちます。
+Designer 上のフィールド名は「ラジアルチャート」です。[共通プロパティ](ApexChart.md#共通プロパティ) に加えて、以下を持ちます。
 
-| プロパティ | 型 | 既定値 | 説明 |
-| --- | --- | --- | --- |
-| `SeriesType` | `SeriesType` | `Bar` (実用上は `Donut` / `Pie` / `PolarArea` のいずれかを設定) | チャートの種別。`Donut` / `Pie` / `PolarArea` の3つのみが Designer のプルダウンに表示されます (他の `Area` / `Bar` / `Line` / `Scatter` / `Heatmap` / `Radar` / `RadialBar` / `Treemap` / `RangeArea` は `EnumIgnore` で除外)。 |
-| `SeriesField` | `string?` | (空) | 値として使用する数値フィールド名。`NumberFieldDesign` のみが候補となります。 |
+| プロパティ | 表示名 | 型 | 既定値 | 説明 |
+| --- | --- | --- | --- | --- |
+| `SeriesType` | 系列種別 | `SeriesType` | `Bar` (実用上は `Donut` / `Pie` / `PolarArea` のいずれかを設定) | チャートの種別。`Donut` / `Pie` / `PolarArea` の3つのみが Designer のプルダウンに表示されます (他の `Area` / `Bar` / `Line` / `Scatter` / `Heatmap` / `Radar` / `RadialBar` / `Treemap` / `RangeArea` は `EnumIgnore` で除外)。日本語環境では「ドーナツ / 円 / ポーラエリア」と表示されます。 |
+
+> 既定値の `Bar` のままだと円形にならず、縦棒チャートとして描画されます。配置したら必ず `SeriesType` を選び直してください。
+| `SeriesField` | 系列フィールド | `string?` | (空) | 値として使用する数値フィールド名。`NumberFieldDesign` のみが候補となります。 |
 
 ## データバインディング
 
@@ -20,7 +22,9 @@ Donut / Pie / PolarArea のような単一系列の円形チャートに対応�
 
 ## 配色
 
-[ApexChart のセクション](ApexChart.md#配色) と同じ。系列ごとの色指定はできないため、デフォルトテーマから順次割り当てられます。
+[ApexChart のセクション](ApexChart.md#配色) と同じ。系列ごとの色指定はできないため、ApexCharts 既定のパレットから順次割り当てられます (先頭 5 色は上記のデフォルトテーマと同じ)。
+
+スクリプト API は ApexChart と共通です。[docs/Scripting.md](Scripting.md) を参照。
 
 ## デザインチェック
 

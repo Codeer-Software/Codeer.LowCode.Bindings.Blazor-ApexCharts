@@ -8,6 +8,7 @@
 - NuGet:
   - [`Codeer.LowCode.Bindings.Blazor-ApexCharts`](https://www.nuget.org/packages/Codeer.LowCode.Bindings.Blazor-ApexCharts)
   - [`Codeer.LowCode.Bindings.Blazor-ApexCharts.Designer`](https://www.nuget.org/packages/Codeer.LowCode.Bindings.Blazor-ApexCharts.Designer)
+  - [`Codeer.LowCode.Bindings.Blazor-ApexCharts.SeleniumDrivers`](https://www.nuget.org/packages/Codeer.LowCode.Bindings.Blazor-ApexCharts.SeleniumDrivers) (UI テスト用)
 
 ## 目次
 
@@ -15,6 +16,7 @@
 - [使用方法](#使用方法)
 - [カスタムコントロール](#カスタムコントロール)
 - [スクリプト API](#スクリプト-api)
+- [Selenium ドライバ](#selenium-ドライバ)
 - [Example](#example)
 
 ## インストール
@@ -28,6 +30,7 @@ LowCodeApp 側の各プロジェクトに、用途別に NuGet からパッケ�
 | `LowCodeApp.Client.Shared` | `Codeer.LowCode.Bindings.Blazor-ApexCharts` |
 | `LowCodeApp.Server` | `Codeer.LowCode.Bindings.Blazor-ApexCharts` |
 | `LowCodeApp.Designer` | `Codeer.LowCode.Bindings.Blazor-ApexCharts.Designer` |
+| Selenium のテストプロジェクト (使う場合のみ) | `Codeer.LowCode.Bindings.Blazor-ApexCharts.SeleniumDrivers` |
 
 ### 2. 初期化コードの追加
 
@@ -54,6 +57,7 @@ ApexChartsServerInitializer.Initialize();
 
 `App.xaml.cs` の起動処理に以下を追加します。
 スクリプト型登録に加え、`ChartSeries` プロパティの編集ダイアログ (WPF UserControl) を Designer に登録します。
+Claude Code でデザインを作るときに読まれるフィールドの説明 (Designer パッケージに埋め込み) もここで登録されます。
 
 ```csharp
 ApexChartsDesignerInitializer.Initialize(BlazorRuntime);
@@ -68,6 +72,10 @@ Designer のフィールド追加メニューから、用途に応じて次の3�
 1. データ取得元の `Module` を `SearchCondition.ModuleName` で指定
 2. X軸のカテゴリにする `CategoryField` (必要に応じて `CategoryFormat`) を指定
 3. `Series` (横棒チャート / 通常チャート) または `SeriesField` (Donut/Pie/PolarArea) で値となる数値フィールドを指定
+4. ラジアルチャートは `SeriesType` を `Donut` / `Pie` / `PolarArea` のいずれかに設定 (既定の `Bar` のままだと縦棒で描画されます)
+5. チャートは配置したセルの高さいっぱいに描画されるので、行に十分な高さを設定
+
+Designer 上のプロパティ名・フィールド名は日本語で表示されます (「チャート」「横棒チャート」「ラジアルチャート」など)。対応は各ページのプロパティ表を参照してください。
 
 `SearchCondition.ModuleName` が未設定の場合、デザインモードでは "ModuleName is not set" バナーが表示されます。
 
@@ -104,6 +112,29 @@ void DetailLayoutDesign_OnAfterInitialization()
     ApexChart5.AddAnnotation("threshold", a);
 }
 ```
+
+## Selenium ドライバ
+
+`Codeer.LowCode.Bindings.Blazor-ApexCharts.SeleniumDrivers` は、3 種のチャートを Selenium の UI テストから読むためのドライバです。
+`Codeer.LowCode.Blazor.SeleniumDrivers` と組み合わせて使います。
+
+| フィールド | ドライバ |
+| --- | --- |
+| `ApexChartFieldDesign` | `ApexChartFieldDriver` |
+| `ApexHBarChartFieldDesign` | `ApexHBarChartFieldDriver` |
+| `ApexRadialChartFieldDesign` | `ApexRadialChartFieldDriver` |
+
+他のフィールドのドライバと同じく、`ElementFinder` から暗黙変換で取得できます。主なメンバー:
+
+| メンバー | 内容 |
+| --- | --- |
+| `IsRendered` / `Canvas` | 描画済みか / チャートの描画領域 |
+| `Title` | `DisplayName` (チャートのタイトル)。未設定なら空文字 |
+| `HasLegend` / `Legend` / `LegendTexts` | 凡例の有無 / 凡例の項目 (`Text` / `SeriesName` / `IsCollapsed` / `Click()`) / 凡例の文言 |
+| `Series` | 描画された系列 (`Name` / `PointCount` / `Points` / `Values`)。系列名の空白は ApexCharts により `x` に置き換えられます |
+| `TotalPointCount` | 全系列のデータ点の合計 (円系は 1 スライス = 1 系列) |
+| `XAxisLabels` / `YAxisLabels` | 軸ラベルの文言 |
+| `AnnotationLabels` | アノテーション (基準線) のラベル文言 |
 
 ## Example
 
