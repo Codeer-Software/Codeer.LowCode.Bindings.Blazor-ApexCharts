@@ -8,7 +8,7 @@
 
 縦棒・折れ線・面・散布・ヒートマップ等の混在チャートには [ApexChartField.md](ApexChartField.md)、円グラフ・ドーナツチャート等の円形系には [ApexRadialChartField.md](ApexRadialChartField.md) を使う。このフィールドは**横棒に特化**しており、`ApexChartField` のような系列ごとのチャートタイプ切り替えやグリッド線の設定オプションは持たない。
 
-> ダッシュボードの組み方は [../AppPatterns/visualization_dashboard.md](../AppPatterns/visualization_dashboard.md)。`CategoryField` / `Series[].Name` は `SearchCondition.ModuleName` のモジュールの**フィールド `Name`**（DB列名でない）を指す。集計は GROUP BY した QueryField モジュールをデータ元にする。
+> ダッシュボードの組み方は [../AppPatterns/visualization_dashboard.md](../AppPatterns/visualization_dashboard.md)。`CategoryField` / `Series[].Name` は `SearchCondition.ModuleName` のモジュールの**フィールド `Name`**（DB列名でない）を指す。行をまとめて数える横棒（ランキング等）は [ApexAggregateHBarChartFieldDesign](ApexAggregateHBarChartFieldDesign.md)（DB 側で集計・QueryField 不要）。
 
 ### C# クラス定義 (真実の源)
 

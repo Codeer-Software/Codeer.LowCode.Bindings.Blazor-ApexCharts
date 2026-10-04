@@ -48,4 +48,19 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Header_Function" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="Header_Field" xml:space="preserve">
+    <value>Field</value>
+  </data>
+  <data name="Header_Title" xml:space="preserve">
+    <value>Caption</value>
+  </data>
+  <data name="Header_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Header_Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
 </root>

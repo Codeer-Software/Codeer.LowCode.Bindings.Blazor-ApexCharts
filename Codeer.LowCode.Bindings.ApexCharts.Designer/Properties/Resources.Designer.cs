@@ -22,7 +22,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.Properties {
         ///   このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Codeer.LowCode.Bindings.ApexCharts.Designer.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.Properties {
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.Properties {
         /// <summary>
         ///   Add に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Add {
+        public static string Add {
             get {
                 return ResourceManager.GetString("Add", resourceCulture);
             }
@@ -72,16 +72,61 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer.Properties {
         /// <summary>
         ///   Cancel に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Cancel {
+        public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Color に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Header_Color {
+            get {
+                return ResourceManager.GetString("Header_Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Field に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Header_Field {
+            get {
+                return ResourceManager.GetString("Header_Field", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Function に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Header_Function {
+            get {
+                return ResourceManager.GetString("Header_Function", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Caption に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Header_Title {
+            get {
+                return ResourceManager.GetString("Header_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Type に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Header_Type {
+            get {
+                return ResourceManager.GetString("Header_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   OK に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string OK {
+        public static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
             }
