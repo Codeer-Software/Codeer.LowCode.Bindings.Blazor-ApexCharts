@@ -1,0 +1,45 @@
+@using Codeer.LowCode.Blazor.Components.Fields
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Codeer.LowCode.Bindings.ApexCharts.Designs
+@using Codeer.LowCode.Bindings.ApexCharts.Models
+@using global::ApexCharts
+@using SeriesType = Codeer.LowCode.Bindings.ApexCharts.Models.SeriesType
+@inherits FieldComponentBase<Codeer.LowCode.Bindings.ApexCharts.Fields.ApexAggregateChartField>
+@inject Services Services
+
+@if (string.IsNullOrEmpty(Field.ModuleName)) {
+  @if (Services.AppInfoService.IsDesignMode) {
+    <ConfigurationRequiredBanner>
+      @Codeer.LowCode.Bindings.ApexCharts.Properties.Resources.ScriptOnly
+    </ConfigurationRequiredBanner>
+  }
+} else if (!string.IsNullOrEmpty(Field.LoadError)) {
+  <div class="text-danger small" data-name="load-error">@Field.LoadError</div>
+} else if (Field.Series.Count > 0) {
+  <ApexChart TItem="SeriesData" Title="@Field.Design.DisplayName" Options="Field.Options" @key="@Field.RefreshKey">
+    @if (Field.Design is ApexAggregateRadialChartFieldDesign) {
+      var series = Field.Series[0];
+      <ApexPointSeries TItem="SeriesData"
+                       Items="Field.SeriesData"
+                       SeriesType="@series.Type.ToApexSeriesType()"
+                       XValue="data => data.XValue"
+                       YAggregate="@(data => data.Sum(y => y.Data.GetValueOrDefault(series.Name)))"/>
+    } else {
+      @foreach (var series in Field.Series) {
+        <ApexPointSeries TItem="SeriesData"
+                         Items="Field.SeriesData"
+                         Name="@Field.GetSeriesTitle(series.Name)"
+                         SeriesType="@series.Type.ToApexSeriesType()"
+                         XValue="data => data.XValue"
+                         YAggregate="data => data.Sum(y => y.Data.GetValueOrDefault(series.Name))"/>
+      }
+    }
+  </ApexChart>
+}
+
+@code {
+  protected override async Task OnParametersSetAsync() {
+    await base.OnParametersSetAsync();
+    Field.SetStateChangedReceiver(StateHasChanged);
+  }
+}

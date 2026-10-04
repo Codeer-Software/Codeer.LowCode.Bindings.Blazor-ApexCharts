@@ -126,4 +126,103 @@
   <data name="CategoryGrid" xml:space="preserve">
     <value>ApexCharts - Grid</value>
   </data>
+  <data name="ApexAggregateChartField" xml:space="preserve">
+    <value>Aggregate chart</value>
+  </data>
+  <data name="ApexAggregateHBarChartField" xml:space="preserve">
+    <value>Aggregate horizontal bar chart</value>
+  </data>
+  <data name="ApexAggregateRadialChartField" xml:space="preserve">
+    <value>Aggregate pie chart</value>
+  </data>
+  <data name="CategoryAggregate" xml:space="preserve">
+    <value>ApexCharts - Aggregate</value>
+  </data>
+  <data name="CategoryDateUnit" xml:space="preserve">
+    <value>Group dates by</value>
+  </data>
+  <data name="FiscalYearStartMonth" xml:space="preserve">
+    <value>Fiscal year start month</value>
+  </data>
+  <data name="CategoryOrder" xml:space="preserve">
+    <value>Category order</value>
+  </data>
+  <data name="CategoryLimit" xml:space="preserve">
+    <value>Category limit</value>
+  </data>
+  <data name="SeriesGroupField" xml:space="preserve">
+    <value>Split series by</value>
+  </data>
+  <data name="SeriesFunction" xml:space="preserve">
+    <value>Aggregate function</value>
+  </data>
+  <data name="ChartAggregateFunction_Sum" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="ChartAggregateFunction_Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="ChartAggregateFunction_Avg" xml:space="preserve">
+    <value>Average</value>
+  </data>
+  <data name="ChartAggregateFunction_Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="ChartAggregateFunction_Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Function_CountDistinct" xml:space="preserve">
+    <value>Distinct count</value>
+  </data>
+  <data name="ChartDateUnit_None" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="ChartDateUnit_Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="ChartDateUnit_Quarter" xml:space="preserve">
+    <value>Quarter</value>
+  </data>
+  <data name="ChartDateUnit_Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="ChartDateUnit_Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="ChartDateUnit_Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="ChartDateUnit_Hour" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="ChartCategoryOrder_Field" xml:space="preserve">
+    <value>Field order</value>
+  </data>
+  <data name="ChartCategoryOrder_ValueDescending" xml:space="preserve">
+    <value>Value (descending)</value>
+  </data>
+  <data name="ChartCategoryOrder_ValueAscending" xml:space="preserve">
+    <value>Value (ascending)</value>
+  </data>
+  <data name="Check_NoCategory" xml:space="preserve">
+    <value>Set the category field.</value>
+  </data>
+  <data name="Check_NoSeries" xml:space="preserve">
+    <value>Add at least one series.</value>
+  </data>
+  <data name="Check_DateUnitRequiresDate" xml:space="preserve">
+    <value>"Group dates by" can only be used for a date or date-time field ({0}).</value>
+  </data>
+  <data name="Check_InvalidFunction" xml:space="preserve">
+    <value>{0} cannot be used for {1}. Use a number field (Count needs no field).</value>
+  </data>
+  <data name="Check_HeatmapCannotBeMixed" xml:space="preserve">
+    <value>Heatmap series and non-heatmap series cannot be mixed.</value>
+  </data>
+  <data name="Blank" xml:space="preserve">
+    <value>(blank)</value>
+  </data>
+  <data name="ScriptOnly" xml:space="preserve">
+    <value>Displayed by Show in a script.</value>
+  </data>
 </root>

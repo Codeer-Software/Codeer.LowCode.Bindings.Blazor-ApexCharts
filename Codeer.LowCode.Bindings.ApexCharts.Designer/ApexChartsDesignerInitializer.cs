@@ -25,6 +25,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designer
             DesignerApp.ScriptRuntimeTypeManager.AddType<AnnotationAxis>();
             DesignerApp.ScriptRuntimeTypeManager.AddType<ChartAnnotation>();
             PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();
+            PropertyTypeManager.AddPropertyControl<AggregateChartSeries, AggregateChartSeriesPropertyControl>();
 
             //AI 用フィールドドキュメント。.md は本体プロジェクトにあるが、WASM に配信しないため
             //このアセンブリに埋め込まれている (リンク EmbeddedResource)。FieldCatalog が

@@ -268,6 +268,302 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Properties {
                 return ResourceManager.GetString("CategoryGrid", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Aggregate chart に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ApexAggregateChartField {
+            get {
+                return ResourceManager.GetString("ApexAggregateChartField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Aggregate horizontal bar chart に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ApexAggregateHBarChartField {
+            get {
+                return ResourceManager.GetString("ApexAggregateHBarChartField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Aggregate pie chart に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ApexAggregateRadialChartField {
+            get {
+                return ResourceManager.GetString("ApexAggregateRadialChartField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ApexCharts - Aggregate に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CategoryAggregate {
+            get {
+                return ResourceManager.GetString("CategoryAggregate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Group dates by に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CategoryDateUnit {
+            get {
+                return ResourceManager.GetString("CategoryDateUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Fiscal year start month に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string FiscalYearStartMonth {
+            get {
+                return ResourceManager.GetString("FiscalYearStartMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Category order に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CategoryOrder {
+            get {
+                return ResourceManager.GetString("CategoryOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Category limit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CategoryLimit {
+            get {
+                return ResourceManager.GetString("CategoryLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Split series by に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SeriesGroupField {
+            get {
+                return ResourceManager.GetString("SeriesGroupField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Aggregate function に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SeriesFunction {
+            get {
+                return ResourceManager.GetString("SeriesFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sum に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartAggregateFunction_Sum {
+            get {
+                return ResourceManager.GetString("ChartAggregateFunction_Sum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Count に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartAggregateFunction_Count {
+            get {
+                return ResourceManager.GetString("ChartAggregateFunction_Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Average に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartAggregateFunction_Avg {
+            get {
+                return ResourceManager.GetString("ChartAggregateFunction_Avg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Min に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartAggregateFunction_Min {
+            get {
+                return ResourceManager.GetString("ChartAggregateFunction_Min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Max に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartAggregateFunction_Max {
+            get {
+                return ResourceManager.GetString("ChartAggregateFunction_Max", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Distinct count に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Function_CountDistinct {
+            get {
+                return ResourceManager.GetString("Function_CountDistinct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   (None) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartDateUnit_None {
+            get {
+                return ResourceManager.GetString("ChartDateUnit_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Year に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartDateUnit_Year {
+            get {
+                return ResourceManager.GetString("ChartDateUnit_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Quarter に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartDateUnit_Quarter {
+            get {
+                return ResourceManager.GetString("ChartDateUnit_Quarter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Month に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartDateUnit_Month {
+            get {
+                return ResourceManager.GetString("ChartDateUnit_Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Week に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartDateUnit_Week {
+            get {
+                return ResourceManager.GetString("ChartDateUnit_Week", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Day に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartDateUnit_Day {
+            get {
+                return ResourceManager.GetString("ChartDateUnit_Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Hour に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartDateUnit_Hour {
+            get {
+                return ResourceManager.GetString("ChartDateUnit_Hour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Field order に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartCategoryOrder_Field {
+            get {
+                return ResourceManager.GetString("ChartCategoryOrder_Field", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Value (descending) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartCategoryOrder_ValueDescending {
+            get {
+                return ResourceManager.GetString("ChartCategoryOrder_ValueDescending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Value (ascending) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ChartCategoryOrder_ValueAscending {
+            get {
+                return ResourceManager.GetString("ChartCategoryOrder_ValueAscending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Set the category field. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Check_NoCategory {
+            get {
+                return ResourceManager.GetString("Check_NoCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add at least one series. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Check_NoSeries {
+            get {
+                return ResourceManager.GetString("Check_NoSeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   "Group dates by" can only be used for a date or date-time field ({0}). に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Check_DateUnitRequiresDate {
+            get {
+                return ResourceManager.GetString("Check_DateUnitRequiresDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0} cannot be used for {1}. Use a number field (Count needs no field). に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Check_InvalidFunction {
+            get {
+                return ResourceManager.GetString("Check_InvalidFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Heatmap series and non-heatmap series cannot be mixed. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Check_HeatmapCannotBeMixed {
+            get {
+                return ResourceManager.GetString("Check_HeatmapCannotBeMixed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   (blank) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Blank {
+            get {
+                return ResourceManager.GetString("Blank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Displayed by Show in a script. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ScriptOnly {
+            get {
+                return ResourceManager.GetString("ScriptOnly", resourceCulture);
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@
 
 棒グラフ・折れ線グラフ・散布図等には [ApexChartField.md](ApexChartField.md) を使用する。
 
-> ダッシュボードの組み方は [../AppPatterns/visualization_dashboard.md](../AppPatterns/visualization_dashboard.md)。このフィールドは系列配列ではなく **`CategoryField`＋`SeriesField`（単数の数値フィールド `Name`）** で構成する。`CategoryField`/`SeriesField` は `SearchCondition.ModuleName` のモジュールの**フィールド `Name`**（DB列名でない）を指し、集計は GROUP BY した QueryField モジュールをデータ元にする。
+> ダッシュボードの組み方は [../AppPatterns/visualization_dashboard.md](../AppPatterns/visualization_dashboard.md)。このフィールドは系列配列ではなく **`CategoryField`＋`SeriesField`（単数の数値フィールド `Name`）** で構成する。`CategoryField`/`SeriesField` は `SearchCondition.ModuleName` のモジュールの**フィールド `Name`**（DB列名でない）を指す。行をまとめて数える円（状態別の件数等）は [ApexAggregateRadialChartFieldDesign](ApexAggregateRadialChartFieldDesign.md)（DB 側で集計・QueryField 不要）。
 
 ### C# クラス定義 (真実の源)
 

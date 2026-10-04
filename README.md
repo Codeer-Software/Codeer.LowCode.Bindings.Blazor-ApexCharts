@@ -89,6 +89,16 @@ Designer 上のプロパティ名・フィールド名は日本語で表示さ�
 | `ApexHBarChartFieldDesign` | 横棒 (Horizontal Bar) チャート | [docs/ApexHBarChart.md](docs/ApexHBarChart.md) |
 | `ApexRadialChartFieldDesign` | Donut / Pie / PolarArea | [docs/ApexRadialChart.md](docs/ApexRadialChart.md) |
 
+行をまとめて数えるグラフ (月別の売上・状態別の件数・担当ごとの合計の上位など) には、DB 側で集計する集計チャート 3 種を使います。集計用の QueryField モジュールは要りません。
+
+| フィールド | 用途 | 詳細 |
+| --- | --- | --- |
+| `ApexAggregateChartFieldDesign` | 集計チャート (棒 / 折れ線 / 面 / ヒートマップ。系列を項目の値で分けられる) | [docs/ApexAggregateChart.md](docs/ApexAggregateChart.md) |
+| `ApexAggregateHBarChartFieldDesign` | 集計横棒チャート (ランキング向き) | 同上 |
+| `ApexAggregateRadialChartFieldDesign` | 集計円チャート (円 / ドーナツ / ポーラー) | 同上 |
+
+集計チャートには Codeer.LowCode.Blazor 1.3.39 以降と、アプリ (ホスト) 側の集計 API の結線が必要です。
+
 3種に共通するプロパティ (`SearchCondition` / `DisplayName` / `CategoryField` / `CategoryFormat` / `SeriesFractionDigits` / `ShowLegend`) は [docs/ApexChart.md](docs/ApexChart.md#共通プロパティ) にまとめています。
 
 ## スクリプト API
@@ -123,6 +133,8 @@ void DetailLayoutDesign_OnAfterInitialization()
 | `ApexChartFieldDesign` | `ApexChartFieldDriver` |
 | `ApexHBarChartFieldDesign` | `ApexHBarChartFieldDriver` |
 | `ApexRadialChartFieldDesign` | `ApexRadialChartFieldDriver` |
+
+集計チャート 3 種も描画は同じなので、同じ形のドライバ (`ApexChartFieldDriver` / `ApexHBarChartFieldDriver` / `ApexRadialChartFieldDriver`) で読めます。
 
 他のフィールドのドライバと同じく、`ElementFinder` から暗黙変換で取得できます。主なメンバー:
 

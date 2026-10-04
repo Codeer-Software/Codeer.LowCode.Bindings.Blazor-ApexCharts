@@ -9,6 +9,7 @@ LowCode のスクリプトから `ApexChartField` (3種のフィールド共通�
 - [リロード / 追加検索条件](#リロード--追加検索条件)
 - [アノテーション](#アノテーション)
 - [スクリプトから扱えるプロパティ](#スクリプトから扱えるプロパティ)
+- [集計チャート](#集計チャート)
 
 ## リロード / 追加検索条件
 
@@ -88,6 +89,36 @@ ApexChart5.ClearAnnotation();
 
 > ※ `Options` はフィールドの初期化時に設定されます (色・凡例・軸ラベルの書式・グリッド・ツールバー/ツールチップの無効化など)。初期化の後 (`OnAfterInitialization` など) に書き換えてください。`Reload()` では上書きされません。
 > ※ `AddAnnotation` / `RemoveAnnotation` / `ClearAnnotation` を呼ぶと `Options.Annotations` の X 軸 / Y 軸の内容は作り直されます。`Options.Annotations` に直接追加した基準線は消えるため、基準線は `AddAnnotation` で追加してください。
+
+## 集計チャート
+
+集計チャート 3 種 (`ApexAggregateChartField`) のスクリプト API です。基準線 (`AddAnnotation` / `RemoveAnnotation` / `ClearAnnotation`)・`AllowLoad`・`Options` は上と同じです。
+
+### `Show(aggregator)` / `Show(aggregator, categoryCount)`
+
+スクリプトで組んだ `ModuleAggregator` の集計を表示します。設計の定義より優先します。
+
+- `Show(agg)`: 軸は全部カテゴリになります (複数なら「A / B」)
+- `Show(agg, categoryCount)`: 軸の先頭 `categoryCount` 個をカテゴリに、残りを系列の分割に使います
+- 集計円チャートは系列を分けないので、軸は全部カテゴリ・値は先頭の 1 つだけを描きます
+- 値の見た目 (種類・色) は設計の系列の同じ番号を使います (無ければ棒・既定の色)
+
+```csharp
+// 担当 × 状態 の件数を、担当をカテゴリ・状態を系列にして表示
+var agg = new ModuleAggregator<Sale>();
+agg.GroupBy(m => m.Rep);
+agg.GroupBy(m => m.Status);
+agg.Count();
+SalesChart.Show(agg, 1);
+```
+
+### `Reload()` / `SetAdditionalCondition(searcher)`
+
+`Reload()` は集計し直します。`SetAdditionalCondition` は追加の条件を設計の条件 (または `Show` の定義の条件) と AND にして、**その場で集計し直します** (従来のチャートと違い、続けて `Reload()` を呼ぶ必要はありません)。
+
+### `LoadError`
+
+集計に失敗したときの文言です (成功なら空)。
 
 ## 注意
 

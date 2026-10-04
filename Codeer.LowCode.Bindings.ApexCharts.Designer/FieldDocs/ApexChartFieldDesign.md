@@ -10,7 +10,7 @@
 
 > **ダッシュボードの組み方は [../AppPatterns/visualization_dashboard.md](../AppPatterns/visualization_dashboard.md)（集計クエリ＋チャートの二層）を読む。**
 > - **`CategoryField` / `Series[].Name` が参照するのは、`SearchCondition.ModuleName` のモジュールの「フィールドの `Name`」**（DB列名ではない）。
-> - 月別推移・件数・率などの集計は、生テーブルでなく **GROUP BY した QueryField モジュール**をデータ元にする。
+> - 月別推移・件数・合計など**行をまとめて数えるグラフは [ApexAggregateChartFieldDesign](ApexAggregateChartFieldDesign.md)**（DB 側で集計・QueryField 不要）。このフィールドは行をそのまま点にする（行を全部読み込む）。集計結果を自前の SQL で作るなら GROUP BY した QueryField モジュールをデータ元にする。
 > - 高さはチャートを置く `GridRow` に十分な高さを与える。円/ドーナツは系列配列でなく `SeriesField`（単数）を使う [ApexRadialChartField.md](ApexRadialChartField.md)。
 
 ### C# クラス定義 (真実の源)
