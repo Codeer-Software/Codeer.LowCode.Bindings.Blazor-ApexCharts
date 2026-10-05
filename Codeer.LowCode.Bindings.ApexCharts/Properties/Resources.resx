@@ -252,4 +252,7 @@
   <data name="Check_NotTableModule" xml:space="preserve">
     <value>Only modules that have a table can be aggregated (modules defined by a QueryField or without a table cannot be used): {0}</value>
   </data>
+  <data name="AggregateFailed" xml:space="preserve">
+    <value>Could not aggregate. See the notification for the reason.</value>
+  </data>
 </root>

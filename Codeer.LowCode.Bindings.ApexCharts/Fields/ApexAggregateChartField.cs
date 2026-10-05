@@ -188,6 +188,13 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             try
             {
                 var table = await CrossTabBuilder.BuildAsync(condition, categoryCount, Services.ModuleDataService.AggregateAsync, withTotals: false);
+                //null = ホストの集計 API が失敗を返した (理由はホストが通知済み)
+                if (table == null)
+                {
+                    _chart = new AggregateChartData();
+                    LoadError = Properties.Resources.AggregateFailed;
+                    return;
+                }
                 _categoryGroups = condition.Groups.Take(categoryCount).ToList();
                 _splitGroups = condition.Groups.Skip(categoryCount).ToList();
                 _chart = ChartAggregate.ToChart(table, GetStyles(condition.Measures.Count), KeyText, MeasureTitle);

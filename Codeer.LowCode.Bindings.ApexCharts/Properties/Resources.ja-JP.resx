@@ -252,4 +252,7 @@
   <data name="Check_NotTableModule" xml:space="preserve">
     <value>集計できるのはテーブルを持つモジュールだけです (QueryField で定義したモジュール・テーブルの無いモジュールは使えません): {0}</value>
   </data>
+  <data name="AggregateFailed" xml:space="preserve">
+    <value>集計できませんでした。理由は画面の通知を確認してください。</value>
+  </data>
 </root>

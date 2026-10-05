@@ -221,6 +221,23 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Test
             Assert.That(field.Series, Is.Not.Empty);
         }
 
+        [Test]
+        public async Task ホストが空のリストで失敗を返したらグラフを空にして集計できなかった旨を出す()
+        {
+            //ホストは通信の失敗を空のリストで返す (理由はホストが通知済み)。例外は来ない
+            var (svc, field) = await CreateAsync("Chart");
+            await field.ReloadAsync();
+            Assert.That(field.Series, Is.Not.Empty);
+            svc.App.AggregateProvider = _ => new List<AggregateResult>();
+            await field.ReloadAsync();
+            Assert.Multiple(() =>
+            {
+                Assert.That(field.LoadError, Is.EqualTo(Properties.Resources.AggregateFailed));
+                Assert.That(field.Series, Is.Empty);
+                Assert.That(field.IsLoading, Is.False);
+            });
+        }
+
         //設計の CanCustomize をオンにしたデザイン
         static DesignData Customizable() => Design(page =>
         {

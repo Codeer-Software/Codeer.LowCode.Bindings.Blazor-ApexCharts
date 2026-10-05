@@ -646,5 +646,14 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Properties {
                 return ResourceManager.GetString("Check_NotTableModule", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Could not aggregate. See the notification for the reason. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string AggregateFailed {
+            get {
+                return ResourceManager.GetString("AggregateFailed", resourceCulture);
+            }
+        }
     }
 }
