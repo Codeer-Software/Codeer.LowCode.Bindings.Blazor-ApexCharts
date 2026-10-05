@@ -21,6 +21,11 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         //横棒は種類を選べない (棒に揃える)
         internal override IReadOnlyList<AggregateSeries> GetSeries()
             => Series.Series.Select(s => new AggregateSeries { Function = s.Function, Name = s.Name, Title = s.Title, Color = s.Color, Type = SeriesType.Bar }).ToList();
+        internal override AggregateChartSetting NormalizeSetting(AggregateChartSetting setting)
+        {
+            foreach (var s in setting.Series) s.Type = SeriesType.Bar;
+            return setting;
+        }
         internal override string GetSeriesGroupField() => SeriesGroupField;
         internal override int? GetFractionDigits() => SeriesFractionDigits;
 

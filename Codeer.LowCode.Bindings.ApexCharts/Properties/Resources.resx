@@ -225,4 +225,28 @@
   <data name="ScriptOnly" xml:space="preserve">
     <value>Displayed by Show in a script.</value>
   </data>
+  <data name="CanCustomize" xml:space="preserve">
+    <value>Allow users to customize the aggregation</value>
+  </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize aggregation</value>
+  </data>
+  <data name="ResetToDesign" xml:space="preserve">
+    <value>Reset to design</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>(none)</value>
+  </data>
+  <data name="SeriesTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Check_UnknownField" xml:space="preserve">
+    <value>Field {0} does not exist.</value>
+  </data>
 </root>

@@ -220,5 +220,142 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Test
             Assert.That(field.LoadError, Is.Empty);
             Assert.That(field.Series, Is.Not.Empty);
         }
+
+        //設計の CanCustomize をオンにしたデザイン
+        static DesignData Customizable() => Design(page =>
+        {
+            foreach (var chart in page.Fields.OfType<ApexAggregateChartFieldDesignBase>()) chart.CanCustomize = true;
+        });
+
+        [Test]
+        public async Task カスタマイズできるチャートは利用者の設定を受け取るまで集計せず受け取ったらその設定で集計する()
+        {
+            var (svc, field) = await CreateAsync("Chart", Customizable());
+            Assert.That(field.CanCustomize, Is.True);
+            await field.ReloadAsync();
+            Assert.That(svc.App.AggregateRequests, Is.Empty);
+
+            var setting = new AggregateChartSetting { CategoryField = "Status", CategoryOrder = ChartCategoryOrder.ValueDescending, CategoryLimit = 5 };
+            setting.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Count, Type = SeriesType.Line });
+            await field.ApplyUserSettingAsync(setting);
+            var sent = svc.App.AggregateRequests.Single().First();
+            Assert.Multiple(() =>
+            {
+                Assert.That(sent.Groups.Single().Variable, Is.EqualTo("Status.Value"));
+                Assert.That(sent.Measures.Single().Function, Is.EqualTo(AggregateFunction.Count));
+                Assert.That(sent.SortConditions.Single().IsDescending, Is.True);
+                Assert.That(sent.LimitCount, Is.EqualTo(5));
+                //条件は設計のまま
+                Assert.That(Leaves(sent.Condition), Is.EqualTo(new[] { "Owner.Value=A" }));
+                Assert.That(field.Series.Single().Type, Is.EqualTo(SeriesType.Line));
+            });
+
+            //null は設計どおり
+            await field.ApplyUserSettingAsync(null);
+            Assert.That(svc.App.AggregateRequests.Last().Select(c => c.Groups.Count), Is.EqualTo(new[] { 1, 2, 1 }));
+        }
+
+        [Test]
+        public async Task カスタマイズをオンにしていなければ従来どおりすぐ集計する()
+        {
+            var (svc, field) = await CreateAsync("Chart");
+            Assert.That(field.CanCustomize, Is.False);
+            await field.ReloadAsync();
+            Assert.That(svc.App.AggregateRequests, Has.Count.EqualTo(1));
+        }
+
+        [Test]
+        public async Task 円は利用者の設定でも値1つで系列を分けず円の種類だけ使う()
+        {
+            var (svc, field) = await CreateAsync("Pie", Customizable());
+            var setting = new AggregateChartSetting { CategoryField = "Owner", SeriesGroupField = "Status" };
+            setting.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Sum, Name = "Amount", Type = SeriesType.Bar });
+            setting.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Count });
+            await field.ApplyUserSettingAsync(setting);
+            var sent = svc.App.AggregateRequests.Single()[0];
+            Assert.Multiple(() =>
+            {
+                Assert.That(sent.Groups.Select(g => g.Variable), Is.EqualTo(new[] { "Owner.Value" }));
+                Assert.That(sent.Measures.Single().Function, Is.EqualTo(AggregateFunction.Sum));
+                Assert.That(field.CurrentSetting.Series.Single().Type, Is.EqualTo(SeriesType.Pie));
+            });
+        }
+
+        [Test]
+        public async Task 横棒は利用者の設定でも棒に揃える()
+        {
+            var (_, field) = await CreateAsync("HBar", Design(page =>
+            {
+                var hbar = new ApexAggregateHBarChartFieldDesign { Name = "HBar", CategoryField = "Owner", CanCustomize = true };
+                hbar.SearchCondition.ModuleName = "Sale";
+                page.Fields.Add(hbar);
+            }));
+            var setting = new AggregateChartSetting { CategoryField = "Owner" };
+            setting.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Count, Type = SeriesType.Line });
+            await field.ApplyUserSettingAsync(setting);
+            Assert.That(field.CurrentSetting.Series.Single().Type, Is.EqualTo(SeriesType.Bar));
+        }
+
+        [Test]
+        public async Task スクリプトのShowで定義を渡したらカスタマイズできずShowの定義で描く()
+        {
+            var (svc, field) = await CreateAsync("Chart", Customizable());
+            var setting = new AggregateChartSetting { CategoryField = "Owner" };
+            setting.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Count });
+            await field.ApplyUserSettingAsync(setting);
+
+            var aggregator = new ModuleAggregator("Sale");
+            aggregator.GroupBy(L("m => m.Status"));
+            aggregator.Sum(L("m => m.Amount"));
+            await field.ShowAsync(aggregator);
+            Assert.That(field.CanCustomize, Is.False);
+            Assert.That(svc.App.AggregateRequests.Last()[0].Groups.Single().Variable, Is.EqualTo("Status.Value"));
+        }
+
+        [Test]
+        public void 利用者の設定はカテゴリ系列の有無と項目の存在も確かめる()
+        {
+            var design = Design();
+            var sale = design.Modules.Find("Sale")!;
+            List<string> Errors(Action<AggregateChartSetting> edit)
+            {
+                var setting = new AggregateChartSetting { CategoryField = "Status" };
+                setting.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Sum, Name = "Amount" });
+                edit(setting);
+                return ChartAggregate.ValidateUserSetting(setting, design, sale);
+            }
+            Assert.Multiple(() =>
+            {
+                Assert.That(Errors(_ => { }), Is.Empty);
+                Assert.That(Errors(s => s.CategoryField = string.Empty), Has.Count.EqualTo(1));
+                Assert.That(Errors(s => s.CategoryField = "Deleted"), Has.Count.EqualTo(1));
+                Assert.That(Errors(s => s.SeriesGroupField = "Deleted"), Has.Count.EqualTo(1));
+                Assert.That(Errors(s => s.Series.Clear()), Has.Count.EqualTo(1));
+                Assert.That(Errors(s => s.Series[0].Name = "Deleted"), Has.Count.EqualTo(1));
+                //設計のチェックと同じ誤り (日付でない項目にまとめる単位・数値でない項目の合計)
+                Assert.That(Errors(s => s.CategoryDateUnit = ChartDateUnit.Month), Has.Count.EqualTo(1));
+                Assert.That(Errors(s => s.Series[0].Name = "Owner"), Has.Count.EqualTo(1));
+            });
+        }
+
+        [Test]
+        public void 利用者の設定のリンク越しの項目はリンク先まで解決して確かめる()
+        {
+            var design = Design();
+            var rep = new ModuleDesign { Name = "Rep", DataSourceName = "Main", DbTable = "reps" };
+            rep.Fields.Add(new IdFieldDesign { Name = "Id", DbColumn = "id" });
+            rep.Fields.Add(new TextFieldDesign { Name = "Region", DbColumn = "region" });
+            ((IEditableModuleDesign)design.Modules).Add(rep);
+            var sale = design.Modules.Find("Sale")!;
+            var link = new LinkFieldDesign { Name = "Rep", DbColumn = "rep_id" };
+            link.SearchCondition.ModuleName = "Rep";
+            sale.Fields.Add(link);
+
+            var setting = new AggregateChartSetting { CategoryField = "Rep.Region", SeriesGroupField = "Rep.Region" };
+            setting.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Count });
+            Assert.That(ChartAggregate.ValidateUserSetting(setting, design, sale), Is.Empty);
+            setting.CategoryField = "Rep.Deleted";
+            Assert.That(ChartAggregate.ValidateUserSetting(setting, design, sale), Has.Count.EqualTo(1));
+        }
     }
 }

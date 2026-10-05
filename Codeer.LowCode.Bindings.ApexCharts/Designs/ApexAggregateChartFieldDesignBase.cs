@@ -54,6 +54,10 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         [Designer(Index = 20, DisplayName = "$ShowLegend")]
         public bool ShowLegend { get; set; } = true;
 
+        /// <summary>閲覧者が画面で集計 (カテゴリ・系列・並び等) を変更できる。変更はブラウザに保存され、その人の画面だけに効く。</summary>
+        [Designer(Index = 30, Scope = DesignerScope.All, DisplayName = "$CanCustomize")]
+        public bool CanCustomize { get; set; }
+
         public override string GetWebComponentTypeFullName() => typeof(ApexAggregateChartFieldComponent).FullName!;
         public override string GetSearchWebComponentTypeFullName() => string.Empty;
         public override string GetSearchControlTypeFullName() => string.Empty;
@@ -65,6 +69,24 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
 
         /// <summary>系列を分ける項目 (円は分けないので空)。</summary>
         internal virtual string GetSeriesGroupField() => string.Empty;
+
+        /// <summary>設計の集計の設定 (カテゴリ・系列・並び等)。</summary>
+        internal AggregateChartSetting GetSetting() => new()
+        {
+            CategoryField = CategoryField,
+            CategoryDateUnit = CategoryDateUnit,
+            FiscalYearStartMonth = FiscalYearStartMonth,
+            SeriesGroupField = GetSeriesGroupField(),
+            Series = GetSeries().Select(CloneSeries).ToList(),
+            CategoryOrder = CategoryOrder,
+            CategoryLimit = CategoryLimit,
+        };
+
+        /// <summary>利用者の設定をこのチャートで描ける形に揃える (横棒は棒に固定・円は値 1 つで分けない)。設計の GetSeries と同じ揃え方。</summary>
+        internal virtual AggregateChartSetting NormalizeSetting(AggregateChartSetting setting) => setting;
+
+        internal static AggregateSeries CloneSeries(AggregateSeries s)
+            => new() { Function = s.Function, Name = s.Name, Title = s.Title, Type = s.Type, Color = s.Color };
 
         /// <summary>値の軸の小数桁 (軸の無い円は null)。</summary>
         internal virtual int? GetFractionDigits() => null;
@@ -96,7 +118,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
             var module = context.DesignData.Modules.Find(moduleName);
             if (module != null)
             {
-                foreach (var (code, member, message) in ChartAggregate.Validate(this, module))
+                foreach (var (code, member, message) in ChartAggregate.Validate(GetSetting(), module))
                     result.Add(Info(context, code, member, message));
             }
             return result;

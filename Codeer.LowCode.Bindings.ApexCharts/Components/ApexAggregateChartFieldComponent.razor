@@ -1,45 +1,138 @@
+@using Codeer.LowCode.Blazor.Components.Dialog
+@using Codeer.LowCode.Blazor.Components.Dialog.BootstrapButtons
 @using Codeer.LowCode.Blazor.Components.Fields
+@using Codeer.LowCode.Blazor.Components.Interop
+@using Codeer.LowCode.Blazor.Json
 @using Codeer.LowCode.Blazor.RequestInterfaces
 @using Codeer.LowCode.Bindings.ApexCharts.Designs
+@using Codeer.LowCode.Bindings.ApexCharts.Fields
 @using Codeer.LowCode.Bindings.ApexCharts.Models
+@using Codeer.LowCode.Bindings.ApexCharts.Properties
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
 @using global::ApexCharts
 @using SeriesType = Codeer.LowCode.Bindings.ApexCharts.Models.SeriesType
 @inherits FieldComponentBase<Codeer.LowCode.Bindings.ApexCharts.Fields.ApexAggregateChartField>
 @inject Services Services
+@inject IJSRuntime JSRuntime
 
-@if (string.IsNullOrEmpty(Field.ModuleName)) {
-  @if (Services.AppInfoService.IsDesignMode) {
-    <ConfigurationRequiredBanner>
-      @Codeer.LowCode.Bindings.ApexCharts.Properties.Resources.ScriptOnly
-    </ConfigurationRequiredBanner>
-  }
-} else if (!string.IsNullOrEmpty(Field.LoadError)) {
-  <div class="text-danger small" data-name="load-error">@Field.LoadError</div>
-} else if (Field.Series.Count > 0) {
-  <ApexChart TItem="SeriesData" Title="@Field.Design.DisplayName" Options="Field.Options" @key="@Field.RefreshKey">
-    @if (Field.Design is ApexAggregateRadialChartFieldDesign) {
-      var series = Field.Series[0];
-      <ApexPointSeries TItem="SeriesData"
-                       Items="Field.SeriesData"
-                       SeriesType="@series.Type.ToApexSeriesType()"
-                       XValue="data => data.XValue"
-                       YAggregate="@(data => data.Sum(y => y.Data.GetValueOrDefault(series.Name)))"/>
-    } else {
-      @foreach (var series in Field.Series) {
-        <ApexPointSeries TItem="SeriesData"
-                         Items="Field.SeriesData"
-                         Name="@Field.GetSeriesTitle(series.Name)"
-                         SeriesType="@series.Type.ToApexSeriesType()"
-                         XValue="data => data.XValue"
-                         YAggregate="data => data.Sum(y => y.Data.GetValueOrDefault(series.Name))"/>
-      }
-    }
-  </ApexChart>
+@if (Field.CanCustomize) {
+  @* カスタマイズできるチャートだけ右上にボタンを出す (エラーでグラフが出ないときも、自分の設定を直せるようにグラフの外に置く) *@
+  <div class="aggregate-chart-customizable" style="position: relative; height: 100%;">
+    <button type="button" class="btn btn-sm btn-outline-secondary" data-name="customize" style="position: absolute; top: 0; right: 0; z-index: 1;"
+            @onclick="ShowCustomDialog">@Resources.Customize</button>
+    @Chart
+    <ComponentDialog @ref="_dialog" Title="@Resources.Customize"
+                     Buttons="@([new PrimaryButton("OK"), new SecondaryButton(Resources.ResetToDesign), new SecondaryButton(Resources.Cancel)])">
+      <AggregateChartSettingEditor Value="_editing" Design="Field.Design" />
+    </ComponentDialog>
+  </div>
+} else {
+  @Chart
 }
 
 @code {
+  ComponentDialog? _dialog;
+  AggregateChartSetting _editing = new();
+  LocalStorage? _localStorage;
+  bool _userSettingLoaded;
+
+  //保存先のキーはクロス集計・ListField のカラムカスタマイズと同じ「モジュール名.フィールド名」
+  string StorageKey => Field.Module.Design.Name + "." + Field.Design.Name;
+
   protected override async Task OnParametersSetAsync() {
     await base.OnParametersSetAsync();
     Field.SetStateChangedReceiver(StateHasChanged);
+    Field.SetShowCustomDialog(ShowCustomDialog);
+    await LoadUserSettingAsync();
+  }
+
+  RenderFragment Chart => __builder => {
+    @if (string.IsNullOrEmpty(Field.ModuleName)) {
+      @if (Services.AppInfoService.IsDesignMode) {
+        <ConfigurationRequiredBanner>
+          @Resources.ScriptOnly
+        </ConfigurationRequiredBanner>
+      }
+    } else if (!string.IsNullOrEmpty(Field.LoadError)) {
+      <div class="text-danger small" data-name="load-error">@Field.LoadError</div>
+    } else if (Field.Series.Count > 0) {
+      <ApexChart TItem="SeriesData" Title="@Field.Design.DisplayName" Options="Field.Options" @key="@Field.RefreshKey">
+        @if (Field.Design is ApexAggregateRadialChartFieldDesign) {
+          var series = Field.Series[0];
+          <ApexPointSeries TItem="SeriesData"
+                           Items="Field.SeriesData"
+                           SeriesType="@series.Type.ToApexSeriesType()"
+                           XValue="data => data.XValue"
+                           YAggregate="@(data => data.Sum(y => y.Data.GetValueOrDefault(series.Name)))"/>
+        } else {
+          @foreach (var series in Field.Series) {
+            <ApexPointSeries TItem="SeriesData"
+                             Items="Field.SeriesData"
+                             Name="@Field.GetSeriesTitle(series.Name)"
+                             SeriesType="@series.Type.ToApexSeriesType()"
+                             XValue="data => data.XValue"
+                             YAggregate="data => data.Sum(y => y.Data.GetValueOrDefault(series.Name))"/>
+          }
+        }
+      </ApexChart>
+    }
+  };
+
+  //カスタマイズできるチャートだけ、ブラウザの保存内容を一度読んで今の設計で使えるか確かめてから集計する (Field は読むまで集計を待っている)
+  async Task LoadUserSettingAsync() {
+    if (_userSettingLoaded || !Field.Design.CanCustomize || Services.AppInfoService.IsDesignMode) return;
+    _userSettingLoaded = true;
+    AggregateChartSetting? saved = null;
+    try {
+      _localStorage = await LocalStorage.CreateAsync(JSRuntime);
+      AddDisposable(_localStorage);
+      var json = await _localStorage.Get(StorageKey);
+      if (!string.IsNullOrEmpty(json)) saved = JsonConverterEx.DeserializeObject<AggregateChartSetting>(json);
+    }
+    catch {
+      //読めない保存内容は無かったものとして設計の設定で表示する
+      saved = null;
+    }
+    //保存後に設計が変わって使えなくなった設定 (項目が消えた等) は使わない
+    if (saved != null && Validate(saved).Count > 0) saved = null;
+    await Field.ApplyUserSettingAsync(saved);
+  }
+
+  List<string> Validate(AggregateChartSetting setting) {
+    var designData = Services.AppInfoService.GetDesignData();
+    var module = designData.Modules.Find(Field.Design.SearchCondition.ModuleName);
+    return module == null ? [Field.Design.SearchCondition.ModuleName] : ChartAggregate.ValidateUserSetting(setting, designData, module);
+  }
+
+  async Task ShowCustomDialog() {
+    if (_dialog == null || !Field.CanCustomize) return;
+    _editing = Field.CurrentSetting.JsonClone();
+    while (true) {
+      StateHasChanged();
+      var result = await _dialog.ShowDialogAsync();
+      if (result == Resources.ResetToDesign) {
+        await SaveUserSettingAsync(null);
+        return;
+      }
+      if (result != "OK") return;
+      var errors = Validate(Field.Design.NormalizeSetting(_editing.JsonClone()));
+      if (errors.Count == 0) {
+        await SaveUserSettingAsync(Field.Design.NormalizeSetting(_editing));
+        return;
+      }
+      //直せるよう編集中の内容のままダイアログを開き直す
+      _ = Services.UIService.NotifyError(string.Join(Environment.NewLine, errors));
+    }
+  }
+
+  //設計と同じ内容 (または「設計に戻す」) なら保存を消す
+  async Task SaveUserSettingAsync(AggregateChartSetting? setting) {
+    if (setting != null && JsonConverterEx.SerializeObject(setting) == JsonConverterEx.SerializeObject(Field.Design.GetSetting())) setting = null;
+    if (_localStorage != null) {
+      if (setting == null) await _localStorage.Remove(StorageKey);
+      else await _localStorage.Set(StorageKey, JsonConverterEx.SerializeObject(setting));
+    }
+    await Field.ApplyUserSettingAsync(setting);
   }
 }

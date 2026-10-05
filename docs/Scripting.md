@@ -116,6 +116,10 @@ SalesChart.Show(agg, 1);
 
 `Reload()` は集計し直します。`SetAdditionalCondition` は追加の条件を設計の条件 (または `Show` の定義の条件) と AND にして、**その場で集計し直します** (従来のチャートと違い、続けて `Reload()` を呼ぶ必要はありません)。
 
+### `ShowCustomDialog()`
+
+集計のカスタマイズのダイアログを開きます (`CanCustomize` がオンで、`Show` で集計を渡していないときだけ)。
+
 ### `LoadError`
 
 集計に失敗したときの文言です (成功なら空)。

@@ -47,17 +47,16 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
 
         static string Variable(string fieldName) => fieldName + ".Value";
 
-        /// <summary>設計を集計定義にする (条件は SearchCondition の条件だけ。並び・件数上限は使わない)。カテゴリは先頭の 1 軸。</summary>
-        internal static AggregateCondition CreateCondition(ApexAggregateChartFieldDesignBase design)
+        /// <summary>集計の設定を集計定義にする (条件は SearchCondition の条件だけ。並び・件数上限は使わない)。カテゴリは先頭の 1 軸。</summary>
+        internal static AggregateCondition CreateCondition(SearchCondition searchCondition, AggregateChartSetting setting)
         {
-            var condition = new AggregateCondition(design.SearchCondition.ModuleName) { Condition = design.SearchCondition.Condition };
-            var bucket = ToBucket(design.CategoryDateUnit);
+            var condition = new AggregateCondition(searchCondition.ModuleName) { Condition = searchCondition.Condition };
+            var bucket = ToBucket(setting.CategoryDateUnit);
             condition.Groups.Add(bucket == null
-                ? new ValueGroup { Variable = Variable(design.CategoryField) }
-                : new DateGroup { Variable = Variable(design.CategoryField), Bucket = bucket.Value, FiscalYearStartMonth = design.FiscalYearStartMonth is >= 1 and <= 12 ? design.FiscalYearStartMonth : 1 });
-            var groupField = design.GetSeriesGroupField();
-            if (!string.IsNullOrEmpty(groupField)) condition.Groups.Add(new ValueGroup { Variable = Variable(groupField) });
-            foreach (var s in design.GetSeries())
+                ? new ValueGroup { Variable = Variable(setting.CategoryField) }
+                : new DateGroup { Variable = Variable(setting.CategoryField), Bucket = bucket.Value, FiscalYearStartMonth = setting.FiscalYearStartMonth is >= 1 and <= 12 ? setting.FiscalYearStartMonth : 1 });
+            if (!string.IsNullOrEmpty(setting.SeriesGroupField)) condition.Groups.Add(new ValueGroup { Variable = Variable(setting.SeriesGroupField) });
+            foreach (var s in setting.Series)
             {
                 var function = ToFunction(s.Function);
                 condition.Measures.Add(new AggregateMeasure
@@ -67,25 +66,25 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
                     Name = s.Title,
                 });
             }
-            if (design.CategoryOrder != ChartCategoryOrder.Field && condition.Measures.Count > 0)
-                condition.SortConditions.Add(new AggregateSort { Target = AggregateSortTarget.Measure, Index = 0, IsDescending = design.CategoryOrder == ChartCategoryOrder.ValueDescending });
-            if (design.CategoryLimit > 0) condition.LimitCount = design.CategoryLimit;
+            if (setting.CategoryOrder != ChartCategoryOrder.Field && condition.Measures.Count > 0)
+                condition.SortConditions.Add(new AggregateSort { Target = AggregateSortTarget.Measure, Index = 0, IsDescending = setting.CategoryOrder == ChartCategoryOrder.ValueDescending });
+            if (setting.CategoryLimit > 0) condition.LimitCount = setting.CategoryLimit;
             return condition;
         }
 
         /// <summary>
-        /// 設計の不整合 (日付でない項目にまとめる単位・項目に使えない集計方法・ヒートマップの混在) を (番号, メンバー, 文言) で返す。
-        /// 項目が無い指摘は本体の存在確認が出すので、ここでは見つかった項目だけを見る。
+        /// 集計の設定の不整合 (日付でない項目にまとめる単位・項目に使えない集計方法・ヒートマップの混在) を (番号, メンバー, 文言) で返す。
+        /// 項目が無い指摘は本体の存在確認が出すので、ここでは見つかった項目だけを見る (利用者の設定は ValidateUserSetting が項目の有無も見る)。
         /// </summary>
-        internal static List<(int Code, string Member, string Message)> Validate(ApexAggregateChartFieldDesignBase design, ModuleDesign module)
+        internal static List<(int Code, string Member, string Message)> Validate(AggregateChartSetting setting, ModuleDesign module)
         {
             var result = new List<(int, string, string)>();
-            var bucket = ToBucket(design.CategoryDateUnit);
-            var category = module.Fields.FirstOrDefault(e => e.Name == design.CategoryField);
+            var bucket = ToBucket(setting.CategoryDateUnit);
+            var category = module.Fields.FirstOrDefault(e => e.Name == setting.CategoryField);
             if (bucket != null && category != null && !new DateGroup { Bucket = bucket.Value }.CanApplyTo(category))
-                result.Add((ApexAggregateChartFieldDesignBase.Codes.DateUnitRequiresDate, nameof(design.CategoryDateUnit), string.Format(Properties.Resources.Check_DateUnitRequiresDate, design.CategoryField)));
+                result.Add((ApexAggregateChartFieldDesignBase.Codes.DateUnitRequiresDate, nameof(setting.CategoryDateUnit), string.Format(Properties.Resources.Check_DateUnitRequiresDate, setting.CategoryField)));
 
-            var series = design.GetSeries();
+            var series = setting.Series;
             foreach (var s in series.Where(s => s.Function != ChartAggregateFunction.Count))
             {
                 var field = module.Fields.FirstOrDefault(e => e.Name == s.Name);
@@ -98,6 +97,23 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             if (series.Any(s => s.Type == SeriesType.Heatmap) && series.Any(s => s.Type != SeriesType.Heatmap))
                 result.Add((ApexAggregateChartFieldDesignBase.Codes.HeatmapCannotBeMixed, "Series", Properties.Resources.Check_HeatmapCannotBeMixed));
             return result;
+        }
+
+        /// <summary>
+        /// 利用者の設定の誤り (文言)。設計のチェックに加えて、カテゴリ・系列が無い / 項目が元モジュールに無い (リンク越しはリンク先まで) も見る (保存後に設計から項目が消えた場合も含む)。
+        /// </summary>
+        internal static List<string> ValidateUserSetting(AggregateChartSetting setting, DesignData designData, ModuleDesign module)
+        {
+            var result = new List<string>();
+            bool Exists(string name) => ResolveField(designData, module, Variable(name)) != null;
+            if (string.IsNullOrEmpty(setting.CategoryField)) result.Add(Properties.Resources.Check_NoCategory);
+            else if (!Exists(setting.CategoryField)) result.Add(string.Format(Properties.Resources.Check_UnknownField, setting.CategoryField));
+            if (!string.IsNullOrEmpty(setting.SeriesGroupField) && !Exists(setting.SeriesGroupField)) result.Add(string.Format(Properties.Resources.Check_UnknownField, setting.SeriesGroupField));
+            if (setting.Series.Count == 0) result.Add(Properties.Resources.Check_NoSeries);
+            foreach (var s in setting.Series.Where(s => s.Function != ChartAggregateFunction.Count && !Exists(s.Name)))
+                result.Add(string.Format(Properties.Resources.Check_UnknownField, s.Name));
+            result.AddRange(Validate(setting, module).Select(e => e.Message));
+            return result.Distinct().ToList();
         }
 
         /// <summary>系列の見た目 (設計の系列の同じ番号。無ければ棒・色なし)。</summary>

@@ -565,5 +565,77 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Properties {
                 return ResourceManager.GetString("ScriptOnly", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Allow users to customize the aggregation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CanCustomize {
+            get {
+                return ResourceManager.GetString("CanCustomize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Customize aggregation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Customize {
+            get {
+                return ResourceManager.GetString("Customize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reset to design に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ResetToDesign {
+            get {
+                return ResourceManager.GetString("ResetToDesign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cancel に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   (none) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Title に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SeriesTitle {
+            get {
+                return ResourceManager.GetString("SeriesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Field {0} does not exist. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Check_UnknownField {
+            get {
+                return ResourceManager.GetString("Check_UnknownField", resourceCulture);
+            }
+        }
     }
 }

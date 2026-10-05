@@ -31,6 +31,17 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
         internal override IReadOnlyList<AggregateSeries> GetSeries()
             => [new AggregateSeries { Function = SeriesFunction, Name = SeriesFunction == ChartAggregateFunction.Count ? string.Empty : SeriesField, Type = SeriesType }];
 
+        /// <summary>円・ドーナツ・ポーラーで描ける種類。</summary>
+        internal static readonly SeriesType[] RadialTypes = [SeriesType.Pie, SeriesType.Donut, SeriesType.PolarArea];
+
+        internal override AggregateChartSetting NormalizeSetting(AggregateChartSetting setting)
+        {
+            setting.SeriesGroupField = string.Empty;
+            if (setting.Series.Count > 1) setting.Series.RemoveRange(1, setting.Series.Count - 1);
+            foreach (var s in setting.Series.Where(s => !RadialTypes.Contains(s.Type))) s.Type = SeriesType;
+            return setting;
+        }
+
         internal override void AddRenameTargets(RenameContext.RenameResultBuilder builder, string moduleName)
         {
             if (!string.IsNullOrEmpty(SeriesField)) builder.AddField(moduleName, SeriesField, s => SeriesField = s);

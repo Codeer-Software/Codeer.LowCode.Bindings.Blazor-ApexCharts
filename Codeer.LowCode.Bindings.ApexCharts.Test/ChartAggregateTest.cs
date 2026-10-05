@@ -29,7 +29,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Test
             var design = Chart();
             design.CategoryOrder = ChartCategoryOrder.ValueDescending;
             design.CategoryLimit = 5;
-            var c = ChartAggregate.CreateCondition(design);
+            var c = ChartAggregate.CreateCondition(design.SearchCondition, design.GetSetting());
             Assert.Multiple(() =>
             {
                 Assert.That(c.ModuleName, Is.EqualTo("Sale"));
@@ -52,14 +52,14 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Test
             design.CategoryDateUnit = ChartDateUnit.None;
             design.SeriesGroupField = string.Empty;
             design.FiscalYearStartMonth = 13;
-            var c = ChartAggregate.CreateCondition(design);
+            var c = ChartAggregate.CreateCondition(design.SearchCondition, design.GetSetting());
             Assert.That(c.Groups.Single(), Is.TypeOf<ValueGroup>());
             Assert.That(c.SortConditions, Is.Empty);
             Assert.That(c.LimitCount, Is.Null);
 
             //年度の開始月が範囲外なら暦年
             design.CategoryDateUnit = ChartDateUnit.Year;
-            Assert.That(((DateGroup)ChartAggregate.CreateCondition(design).Groups[0]).FiscalYearStartMonth, Is.EqualTo(1));
+            Assert.That(((DateGroup)ChartAggregate.CreateCondition(design.SearchCondition, design.GetSetting()).Groups[0]).FiscalYearStartMonth, Is.EqualTo(1));
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Test
 
             var radial = new ApexAggregateRadialChartFieldDesign { SeriesFunction = ChartAggregateFunction.Count, SeriesField = "Amount", SeriesType = SeriesType.Donut, CategoryField = "Status" };
             radial.SearchCondition.ModuleName = "Sale";
-            var c = ChartAggregate.CreateCondition(radial);
+            var c = ChartAggregate.CreateCondition(radial.SearchCondition, radial.GetSetting());
             Assert.Multiple(() =>
             {
                 Assert.That(c.Measures.Single().Function, Is.EqualTo(AggregateFunction.Count));
@@ -172,14 +172,14 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Test
         public void 不整合は日付でない項目のまとめる単位と数値でない項目の集計とヒートマップの混在()
         {
             var design = Chart();
-            Assert.That(ChartAggregate.Validate(design, Sale()), Is.Empty);
+            Assert.That(ChartAggregate.Validate(design.GetSetting(), Sale()), Is.Empty);
 
             design.CategoryField = "Title";
             design.Series.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Max, Name = "SoldOn", Type = SeriesType.Heatmap });
             //件数は項目を見ない・無い項目は本体の存在確認が出すのでここでは出さない
             design.Series.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Count, Name = "Title" });
             design.Series.Series.Add(new AggregateSeries { Function = ChartAggregateFunction.Sum, Name = "Nothing" });
-            var codes = ChartAggregate.Validate(design, Sale()).Select(e => e.Code).ToList();
+            var codes = ChartAggregate.Validate(design.GetSetting(), Sale()).Select(e => e.Code).ToList();
             Assert.That(codes, Is.EqualTo(new[]
             {
                 ApexAggregateChartFieldDesignBase.Codes.DateUnitRequiresDate,

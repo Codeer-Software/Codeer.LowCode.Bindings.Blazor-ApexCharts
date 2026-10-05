@@ -27,6 +27,9 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         SearchCondition? _additionalCondition;
         AggregateCondition? _scriptCondition;
         int _scriptCategoryCount;
+        AggregateChartSetting? _userSetting;
+        bool _userSettingApplied;
+        Func<Task> _showCustomDialog = () => Task.CompletedTask;
         List<AggregateGroup> _categoryGroups = [];
         List<AggregateGroup> _splitGroups = [];
         AggregateChartData _chart = new();
@@ -59,6 +62,36 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         public bool IsLoading { get; private set; }
 
         public override bool IsModified => false;
+
+        /// <summary>今使っている集計の設定 (利用者のカスタマイズがあればそれ、無ければ設計)。スクリプトの Show で渡した定義は含まない。</summary>
+        internal AggregateChartSetting CurrentSetting => _userSetting ?? Design.GetSetting();
+
+        /// <summary>利用者がカスタマイズできる状態か (設計で許可・元モジュールあり・スクリプトの Show で定義を渡していない・実行時)。</summary>
+        internal bool CanCustomize => Design.CanCustomize && _scriptCondition == null
+            && !string.IsNullOrEmpty(Design.SearchCondition.ModuleName) && !Services.AppInfoService.IsDesignMode;
+
+        //カスタマイズできるチャートは、画面がブラウザの保存内容を読んで ApplyUserSettingAsync を呼ぶまで集計しない (設計の設定で 1 回集計してから読み直さない。検索フィールドの初回検索が先に来ても同じ)
+        bool IsWaitingUserSetting => Design.CanCustomize && !_userSettingApplied && !Services.AppInfoService.IsDesignMode;
+
+        /// <summary>利用者の設定 (今の設計で使えるもの。null なら設計どおり) を使って集計し直す。画面が呼ぶ。</summary>
+        internal async Task ApplyUserSettingAsync(AggregateChartSetting? setting)
+        {
+            _userSetting = setting == null ? null : Design.NormalizeSetting(setting);
+            _userSettingApplied = true;
+            //値の軸の書式はヒートマップかどうかで変わる
+            if (this.IsInLayout()) InitializeOptions();
+            await ReloadAsync();
+        }
+
+        internal void SetShowCustomDialog(Func<Task> show) => _showCustomDialog = show;
+
+        /// <summary>集計のカスタマイズのダイアログを開く (設計で「利用者が集計を変更できる」がオンのときだけ開く)。</summary>
+        [ScriptName("ShowCustomDialog")]
+        public async Task ShowCustomDialogAsync()
+        {
+            if (!CanCustomize) return;
+            await _showCustomDialog();
+        }
 
         [ScriptHide]
         public string RefreshKey => _refreshKey.ToString();
@@ -137,7 +170,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
         [ScriptName("Reload")]
         public async Task ReloadAsync()
         {
-            if (!AllowLoad) return;
+            if (!AllowLoad || IsWaitingUserSetting) return;
             if (Services.AppInfoService.IsDesignMode)
             {
                 _chart = CreateDesignSample();
@@ -195,7 +228,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             AggregateCondition condition;
             if (_scriptCondition == null)
             {
-                condition = ChartAggregate.CreateCondition(Design);
+                condition = ChartAggregate.CreateCondition(Design.SearchCondition, CurrentSetting);
                 categoryCount = 1;
             }
             else
@@ -218,10 +251,13 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             return baseCondition.MergeSearchCondition(_additionalCondition);
         }
 
-        //値の見た目は設計の系列の同じ番号 (Show の定義で設計より多い値は棒・色なし)
+        //見た目 (種類・色) を取る系列: 今の設定の系列。スクリプトの Show で定義を渡したときは設計の系列
+        IReadOnlyList<AggregateSeries> StyleSeries => _scriptCondition == null ? CurrentSetting.Series : Design.GetSeries();
+
+        //値の見た目は StyleSeries の同じ番号 (Show の定義で設計より多い値は棒・色なし)
         List<ChartAggregate.SeriesStyle> GetStyles(int count)
         {
-            var series = Design.GetSeries();
+            var series = StyleSeries;
             return Enumerable.Range(0, count).Select(i => i < series.Count
                 ? new ChartAggregate.SeriesStyle(series[i].Type, series[i].Color)
                 : new ChartAggregate.SeriesStyle(Design is ApexAggregateRadialChartFieldDesign radial ? radial.SeriesType : SeriesType.Bar, string.Empty)).ToList();
@@ -307,7 +343,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Fields
             Options.Legend = new Legend { Position = Design.ShowLegend ? LegendPosition.Bottom : null };
 
             var digits = Design.GetFractionDigits();
-            var heatmap = Design.GetSeries().FirstOrDefault()?.Type == SeriesType.Heatmap;
+            var heatmap = StyleSeries.FirstOrDefault()?.Type == SeriesType.Heatmap;
             var formatter = digits == null || heatmap ? null : $"function(value) {{ return Number(value).toFixed({Math.Max(0, digits.Value)}); }}";
             if (Design is ApexAggregateHBarChartFieldDesign)
             {

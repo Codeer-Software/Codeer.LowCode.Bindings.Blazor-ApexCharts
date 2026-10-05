@@ -1,0 +1,226 @@
+@using System.Reflection
+@using Codeer.LowCode.Bindings.ApexCharts.Designs
+@using Codeer.LowCode.Bindings.ApexCharts.Models
+@using Codeer.LowCode.Bindings.ApexCharts.Properties
+@using Codeer.LowCode.Blazor.Repository.Design
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Microsoft.AspNetCore.Components.Web
+@using SeriesType = Codeer.LowCode.Bindings.ApexCharts.Models.SeriesType
+@inject Services Services
+
+@* 利用者のカスタマイズ用の集計の設定エディタ (設計のプロパティと同じ項目: カテゴリ / 系列を分ける項目 / 系列 / 並び・上限) *@
+<div class="aggregate-chart-editor" data-system="aggregate-chart-editor">
+  <table class="table table-sm table-borderless m-0">
+    <tbody>
+      <tr>
+        <th class="small text-nowrap align-middle">@Resources.CategoryField</th>
+        <td>
+          <div class="d-flex align-items-center gap-1">
+            @FieldSelect(Value.CategoryField, _categoryCandidates, false, "category-field", SetCategoryField)
+            @* まとめる単位は日付・日時の項目のときだけ。年度の開始月は 年・四半期 のときだけ *@
+            @if (IsDate(Value.CategoryField))
+            {
+              <label class="small text-nowrap m-0 ms-2">@Resources.CategoryDateUnit</label>
+              <select class="form-select form-select-sm w-auto" data-name="date-unit" value="@Value.CategoryDateUnit.ToString()" @onchange="SetDateUnit">
+                @foreach (var unit in Enum.GetValues<ChartDateUnit>()) { <option value="@unit.ToString()">@EnumText(unit)</option> }
+              </select>
+              @if (Value.CategoryDateUnit is ChartDateUnit.Year or ChartDateUnit.Quarter)
+              {
+                <label class="small text-nowrap m-0 ms-2">@Resources.FiscalYearStartMonth</label>
+                <select class="form-select form-select-sm w-auto" data-name="fiscal-year-start-month" value="@Value.FiscalYearStartMonth" @onchange="SetFiscalYearStartMonth">
+                  @for (var month = 1; month <= 12; month++) { <option value="@month">@month</option> }
+                </select>
+              }
+            }
+          </div>
+        </td>
+      </tr>
+      @if (!IsRadial)
+      {
+        <tr>
+          <th class="small text-nowrap align-middle">@Resources.SeriesGroupField</th>
+          <td>@FieldSelect(Value.SeriesGroupField, _categoryCandidates, true, "series-group-field", v => Value.SeriesGroupField = v)</td>
+        </tr>
+      }
+      <tr>
+        <th class="small text-nowrap align-middle">@Resources.CategoryOrder</th>
+        <td>
+          <div class="d-flex align-items-center gap-1">
+            <select class="form-select form-select-sm w-auto" data-name="category-order" value="@Value.CategoryOrder.ToString()" @onchange="SetCategoryOrder">
+              @foreach (var order in Enum.GetValues<ChartCategoryOrder>()) { <option value="@order.ToString()">@EnumText(order)</option> }
+            </select>
+            <label class="small text-nowrap m-0 ms-2">@Resources.CategoryLimit</label>
+            <input type="number" min="0" class="form-control form-control-sm" style="width: 7rem" data-name="category-limit"
+                   value="@(Value.CategoryLimit > 0 ? Value.CategoryLimit.ToString() : string.Empty)" @onchange="SetCategoryLimit" />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="small fw-bold mt-2">@Resources.Series</div>
+  <table class="table table-sm table-borderless m-0">
+    <thead>
+      <tr>
+        <th class="small text-muted">@Resources.SeriesFunction</th>
+        <th class="small text-muted">@Resources.SeriesField</th>
+        @if (!IsRadial) { <th class="small text-muted">@Resources.SeriesTitle</th> }
+        @if (TypeCandidates.Length > 0) { <th class="small text-muted">@Resources.SeriesType</th> }
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var series in Value.Series.ToList())
+      {
+        var s = series;
+        <tr data-name="series-row">
+          <td>
+            <select class="form-select form-select-sm" data-name="series-function" value="@s.Function.ToString()" @onchange="e => SetFunction(s, e)">
+              @foreach (var f in Enum.GetValues<ChartAggregateFunction>()) { <option value="@f.ToString()">@f.GetDisplayName()</option> }
+            </select>
+          </td>
+          <td>
+            @if (s.Function == ChartAggregateFunction.Count) { <span class="small text-muted">-</span> }
+            else { @FieldSelect(s.Name, _numberCandidates, false, "series-field", v => s.Name = v) }
+          </td>
+          @if (!IsRadial)
+          {
+            <td><input class="form-control form-control-sm" data-name="series-title" value="@s.Title" @onchange="e => s.Title = e.Value?.ToString() ?? string.Empty" /></td>
+          }
+          @if (TypeCandidates.Length > 0)
+          {
+            <td>
+              <select class="form-select form-select-sm" data-name="series-type" value="@s.Type.ToString()" @onchange="e => SetType(s, e)">
+                @foreach (var t in TypeCandidates) { <option value="@t.ToString()">@t.GetDisplayName()</option> }
+              </select>
+            </td>
+          }
+          <td>
+            @if (!IsRadial)
+            {
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-name="series-remove" @onclick="() => Value.Series.Remove(s)">×</button>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  @if (!IsRadial)
+  {
+    <button type="button" class="btn btn-sm btn-outline-primary" data-name="series-add" @onclick="AddSeries">@Resources.Add</button>
+  }
+</div>
+
+@code {
+  /// <summary>編集する設定 (複製を渡す。OK のときに呼び出し側が採用する)。</summary>
+  [Parameter, EditorRequired] public AggregateChartSetting Value { get; set; } = new();
+  [Parameter, EditorRequired] public ApexAggregateChartFieldDesignBase Design { get; set; } = default!;
+
+  List<(string Name, string Text, bool IsDate)> _categoryCandidates = new();
+  List<(string Name, string Text, bool IsDate)> _numberCandidates = new();
+
+  bool IsRadial => Design is ApexAggregateRadialChartFieldDesign;
+
+  //種類を選べるもの (設計の系列ダイアログと同じ候補。横棒は棒に固定なので選ばせない)
+  SeriesType[] TypeCandidates => Design switch
+  {
+    ApexAggregateRadialChartFieldDesign => ApexAggregateRadialChartFieldDesign.RadialTypes,
+    ApexAggregateHBarChartFieldDesign => [],
+    _ => [SeriesType.Bar, SeriesType.Line, SeriesType.Area, SeriesType.Heatmap],
+  };
+
+  protected override void OnParametersSet()
+  {
+    base.OnParametersSet();
+    var designData = Services.AppInfoService.GetDesignData();
+    var module = designData.Modules.Find(Design.SearchCondition.ModuleName);
+    var fields = module?.Fields ?? [];
+    //カテゴリ・系列を分ける項目は元モジュールの値の項目とリンク先 (1 段) の値の項目 ("Rep.Region")、系列の項目は数値の項目 (設計の系列ダイアログと同じ範囲)
+    static bool IsScalar(FieldDesignBase f) => f is DbValueFieldDesignBase && f is not IListFieldDesign && f.Name.IndexOf('.') < 0;
+    static bool IsDateField(FieldDesignBase f) => f is DateFieldDesign or DateTimeFieldDesign;
+    _categoryCandidates = new();
+    foreach (var field in fields.Where(IsScalar))
+    {
+      _categoryCandidates.Add((field.Name, Text(field), IsDateField(field)));
+      var target = field switch
+      {
+        LinkFieldDesign l => l.SearchCondition.ModuleName,
+        ModuleFieldDesign m => m.ModuleName,
+        SelectFieldDesign s => s.SearchCondition.ModuleName,
+        _ => null,
+      };
+      if (string.IsNullOrEmpty(target) || designData.Modules.Find(target) is not { } targetModule) continue;
+      foreach (var linked in targetModule.Fields.Where(f => IsScalar(f) && f is not IdFieldDesign))
+        _categoryCandidates.Add(($"{field.Name}.{linked.Name}", $"{Text(field)} / {Text(linked)}", IsDateField(linked)));
+    }
+    _numberCandidates = fields.Where(f => f is NumberFieldDesign).Select(f => (f.Name, Text(f), false)).ToList();
+  }
+
+  string Text(FieldDesignBase field)
+    => Services.AppInfoService.Localize(field is IDisplayName d && !string.IsNullOrEmpty(d.DisplayName) ? d.DisplayName : field.Name);
+
+  bool IsDate(string name) => _categoryCandidates.Any(c => c.Name == name && c.IsDate);
+
+  void SetCategoryField(string name)
+  {
+    Value.CategoryField = name;
+    if (!IsDate(name)) Value.CategoryDateUnit = ChartDateUnit.None;
+  }
+
+  void SetDateUnit(ChangeEventArgs e)
+    => Value.CategoryDateUnit = Enum.TryParse<ChartDateUnit>(e.Value?.ToString(), out var unit) ? unit : ChartDateUnit.None;
+
+  void SetFiscalYearStartMonth(ChangeEventArgs e)
+    => Value.FiscalYearStartMonth = int.TryParse(e.Value?.ToString(), out var m) && 1 <= m && m <= 12 ? m : 1;
+
+  void SetCategoryOrder(ChangeEventArgs e)
+    => Value.CategoryOrder = Enum.TryParse<ChartCategoryOrder>(e.Value?.ToString(), out var order) ? order : ChartCategoryOrder.Field;
+
+  void SetCategoryLimit(ChangeEventArgs e)
+    => Value.CategoryLimit = int.TryParse(e.Value?.ToString(), out var n) && n > 0 ? n : 0;
+
+  void SetFunction(AggregateSeries s, ChangeEventArgs e)
+  {
+    s.Function = Enum.TryParse<ChartAggregateFunction>(e.Value?.ToString(), out var f) ? f : ChartAggregateFunction.Count;
+    if (s.Function == ChartAggregateFunction.Count) s.Name = string.Empty;
+    else if (string.IsNullOrEmpty(s.Name)) s.Name = _numberCandidates.FirstOrDefault().Name ?? string.Empty;
+  }
+
+  static void SetType(AggregateSeries s, ChangeEventArgs e)
+  {
+    if (Enum.TryParse<SeriesType>(e.Value?.ToString(), out var t)) s.Type = t;
+  }
+
+  void AddSeries()
+  {
+    var name = _numberCandidates.FirstOrDefault().Name;
+    //系列の種類は今の先頭の系列に揃える (ヒートマップは混在できない)
+    var type = Value.Series.FirstOrDefault()?.Type ?? SeriesType.Bar;
+    Value.Series.Add(string.IsNullOrEmpty(name)
+      ? new AggregateSeries { Function = ChartAggregateFunction.Count, Type = type }
+      : new AggregateSeries { Function = ChartAggregateFunction.Sum, Name = name, Type = type });
+  }
+
+  //[Designer(DisplayName = "$...")] をリソースで解決した列挙値の文言
+  static string EnumText<T>(T value) where T : struct, Enum
+  {
+    var key = typeof(T).GetField(value.ToString())?.GetCustomAttribute<DesignerAttribute>()?.DisplayName;
+    if (string.IsNullOrEmpty(key) || !key.StartsWith("$")) return value.ToString();
+    return Resources.ResourceManager.GetString(key[1..]) ?? value.ToString();
+  }
+
+  RenderFragment FieldSelect(string current, List<(string Name, string Text, bool IsDate)> candidates, bool allowEmpty, string dataName, Action<string> set) => __builder =>
+  {
+    <select class="form-select form-select-sm w-auto" data-name="@dataName" value="@current" @onchange="e => set(e.Value?.ToString() ?? string.Empty)">
+      @if (allowEmpty || string.IsNullOrEmpty(current))
+      {
+        <option value="">@(allowEmpty ? Resources.None : string.Empty)</option>
+      }
+      @if (!string.IsNullOrEmpty(current) && candidates.All(c => c.Name != current))
+      {
+        <option value="@current">@current</option>
+      }
+      @foreach (var c in candidates) { <option value="@c.Name">@c.Text</option> }
+    </select>
+  };
+}

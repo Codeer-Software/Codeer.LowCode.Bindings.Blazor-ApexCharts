@@ -26,6 +26,7 @@
 | `CategoryOrder` | ChartCategoryOrder | `"Field"` | カテゴリの並び。値の順は先頭の系列の値で比べる |
 | `CategoryLimit` | int | `0` | カテゴリの上限 (0 = なし)。`CategoryOrder` と組み合わせて上位 N 件 |
 | `ShowLegend` | bool | `true` | 凡例を表示 |
+| `CanCustomize` | bool | `false` | 閲覧者が画面で集計を自分用に変えられる（右上に「集計のカスタマイズ」ボタン。下記） |
 
 #### ApexAggregateChartFieldDesign 固有プロパティ
 
@@ -92,6 +93,7 @@
 - `SearchCondition` の条件が画面の項目を参照していれば、その項目が変わると集計し直す
 - 集計に失敗したらグラフの位置にエラー文を出す（集計 API に未対応のホストも同じ）
 - ツールチップ（集計値）は既定で出す。ツールバーは出さない
+- `CanCustomize: true` なら右上に「集計のカスタマイズ」ボタンを出し、閲覧者が カテゴリの項目（リンク先 1 段も可）・まとめる単位・年度の開始月・系列を分ける項目・系列（集計方法・項目・見出し・種類）・並び・上限 を自分用に変えられる。保存先はブラウザの localStorage（キー「モジュール名.フィールド名」）で、その人の画面だけに効く。元モジュール・検索条件・表示の設定（タイトル・凡例・軸）・系列の色は変えられない。横棒は棒のまま、円は値 1 つ・種類は Pie / Donut / PolarArea。保存後に設計から項目が消えたら保存内容は使わず設計どおり。スクリプトの `Show` で定義を渡したグラフではカスタマイズしない。全員に同じ集計を見せたいなら設計で設定する（カスタマイズは利用者ごとの見方の変更用）
 
 ### デザインチェック
 
@@ -106,6 +108,7 @@
 | `Show(ModuleAggregator agg)` | スクリプトで組んだ集計を表示する。軸は全部カテゴリ（複数なら「A / B」）。設計の定義より優先 |
 | `Show(ModuleAggregator agg, int categoryCount)` | 軸の先頭 `categoryCount` 個をカテゴリに、残りを系列の分割にする |
 | `Reload()` | 集計し直す |
+| `ShowCustomDialog()` | 集計のカスタマイズのダイアログを開く（`CanCustomize` がオンで `Show` を使っていないときだけ） |
 | `SetAdditionalCondition(ModuleSearcher searcher)` | 追加の条件 (AND)。その場で集計し直す。元モジュールと違うモジュールは例外 |
 | `AddAnnotation(name, ChartAnnotation)` / `RemoveAnnotation(name)` / `ClearAnnotation()` | 基準線（[ApexChartFieldDesign](ApexChartFieldDesign.md) と同じ） |
 
