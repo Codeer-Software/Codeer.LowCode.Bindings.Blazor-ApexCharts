@@ -97,7 +97,7 @@ Designer 上のプロパティ名・フィールド名は日本語で表示さ�
 | `ApexAggregateHBarChartFieldDesign` | 集計横棒チャート (ランキング向き) | 同上 |
 | `ApexAggregateRadialChartFieldDesign` | 集計円チャート (円 / ドーナツ / ポーラー) | 同上 |
 
-集計チャートには Codeer.LowCode.Blazor 1.3.39 以降と、アプリ (ホスト) 側の集計 API の結線が必要です。
+集計チャートには Codeer.LowCode.Blazor 1.3.39 以降と、アプリ (ホスト) 側の集計 API の結線が必要です (1.3.39 以降のテンプレートで作ったアプリは結線済み。それより前のアプリは [集計 API の結線](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/blob/main/JP/user_code/aggregate_api.md) を参照)。
 
 3種に共通するプロパティ (`SearchCondition` / `DisplayName` / `CategoryField` / `CategoryFormat` / `SeriesFractionDigits` / `ShowLegend`) は [docs/ApexChart.md](docs/ApexChart.md#共通プロパティ) にまとめています。
 
