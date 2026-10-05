@@ -27,6 +27,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
             public const int InvalidFunction = 3;
             public const int HeatmapCannotBeMixed = 4;
             public const int NoSeries = 5;
+            public const int NotTableModule = 6;
         }
 
         [Designer(Index = 1, Scope = DesignerScope.All, DisplayName = "$SearchCondition")]
@@ -118,6 +119,9 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Designs
             var module = context.DesignData.Modules.Find(moduleName);
             if (module != null)
             {
+                //集計はテーブルを持つモジュールだけ (サーバーが拒否する)。モジュールが無いことは SearchCondition の確認が出す
+                if (module.Fields.OfType<QueryFieldDesign>().Any() || string.IsNullOrEmpty(module.DbTable))
+                    result.Add(Info(context, Codes.NotTableModule, nameof(SearchCondition), string.Format(Properties.Resources.Check_NotTableModule, moduleName)));
                 foreach (var (code, member, message) in ChartAggregate.Validate(GetSetting(), module))
                     result.Add(Info(context, code, member, message));
             }

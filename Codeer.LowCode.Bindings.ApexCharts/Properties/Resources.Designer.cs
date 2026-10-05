@@ -637,5 +637,14 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Properties {
                 return ResourceManager.GetString("Check_UnknownField", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Only modules that have a table can be aggregated (modules defined by a QueryField or without a table cannot be used): {0} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Check_NotTableModule {
+            get {
+                return ResourceManager.GetString("Check_NotTableModule", resourceCulture);
+            }
+        }
     }
 }

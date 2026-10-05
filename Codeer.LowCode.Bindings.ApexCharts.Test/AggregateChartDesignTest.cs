@@ -15,7 +15,7 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Test
         static (DesignData Design, ApexAggregateChartFieldDesign Field) Create()
         {
             var d = new DesignData();
-            var sale = new ModuleDesign { Name = "Sale" };
+            var sale = new ModuleDesign { Name = "Sale", DbTable = "sale" };
             sale.Fields.Add(new NumberFieldDesign { Name = "Amount" });
             sale.Fields.Add(new DateFieldDesign { Name = "SoldOn" });
             sale.Fields.Add(new TextFieldDesign { Name = "Status" });
@@ -62,6 +62,35 @@ namespace Codeer.LowCode.Bindings.ApexCharts.Test
             Assert.That(infos.Select(e => e.Code), Does.Contain(Code(ApexAggregateChartFieldDesignBase.Codes.DateUnitRequiresDate)));
             //無い項目は本体の存在確認が出す
             Assert.That(infos.Any(e => e.Message.Contains("Nothing")), Is.True);
+        }
+
+        static readonly string NotTableModule = Code(ApexAggregateChartFieldDesignBase.Codes.NotTableModule);
+
+        [Test]
+        public void QueryFieldで定義したモジュールは集計できないと指摘される()
+        {
+            var (d, field) = Create();
+            d.Modules.Find("Sale")!.Fields.Add(new QueryFieldDesign { Name = "Query" });
+            var info = field.CheckDesign(new DesignCheckContext("Page", d, new())).Single(e => e.Code == NotTableModule);
+            Assert.That(((FieldDesignCheckInfo)info).Location.Member, Is.EqualTo(nameof(ApexAggregateChartFieldDesignBase.SearchCondition)));
+        }
+
+        [Test]
+        public void テーブルの無いモジュールは集計できないと指摘される()
+        {
+            var (d, field) = Create();
+            d.Modules.Find("Sale")!.DbTable = string.Empty;
+            Assert.That(Codes(d, field).Count(e => e == NotTableModule), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void テーブルを持つモジュールと元モジュールが空の設計はテーブルの指摘なし()
+        {
+            var (d, field) = Create();
+            Assert.That(Codes(d, field), Does.Not.Contain(NotTableModule));
+            var scriptOnly = new ApexAggregateChartFieldDesign { Name = "Scripted" };
+            d.Modules.Find("Page")!.Fields.Add(scriptOnly);
+            Assert.That(Codes(d, scriptOnly), Does.Not.Contain(NotTableModule));
         }
 
         [Test]
